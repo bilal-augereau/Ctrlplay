@@ -1,4 +1,5 @@
 import "./App.css";
+import BeautifulButton from "./components/BeautifulButton";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
           Wild Code School
         </a>
       </footer>
+      <BeautifulButton text="Click me" />
     </>
   );
 }
