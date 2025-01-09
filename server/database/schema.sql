@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game` (
   `id` INT NOT NULL,
   `title` VARCHAR(100) NULL,
   `year` INT NULL,
-  `descritption` MEDIUMTEXT NULL,
+  `description` MEDIUMTEXT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
