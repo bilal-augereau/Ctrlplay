@@ -8,9 +8,9 @@ class DeviceSeeder extends AbstractSeeder {
   run() {
     const devices = ["PC", "PlayStation", "Xbox", "Nintendo", "Others"];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i < 6; i++) {
       const device = {
-        name: devices[i],
+        name: devices[i - 1],
         refName: `device_${i}`,
       };
     }
