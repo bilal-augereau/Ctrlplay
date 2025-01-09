@@ -24,15 +24,15 @@ class GameGenreSeeder extends AbstractSeeder {
 
         if (!insertedPairs.has(pairKey)) {
           insertedPairs.add(pairKey);
+
           const newPairing: {
             game_id: number;
             genre_id: number;
-            refName: string;
           } = {
-            game_id: gameId,
-            genre_id: genreId,
-            refName: `${pairKey}`,
+            game_id: this.getRef(`game_${gameId}`).insertId,
+            genre_id: this.getRef(`genre_${genreId}`).insertId,
           };
+
           this.insert(newPairing);
         }
       }

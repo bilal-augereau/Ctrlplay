@@ -17,7 +17,6 @@ class GenreSeeder extends AbstractSeeder {
         if (!genreIds.has(genre.id)) {
           genreIds.add(genre.id);
           const newGenre = {
-            id: genre.id,
             name: genre.name,
             refName: `genre_${genre.id}`,
           };
