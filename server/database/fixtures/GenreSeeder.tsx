@@ -1,5 +1,5 @@
-import AbstractSeeder from "./AbstractSeeder";
 import games from "../gameDetails.json";
+import AbstractSeeder from "./AbstractSeeder";
 
 class GenreSeeder extends AbstractSeeder {
   constructor() {
