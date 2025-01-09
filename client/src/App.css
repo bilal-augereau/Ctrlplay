@@ -1,145 +1,185 @@
-* {
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
+
+/* Reset CSS */
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 
 body {
-  font-family: "Lato", sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #eee;
-  margin: 0;
+  line-height: 1;
 }
 
-#root {
-  height: 100vh;
-  background-image: url("./assets/images/background.webp");
-  background-size: cover;
-  background-position: top;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: 1fr;
-  align-content: start;
-  padding: 1rem;
-}
-
-header {
-  grid-column: 1 / 2;
-  grid-row: 1;
-}
-
-.logo {
-  font-size: larger;
-}
-
-.navbar {
-  grid-column: -2 / -1;
-  grid-row: 1;
-}
-
-.navbar ul {
-  display: flex;
-  justify-content: end;
-  gap: 1rem;
+ol,
+ul {
   list-style: none;
 }
 
-.navbar a {
-  text-decoration: none;
-  color: #eee;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
+blockquote,
+q {
+  quotes: none;
 }
 
-.navbar a:hover {
-  scale: 110%;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 
-.text-box {
-  grid-column: 1 / -1;
-  grid-row: 1;
-  align-self: center;
-  text-align: center;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
-.block-primary {
-  text-transform: uppercase;
-  margin-bottom: 2rem;
+/* Initialisation CSS */
+
+:root {
+  --turquoise: #19a1be;
+  --violet: #7d4192;
+  --background-color: #1a1a1d;
+  --soft-blue: #7099cf;
+  --white: #fff;
+  --black: #000;
+
+  --background-gradient: linear-gradient(#160214, #0d0837);
+
+  --font-title: "Orbitron", sans-serif;
+  --font-paragraph: "Nunito", sans-serif;
+
+  --border-radius: 15px;
+  --padding: 1rem;
 }
 
-.block-primary-main {
-  font-size: 3em;
-  letter-spacing: 5px;
-  animation: blink 12s infinite;
+h1,
+h2,
+h3,
+h4,
+button {
+  font-family: "Orbitron", sans-serif;
 }
 
-.block-primary-sub {
-  display: block;
-  font-weight: bold;
-  letter-spacing: 7px;
+h1,
+h2,
+h4 {
+  color: var(--soft-blue);
 }
 
-.btn:link,
-.btn:visited {
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  display: inline-block;
-  border-radius: 100px;
-  transition: all 0.2s;
-  position: relative;
+h1 {
+  font-size: 2.25rem;
 }
 
-.btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+h2 {
+  font-size: 2rem;
 }
 
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+h3 {
+  font-size: 1.25rem;
+  color: var(--white);
 }
 
-.btn-white {
-  background-color: #fff;
-  color: #777;
-}
-
-footer {
-  grid-column: -2 / -1;
-  grid-row: 1;
-  align-self: end;
-  text-align: right;
-}
-
-.wcs {
-  text-decoration: none;
-  color: #ff1493ad;
-}
-
-.wcs:hover {
-  text-decoration: underline;
-}
-
-@keyframes blink {
-  20%,
-  24%,
-  55% {
-    color: #111;
-    text-shadow: none;
-  }
-  0%,
-  19%,
-  21%,
-  23%,
-  25%,
-  54%,
-  56%,
-  100% {
-    text-shadow: 0 0 5px #ff1493ad, 0 0 15px #eee, 0 0 20px #ff1493ad, 0 0 40px
-      #a00ac9, 0 0 60px #ff0000, 0 0 10px #970dc5, 0 0 98px #ff0000;
-    color: #fff;
-  }
+h4 {
+  font-size: 1rem;
 }
