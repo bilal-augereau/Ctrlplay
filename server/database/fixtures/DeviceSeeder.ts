@@ -11,11 +11,10 @@ class DeviceSeeder extends AbstractSeeder {
     for (let i = 0; i < 5; i++) {
       const device = {
         name: devices[i],
-        refName: `device_${i}`,
+        refName: `device_${i + 1}`,
       };
+      this.insert(device);
     }
-
-    this.insert(devices);
   }
 }
 
