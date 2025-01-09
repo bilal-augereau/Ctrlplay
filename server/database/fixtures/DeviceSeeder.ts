@@ -13,9 +13,8 @@ class DeviceSeeder extends AbstractSeeder {
         name: devices[i - 1],
         refName: `device_${i}`,
       };
+      this.insert(device);
     }
-
-    this.insert(devices);
   }
 }
 
