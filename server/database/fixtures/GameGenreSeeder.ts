@@ -1,5 +1,5 @@
-import AbstractSeeder from "./AbstractSeeder";
 import games from "../gameDetails.json";
+import AbstractSeeder from "./AbstractSeeder";
 import GameSeeder from "./GameSeeder";
 import GenreSeeder from "./GenreSeeder";
 
