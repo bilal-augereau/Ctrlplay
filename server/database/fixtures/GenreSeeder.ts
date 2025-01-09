@@ -10,7 +10,6 @@ class GenreSeeder extends AbstractSeeder {
   }
 
   run() {
-    const genres = [];
     const genreIds = new Set();
 
     for (const game of games) {
@@ -18,6 +17,7 @@ class GenreSeeder extends AbstractSeeder {
         if (!genreIds.has(genre.id)) {
           genreIds.add(genre.id);
           const newGenre = {
+            id: genre.id,
             name: genre.name,
             refName: `genre_${genre.id}`,
           };
