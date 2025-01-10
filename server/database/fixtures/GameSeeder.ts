@@ -16,6 +16,7 @@ class GameSeeder extends AbstractSeeder {
         description: game.description,
         image: game.background_image,
         image_2: game.background_image_additional,
+        note: game.rating,
         refName: `game_${game.id}`,
       };
 

@@ -8,6 +8,7 @@ type Game = {
   description: string;
   image: string;
   image_2: string;
+  note: number;
   genres: string[];
   tags: string[];
   devices: string[];
@@ -27,6 +28,7 @@ class gameRepository {
       description: rows[0].description,
       image: rows[0].image,
       image_2: rows[0].image_2,
+      note: rows[0].note,
       genres: [],
       tags: [],
       devices: [],
