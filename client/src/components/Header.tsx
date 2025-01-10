@@ -14,6 +14,13 @@ function Header() {
 
   return (
     <header className="header">
+      <div className="logo-icon">
+        <button
+          type="button"
+          className="logo-button"
+          onClick={() => navigate("/")}
+        />
+      </div>
       <div className="buttons">
         <button type="button" className="login-button" onClick={handleLogin}>
           <span>Login</span>

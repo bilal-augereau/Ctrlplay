@@ -1,10 +1,22 @@
 .header {
-  background-image: url("../assets/images/logohearder.png");
+  background-image: url("../assets/images/headerback.png");
   background-repeat: round;
   height: 300px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
+}
+
+.logo-button {
+  background-image: url("../assets/images/logocontrol.png");
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 300px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  position: relative; /* Ensures proper centering */
+  padding-left: 50vw;
 }
 
 .buttons {
