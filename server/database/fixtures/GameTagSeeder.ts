@@ -3,7 +3,7 @@ import AbstractSeeder from "./AbstractSeeder";
 import GameSeeder from "./GameSeeder";
 import TagSeeder from "./TagSeeder";
 
-class GameTagSeeeder extends AbstractSeeder {
+class GameTagSeeder extends AbstractSeeder {
   constructor() {
     super({
       table: "game_tag",
@@ -40,4 +40,4 @@ class GameTagSeeeder extends AbstractSeeder {
   }
 }
 
-export default GameTagSeeeder;
+export default GameTagSeeder;
