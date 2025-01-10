@@ -15,4 +15,8 @@ router.post("/api/items", itemActions.add);
 
 /* ************************************************************************* */
 
+import gameActions from "./modules/game/gameActions";
+
+router.get("/games/:id", gameActions.read);
+
 export default router;
