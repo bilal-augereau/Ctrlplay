@@ -11,7 +11,6 @@ class GameSeeder extends AbstractSeeder {
       const released_date = new Date(game.released);
 
       const newGame = {
-        id: game.id,
         title: game.name,
         year: released_date.getFullYear(),
         description: game.description,

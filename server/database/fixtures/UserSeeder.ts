@@ -13,7 +13,7 @@ class UserSeeder extends AbstractSeeder {
     for (let i = 0; i < 10; i += 1) {
       // Generate fake user data
       const fakeUser = {
-        username: this.faker.internet.userName(), // Generate a fake username using faker library
+        pseudo: this.faker.internet.userName(), // Generate a fake username using faker library
         password: this.faker.internet.password(), // Generate a fake password using faker library
         refName: `user_${i}`, // Create a reference name for the user
       };
