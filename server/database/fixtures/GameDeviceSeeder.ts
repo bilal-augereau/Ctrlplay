@@ -29,6 +29,10 @@ class GameDeviceSeeder extends AbstractSeeder {
       for (const parentPlatform of game.parent_platforms) {
         let platformName = parentPlatform.platform.name;
 
+        if (platformName === "Apple Macintosh" || platformName === "Linux") {
+          platformName = "PC";
+        }
+
         if (
           !deviceIndexMapping[platformName as keyof typeof deviceIndexMapping]
         )
