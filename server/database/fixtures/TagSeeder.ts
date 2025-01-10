@@ -7,7 +7,6 @@ class TagSeeder extends AbstractSeeder {
   }
 
   run() {
-    const tag = [];
     const tagsId = new Set();
 
     for (const game of games) {
