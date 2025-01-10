@@ -1,0 +1,52 @@
+.header {
+  background-image: url("../assets/images/logohearder.png");
+  background-repeat: round;
+  height: 300px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+}
+
+.login-button {
+  background-image: url("../assets/images/pipe.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  height: 65px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.login-button span {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #fffbfb;
+  text-align: center;
+}
+
+.signup-button {
+  background-image: url("../assets/images/bumper.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  height: 65px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.signup-button span {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #fffbfb;
+  text-align: center;
+}

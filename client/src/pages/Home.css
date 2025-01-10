@@ -3,14 +3,19 @@ body {
   min-height: 100vh;
 }
 
-.home-header {
-  background-image: url("../assets/images/logohearder.png");
-  background-repeat: round;
-  height: 250px;
-}
-
 .game-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+p {
+  color: var(--white);
+  font-family: var(--font-paragraph);
+}
+
+.game-card {
+  display: flex;
+  height: 300px;
+  width: 300px;
 }

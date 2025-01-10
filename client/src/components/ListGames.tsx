@@ -5,6 +5,8 @@ interface Game {
   id: number;
   title: string;
   year: number | null;
+  image: string | null;
+  image_2: string | null;
 }
 
 function ListGames() {

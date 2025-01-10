@@ -6,6 +6,8 @@ type Game = {
   title: string;
   year: number | null;
   description: string | null;
+  image: string | null;
+  image_2: string | null;
 };
 
 class GameRepository {
