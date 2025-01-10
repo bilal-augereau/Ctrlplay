@@ -2,27 +2,21 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import App from "./App";
+
 import GameDetails from "./pages/GameDetails";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
 
-/* ************************************************************************* */
+const getGameDetails = (id: string) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/games/${id}`)
+    .then((res) => res.json())
+    .then((data) => data);
+};
 
-// Import the main app component
-import App from "./App";
-
-// Import additional components for new routes
-// Try creating these components in the "pages" folder
-
-// import About from "./pages/About";
-// import Contact from "./pages/Contact";
-
-/* ************************************************************************* */
-
-// Create router configuration with routes
-// You can add more routes as you build out your app!
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -36,8 +30,11 @@ const router = createBrowserRouter([
         element: <UserPage />,
       },
       {
-        path: "/gamedetails",
+        path: "/game/:id",
         element: <GameDetails />,
+        loader: ({ params }) => {
+          return getGameDetails(params.id ?? "0");
+        },
       },
       {
         path: "/login",
