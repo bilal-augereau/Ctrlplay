@@ -10,7 +10,6 @@ class GenreSeeder extends AbstractSeeder {
   }
 
   run() {
-    const genres = [];
     const genreIds = new Set();
 
     for (const game of games) {
