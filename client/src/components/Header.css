@@ -15,7 +15,7 @@
   background-color: transparent;
   cursor: pointer;
   border: none;
-  position: relative; /* Ensures proper centering */
+  position: relative;
   padding-left: 50vw;
 }
 
