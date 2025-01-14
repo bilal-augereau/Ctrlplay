@@ -1,0 +1,100 @@
+.featured-slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.featured-card {
+  display: flex;
+  width: 100%;
+}
+
+.game-item {
+  min-width: 100%;
+  text-align: center;
+}
+
+.game-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.game-name {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+
+.game-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.info-button,
+.add-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.info-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.add-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.arrow.left {
+  left: 10px;
+  background-image: url("../assets/images/button_icons/buttomfleche.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  height: 60px;
+  width: 60px;
+}
+
+.arrow.left:hover {
+  opacity: 60%;
+}
+
+.arrow.left:active {
+  transform: scale(0);
+  transition: transform ease-in-out;
+}
+
+.arrow.right {
+  right: 10px;
+  background-image: url("../assets/images/button_icons/buttomflecheright.png");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  height: 60px;
+  width: 60px;
+}
+
+.arrow.right:hover {
+  opacity: 60%;
+}
+
+.arrow.right:active {
+  transform: scale(0);
+  transition: transform ease-in-out;
+}

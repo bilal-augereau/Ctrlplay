@@ -37,6 +37,10 @@
   flex-direction: column-reverse;
 }
 
+.login-button:hover {
+  transform: scale(1.1);
+}
+
 .login-button span {
   margin-top: 10px;
   font-size: 14px;
@@ -54,6 +58,10 @@
   height: 75px;
   display: flex;
   flex-direction: column-reverse;
+}
+
+.signup-button:hover {
+  transform: scale(1.1);
 }
 
 .signup-button span {

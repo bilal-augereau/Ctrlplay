@@ -1,3 +1,4 @@
+import Featured from "../components/Featured";
 import ListGames from "../components/ListGames";
 import WelcomeBanner from "../components/WelcomeBanner";
 import "./Home.css";
@@ -7,6 +8,7 @@ function Home() {
     <div>
       <header className="home-header" />
       <WelcomeBanner />
+      <Featured />
 
       <div className="game-list">
         <ListGames />
