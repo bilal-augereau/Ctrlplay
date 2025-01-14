@@ -1,11 +1,11 @@
-import { useLoaderData } from "react-router-dom";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
+import { useLoaderData } from "react-router-dom";
 
 import type GameType from "../interface/GameType";
 
-import GameTags from "../components/GameTags";
 import GameDevices from "../components/GameDevices";
+import GameTags from "../components/GameTags";
 
 import "./GameDetails.css";
 
