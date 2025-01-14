@@ -8,7 +8,7 @@ type GameType = {
   note: number;
   genres: string[];
   tags: string[];
-  devices: string[];
+  devices: Array<"PlayStation" | "Nintendo" | "PC" | "Xbox" | "Others">;
 };
 
 export default GameType;
