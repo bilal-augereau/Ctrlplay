@@ -24,31 +24,31 @@ import App from "./App";
 // Create router configuration with routes
 // You can add more routes as you build out your app!
 const router = createBrowserRouter([
-  {
-    element: <App />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/userpage",
-        element: <UserPage />,
-      },
-      {
-        path: "/gamedetails",
-        element: <GameDetails />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <SignUp />,
-      },
-    ],
-  },
+	{
+		element: <App />,
+		children: [
+			{
+				path: "/",
+				element: <Home />,
+			},
+			{
+				path: "/userpage",
+				element: <UserPage />,
+			},
+			{
+				path: "/gamedetails",
+				element: <GameDetails />,
+			},
+			{
+				path: "/login",
+				element: <Login />,
+			},
+			{
+				path: "/signup",
+				element: <SignUp />,
+			},
+		],
+	},
 ]);
 // Try adding a new route! For example, "/about" with an About component
 
@@ -57,14 +57,14 @@ const router = createBrowserRouter([
 // Find the root element in the HTML document
 const rootElement = document.getElementById("root");
 if (rootElement == null) {
-  throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
+	throw new Error(`Your HTML Document should contain a <div id="root"></div>`);
 }
 
 // Render the app inside the root element
 createRoot(rootElement).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+	<StrictMode>
+		<RouterProvider router={router} />
+	</StrictMode>,
 );
 
 /**
