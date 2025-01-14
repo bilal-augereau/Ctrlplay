@@ -32,7 +32,7 @@
   background-color: transparent;
   cursor: pointer;
   border: none;
-  height: 65px;
+  height: 75px;
   display: flex;
   flex-direction: column-reverse;
 }
@@ -51,7 +51,7 @@
   background-color: transparent;
   cursor: pointer;
   border: none;
-  height: 65px;
+  height: 75px;
   display: flex;
   flex-direction: column-reverse;
 }

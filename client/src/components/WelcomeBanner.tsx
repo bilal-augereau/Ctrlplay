@@ -9,10 +9,10 @@ const Banner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="banner">
+    <div className="content-box">
       <button
         type="button"
-        className="banner-close"
+        className="content-boxclose"
         onClick={() => setIsVisible(false)}
       >
         ×
@@ -22,7 +22,7 @@ const Banner = () => {
         Ctrl+Play is a digital platform for gamers to organize their game
         collection. Sign up for free and start building your dream Gameshelf!
       </p>
-      <div className="banner-buttons">
+      <div className="gradient-buttons">
         <button
           type="button"
           onClick={() => navigate("/login")}

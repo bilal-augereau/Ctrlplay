@@ -1,4 +1,4 @@
-.banner {
+.content-box {
   background-color: #18181b;
   padding: 50px;
   position: relative;
@@ -11,7 +11,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.banner-close {
+.content-boxclose {
   position: absolute;
   color: #7099cf;
   top: 10px;
@@ -22,7 +22,7 @@
   cursor: pointer;
 }
 
-.banner p {
+.content-box p {
   font-family: var(--font-paragraph);
   color: #7099cf;
   font-weight: 600;
@@ -30,7 +30,7 @@
   margin-bottom: 3%;
 }
 
-.banner-buttons {
+.gradient-buttons {
   margin-top: 20px;
 }
 
@@ -47,25 +47,114 @@
 }
 
 .btn-login {
-  background-image: url("../assets/images/button.png");
-  background-position: center;
-  background-repeat: no-repeat;
+  border: none;
+  display: inline-block;
+  border-radius: 99px;
   background-color: transparent;
   color: white;
+  position: relative;
+  z-index: 1;
+  font-size: 14px;
+  padding: 17px 35px;
+  font-weight: 100;
+  text-transform: uppercase;
 }
 
+.btn-login:before,
+.btn-login:after {
+  content: " ";
+  position: absolute;
+  border-radius: 99px;
+}
+
+.btn-login:before {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -2;
+  background: #503b9a;
+  background: -moz-linear-gradient(left, #503b9a 0%, #269cc1 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0%, #503b9a),
+    color-stop(100%, #269cc1)
+  );
+  background: -webkit-linear-gradient(left, #503b9a 0%, #269cc1 100%);
+  background: -o-linear-gradient(left, #503b9a 0%, #269cc1 100%);
+  background: -ms-linear-gradient(left, #503b9a 0%, #269cc1 100%);
+  background: linear-gradient(to right, #503b9a 0%, #269cc1 100%);
+}
+
+.btn-login:after {
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  background-color: #18181b;
+  z-index: -1;
+  opacity: 1;
+  transition: all 0.6s ease-in-out;
+}
+
+.btn-login:hover:after {
+  opacity: 60%;
+}
 .btn-signup {
-  background-image: url("../assets/images/button.png");
-  background-position: center;
-  background-repeat: no-repeat;
+  border: none;
+  display: inline-block;
+  border-radius: 99px;
   background-color: transparent;
   color: white;
+  position: relative;
+  z-index: 1;
+  font-size: 14px;
+  padding: 17px 35px;
+  font-weight: 100;
+  text-transform: uppercase;
 }
 
-.btn-login:hover {
-  box-shadow: 3px;
+.btn-signup:before,
+.btn-signup:after {
+  content: " ";
+  position: absolute;
+  border-radius: 99px;
 }
 
-.btn-signup:hover {
-  box-shadow: 3px;
+.btn-signup:before {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -2;
+  background: #503b9a;
+  background: -moz-linear-gradient(left, #503b9a 0%, #269cc1 100%);
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0%, #503b9a),
+    color-stop(100%, #269cc1)
+  );
+  background: -webkit-linear-gradient(left, #503b9a 0%, #269cc1 100%);
+  background: -o-linear-gradient(left, #503b9a 0%, #269cc1 100%);
+  background: -ms-linear-gradient(left, #503b9a 0%, #269cc1 100%);
+  background: linear-gradient(to right, #503b9a 0%, #269cc1 100%);
+}
+
+.btn-signup:after {
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  background-color: #18181b;
+  z-index: -1;
+  opacity: 1;
+  transition: all 0.6s ease-in-out;
+}
+
+.btn-signup:hover:after {
+  opacity: 60%;
 }
