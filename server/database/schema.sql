@@ -5,10 +5,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema db_crtl_play
 -- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema db_crtl_play
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `db_crtl_play` DEFAULT CHARACTER SET utf8 ;
 USE `db_crtl_play` ;
 
@@ -39,6 +35,19 @@ CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game` (
   `image` VARCHAR(255) NULL,
   `image_2` VARCHAR(255) NULL,
   `note` FLOAT NULL,
+  `website` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_crtl_play`.`publisher`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_crtl_play`.`publisher` ;
+
+CREATE TABLE IF NOT EXISTS `db_crtl_play`.`publisher` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -174,6 +183,30 @@ CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game_genre` (
   CONSTRAINT `fk_game_has_genre_genre1`
     FOREIGN KEY (`genre_id`)
     REFERENCES `db_crtl_play`.`genre` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_crtl_play`.`game_publisher`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_crtl_play`.`game_publisher` ;
+
+CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game_publisher` (
+  `game_id` INT NOT NULL,
+  `publisher_id` INT NOT NULL,
+  PRIMARY KEY (`game_id`, `publisher_id`),
+  INDEX `fk_game_has_publisher_publisher1_idx` (`publisher_id` ASC) VISIBLE,
+  INDEX `fk_game_has_publisher_game1_idx` (`game_id` ASC) VISIBLE,
+  CONSTRAINT `fk_game_has_publisher_game1`
+    FOREIGN KEY (`game_id`)
+    REFERENCES `db_crtl_play`.`game` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_game_has_publisher_publisher1`
+    FOREIGN KEY (`publisher_id`)
+    REFERENCES `db_crtl_play`.`publisher` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
