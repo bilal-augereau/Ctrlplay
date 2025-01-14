@@ -10,4 +10,6 @@ router.get("/api/items/:id", itemActions.read);
 router.post("/api/items", itemActions.add);
 router.get("/", gameActions.browseGame);
 
+router.get("/games/:id", gameActions.read);
+
 export default router;

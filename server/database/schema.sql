@@ -32,12 +32,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `db_crtl_play`.`game` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) NULL,
   `year` INT NULL,
   `description` MEDIUMTEXT NULL,
   `image` VARCHAR(255) NULL,
   `image_2` VARCHAR(255) NULL,
+<<<<<<< HEAD
+=======
+  `note` FLOAT NULL,
+>>>>>>> 772dc57ab0f3bbf326497ccdd95ad0075586255c
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

@@ -16,4 +16,19 @@ const browseGame: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseGame };
+const read: RequestHandler = async (req, res, next) => {
+  try {
+    const gameId = Number(req.params.id);
+    const game = await gameRepository.read(gameId);
+
+    if (game === null) {
+      res.sendStatus(404);
+    } else {
+      res.json(game);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { browseGame, read };
