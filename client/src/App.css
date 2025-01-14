@@ -207,6 +207,8 @@ body {
   font-size: 13px;
   color: #fff;
   width: 13.1875rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .beautiful-button:hover {
@@ -234,6 +236,8 @@ body {
   color: #fff;
   width: 1rem;
   max-height: 3.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .beautiful-buttonadd:hover {
