@@ -183,3 +183,73 @@ h3 {
 h4 {
   font-size: 1rem;
 }
+
+body {
+  background-color: var(--background-color);
+}
+
+.beautiful-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(
+      to right,
+      var(--background-color),
+      var(--background-color)
+    ), linear-gradient(to right, #19a1be, #7d4192);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+  width: 13.1875rem;
+}
+
+.beautiful-button:hover {
+  z-index: 0;
+  box-shadow: 40px 0 100px #7d4192, -40px 0 100px #19a1be;
+}
+
+.beautiful-buttonadd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(
+      to right,
+      var(--background-color),
+      var(--background-color)
+    ), linear-gradient(to right, #19a1be, #7d4192);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  width: 1rem;
+  max-height: 3.25rem;
+}
+
+.beautiful-buttonadd:hover {
+  z-index: 0;
+  box-shadow: 40px 0 100px #7d4192, -40px 0 100px #19a1be;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+.button {
+  position: absolute;
+  z-index: 1;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  pointer-events: none;
+}
