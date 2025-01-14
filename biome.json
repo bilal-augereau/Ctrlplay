@@ -4,7 +4,7 @@
     "maxSize": 30000000,
     "ignore": ["**/dist/*", "**/*.template.*", "**/tsconfig.json", "coverage"]
   },
-  "formatter": { "indentStyle": "space" },
+  "formatter": { "indentStyle": "tab" },
   "organizeImports": { "enabled": true },
   "linter": {
     "enabled": true,
