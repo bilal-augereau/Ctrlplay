@@ -22,8 +22,7 @@ const AddToLibraryButton = ({
 					theme: "dark",
 				});
 			} else {
-				const error = await response.json();
-				toast.error(`Error: ${error.message}` || "Something went wrong.", {
+				toast.error("Game already exists in the user's library.", {
 					theme: "dark",
 				});
 			}
