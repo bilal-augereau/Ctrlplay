@@ -1,4 +1,4 @@
-import AddToLibraryButton from "../components/Addtolibrarybutton";
+import AddToLibraryButton from "../components/AddToLibraryButton";
 
 function Home() {
 	return (
