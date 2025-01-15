@@ -3,21 +3,26 @@ import "./featured.css";
 
 interface Game {
   id: number;
-  name: string;
+  title: string;
   image: string;
+  image_2: string;
 }
 
 const Featured = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPrimaryImage, setIsPrimaryImage] = useState(true);
 
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await fetch("http://localhost:3310/games/:id");
+        const response = await fetch("http://localhost:3310/games");
+        if (!response.ok) {
+          throw new Error("Failed to fetch games");
+        }
         const allGames = await response.json();
         const filteredGames = allGames.filter((game: Game) =>
-          [28, 30, 7, 14].includes(game.id),
+          [1, 16, 32, 66].includes(Number(game.id)),
         );
         setGames(filteredGames);
       } catch (error) {
@@ -29,45 +34,85 @@ const Featured = () => {
   }, []);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex < games.length - 1 ? prevIndex + 1 : 0,
-    );
+    if (games.length > 0) {
+      setIsPrimaryImage(true);
+      setCurrentIndex((prevIndex) =>
+        prevIndex < games.length - 1 ? prevIndex + 1 : 0,
+      );
+    }
   };
 
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : games.length - 1,
-    );
+    if (games.length > 0) {
+      setIsPrimaryImage(true);
+      setCurrentIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : games.length - 1,
+      );
+    }
+  };
+
+  const toggleImage = () => {
+    setIsPrimaryImage(!isPrimaryImage);
+  };
+
+  const handleThumbnailClick = () => {
+    setIsPrimaryImage(false);
   };
 
   return (
-    <div className="content-box">
-      <button type="button" className="arrow left" onClick={handlePrevious} />
+    <div className="content-box" id="featured">
+      <h2 className="featured-title">Featured Games</h2>
+      <button
+        type="button"
+        className="arrow left"
+        onClick={handlePrevious}
+        aria-label="Previous"
+      />
 
-      <div className="featured-slider">
-        {games.length > 0 && (
-          <div
-            className="featured-card"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {games.map((game) => (
-              <div key={game.id} className="game-item">
-                <img src={game.image} alt={game.name} className="game-image" />
-                <h3 className="game-name">{game.name}</h3>
-                <div className="game-actions">
-                  <button type="button" className="info-button">
-                    See more info
-                  </button>
-                  <button type="button" className="add-button">
-                    +
-                  </button>
-                </div>
-              </div>
-            ))}
+      {games.length > 0 && (
+        <div className="featured-card">
+          <img
+            src={
+              isPrimaryImage
+                ? games[currentIndex].image
+                : games[currentIndex].image_2
+            }
+            alt={games[currentIndex]?.title || "Game"}
+            className="game-image big"
+            onClick={toggleImage}
+            onKeyDown={toggleImage}
+          />
+          <div className="thumb-text">
+            <h3 className="game-name">{games[currentIndex]?.title}</h3>
+            <img
+              src={
+                isPrimaryImage
+                  ? games[currentIndex].image_2
+                  : games[currentIndex].image
+              }
+              alt="Thumbnail"
+              className="game-thumbnail"
+              onClick={handleThumbnailClick}
+              onKeyDown={handleThumbnailClick}
+            />
           </div>
-        )}
+        </div>
+      )}
+      <div className="game-actions">
+        <button type="button" className="beautiful-button">
+          i
+        </button>
+        <button type="button" className="beautiful-buttonadd">
+          +
+        </button>
       </div>
-      <button type="button" className="arrow right" onClick={handleNext} />
+
+      <button
+        type="button"
+        className="arrow right"
+        onClick={handleNext}
+        aria-label="Next"
+      />
     </div>
   );
 };

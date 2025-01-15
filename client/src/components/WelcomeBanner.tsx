@@ -9,7 +9,7 @@ const Banner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="content-box">
+    <div className="content-box" id="welcome-banner">
       <button
         type="button"
         className="content-boxclose"

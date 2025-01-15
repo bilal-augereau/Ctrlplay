@@ -1,5 +1,5 @@
 import Featured from "../components/Featured";
-import ListGames from "../components/ListGames";
+import GameList from "../components/GameList";
 import WelcomeBanner from "../components/WelcomeBanner";
 import "./Home.css";
 
@@ -11,7 +11,7 @@ function Home() {
       <Featured />
 
       <div className="game-list">
-        <ListGames />
+        <GameList />
       </div>
     </div>
   );

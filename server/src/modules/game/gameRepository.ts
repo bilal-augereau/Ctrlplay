@@ -15,7 +15,7 @@ type Game = {
 };
 
 class gameRepository {
-  async readAll(limit = 20) {
+  async readAll(limit = 82) {
     const [rows] = await DatabaseClient.query<Rows>(
       "SELECT * FROM game LIMIT ?",
       [limit],

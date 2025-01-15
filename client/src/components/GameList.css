@@ -1,0 +1,40 @@
+.recent-releases-list {
+  display: flex;
+  flex-wrap: wrap;
+  color: #fff;
+}
+
+.all-time-favorites-list {
+  display: flex;
+  flex-wrap: wrap;
+  color: #fff;
+}
+
+.category {
+  margin-top: 20px;
+}
+
+#box-principal {
+  background-color: #18181b;
+  padding: 30px;
+  position: relative;
+  text-align: center;
+  margin-top: 2%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 2%;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.recent-releases h2 {
+  display: flex;
+  justify-content: left;
+  padding-bottom: 20px;
+}
+
+.all-time-favorites h2 {
+  display: flex;
+  justify-content: left;
+  padding-bottom: 20px;
+}

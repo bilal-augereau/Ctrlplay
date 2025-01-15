@@ -1,53 +1,82 @@
+#featured {
+  height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-title {
+  text-align: left;
+  margin-bottom: 3%;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .featured-slider {
   display: flex;
-  transition: transform 0.5s ease-in-out;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .featured-card {
   display: flex;
+
+  align-items: flex-end;
   width: 100%;
 }
 
 .game-item {
-  min-width: 100%;
-  text-align: center;
+  display: flex;
+  margin-left: 5%;
 }
 
 .game-image {
-  width: 100%;
-  height: auto;
+  max-width: 460px;
+  height: 400px;
   border-radius: 10px;
+  border: 1px solid #f400b3;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin-left: 10%;
+}
+
+.thumb-text {
+  margin-left: 10%;
+  height: 43vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game-thumbnail {
+  margin-top: 10px;
+  width: 300px;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid #f400b3;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  margin-bottom: 5vh;
+  margin-left: 20%;
+}
+
+.game-thumbnail:hover {
+  opacity: 0.8;
 }
 
 .game-name {
-  margin-top: 10px;
-  font-size: 1.2em;
+  font-family: var(--font-title);
+  font-size: 28px;
+  text-align: center;
+
+  color: white;
 }
 
 .game-actions {
-  margin-top: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 10px;
-}
-
-.info-button,
-.add-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9em;
-}
-
-.info-button {
-  background-color: #007bff;
-  color: white;
-}
-
-.add-button {
-  background-color: #28a745;
-  color: white;
+  margin-right: 30%;
 }
 
 .arrow {
@@ -58,43 +87,27 @@
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 1.5em;
   cursor: pointer;
-  padding: 10px;
+  padding: 20px;
+  width: 60px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .arrow.left {
-  left: 10px;
+  left: 30px;
   background-image: url("../assets/images/button_icons/buttomfleche.png");
-  background-repeat: no-repeat;
   background-color: transparent;
-  height: 60px;
-  width: 60px;
 }
 
-.arrow.left:hover {
-  opacity: 60%;
-}
-
-.arrow.left:active {
-  transform: scale(0);
-  transition: transform ease-in-out;
+.arrow.left:hover,
+.arrow.right:hover {
+  opacity: 0.7;
 }
 
 .arrow.right {
-  right: 10px;
+  right: 30px;
   background-image: url("../assets/images/button_icons/buttomflecheright.png");
-  background-repeat: no-repeat;
   background-color: transparent;
-  height: 60px;
-  width: 60px;
-}
-
-.arrow.right:hover {
-  opacity: 60%;
-}
-
-.arrow.right:active {
-  transform: scale(0);
-  transition: transform ease-in-out;
 }

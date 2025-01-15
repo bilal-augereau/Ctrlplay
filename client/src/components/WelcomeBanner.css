@@ -1,6 +1,6 @@
 .content-box {
   background-color: #18181b;
-  padding: 50px;
+  padding: 30px;
   position: relative;
   text-align: center;
   margin-top: 2%;
@@ -9,6 +9,10 @@
   margin-bottom: 2%;
   border-radius: 30px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#welcome-banner {
+  margin-top: -2%;
 }
 
 .content-boxclose {
