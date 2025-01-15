@@ -28,7 +28,7 @@ const add: RequestHandler = async (req, res, next) => {
 				.json({ error: "Game already exists in the user's library." });
 		}
 
-		await gameShelfRepository.create({ userId, gameId });
+		await gameShelfRepository.create(userId, gameId);
 
 		res
 			.status(201)
