@@ -149,8 +149,12 @@ table {
 	--font-title: "Orbitron", sans-serif;
 	--font-paragraph: "Nunito", sans-serif;
 
-	--border-radius: 15px;
+	--border-radius: 50px;
 	--padding: 1rem;
+}
+
+* {
+	font-family: "Nunito", sans-serif;
 }
 
 h1,
@@ -184,8 +188,11 @@ h4 {
 	font-size: 1rem;
 }
 
-body {
+.content-box {
 	background-color: var(--background-color);
+
+	margin: 1rem 10%;
+	border-radius: var(--border-radius);
 }
 
 .beautiful-button {

@@ -14,6 +14,10 @@ class GameSeeder extends AbstractSeeder {
 				title: game.name,
 				year: released_date.getFullYear(),
 				description: game.description,
+				image: game.background_image,
+				image_2: game.background_image_additional,
+				note: game.rating,
+				website: game.website,
 				refName: `game_${game.id}`,
 			};
 

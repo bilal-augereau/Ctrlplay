@@ -1,13 +1,20 @@
 import databaseClient from "../../../database/client";
-
-import type { Result, Rows } from "../../../database/client";
+import type { Rows } from "../../../database/client";
 
 type UserGame = {
 	gameId: number;
 	userId: number;
 };
 
-class GameRepository {
+class gameRepository {
+	async read(id: number) {
+		const [[game]] = await databaseClient.query<Rows>(
+			"SELECT * FROM game WHERE game.id = ?",
+			[id],
+		);
+
+		return game;
+	}
 	async createUserGameLibrary(userGame: UserGame): Promise<void> {
 		const { userId, gameId } = userGame;
 
@@ -35,4 +42,4 @@ class GameRepository {
 	}
 }
 
-export default new GameRepository();
+export default new gameRepository();

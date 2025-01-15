@@ -1,0 +1,76 @@
+#game-details-main {
+	background: var(--background-gradient);
+}
+
+#game-details-main #game-details-section {
+	margin: 1rem 10%;
+	padding-bottom: 1rem;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#game-details-main #game-details-section img#game-details-banner {
+	width: 100%;
+	border-radius: var(--border-radius) var(--border-radius) 0 0;
+
+	-webkit-mask-image: linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 1),
+		rgba(0, 0, 0, 0)
+	);
+	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+
+	margin-bottom: -5rem;
+}
+
+#game-details-main #game-details-section article#game-details-content {
+	margin: 0 3rem;
+
+	display: grid;
+	grid-template: 1fr / 70% 30%;
+	gap: 3rem;
+}
+
+#game-details-main
+	#game-details-section
+	article#game-details-content
+	.game-details-text {
+	color: var(--white);
+	padding-bottom: 1rem;
+	line-height: 1.5;
+}
+
+#game-details-main #game-details-section div.game-details-lists {
+	display: flex;
+	flex-flow: row wrap;
+	gap: .5rem;
+
+	padding-bottom: 1rem;
+}
+
+#game-details-main
+	#game-details-section
+	article#game-details-content
+	img#game-details-stars {
+	padding: 1rem 0;
+}
+
+main#game-details-main
+	section#game-details-section
+	article#game-details-content
+	img#game-details-rating {
+	padding: 1rem 0;
+
+	margin-left: -100px;
+	height: 19px;
+	object-fit: cover;
+	object-position: 0 0;
+}
+
+#game-details-main #game-details-section #game-details-img-bottom {
+	width: 500px;
+
+	margin-bottom: 1rem;
+}
