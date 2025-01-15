@@ -7,7 +7,9 @@ const router = express.Router();
 /* ************************************************************************* */
 
 import gameActions from "./modules/game/gameActions";
+import gameShelfActions from "./modules/gameShelf/gameShelfActions";
 
+router.post("/api/gameshelf", gameShelfActions.add);
 router.get("/api/games/:id", gameActions.read);
 
 export default router;
