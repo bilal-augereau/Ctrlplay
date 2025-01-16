@@ -72,7 +72,7 @@ const Featured = () => {
                 : games[currentIndex].image_2
             }
             alt={games[currentIndex]?.title || "Game"}
-            className="game-image big"
+            className="game-image"
             onClick={toggleImage}
             onKeyDown={toggleImage}
           />

@@ -11,17 +11,32 @@ function GameCard({ game }: GameCardProps) {
 
   return (
     <div
-      className="game-card"
+      className="card-game"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {game.image && <img src={game.image} alt={`${game.title} cover`} />}
+
       {isHovered && (
         <div className="hover-details">
           <h3>{game.title}</h3>
           <p>Year: {game.year ? game.year : "N/A"}</p>
-          <p>Genre: {game.genres || "Unknown"}</p>
-          <p>Device: {game.devices?.join(", ") || "Unknown"}</p>
+          <p>Genres: {game.genres || "Unknown"}</p>
+          <p>Devices: {game.devices?.join(", ") || "Unknown"}</p>
+          <div className="button-container">
+            <button type="button" className="beautiful-buttonadd">
+              ❤️
+            </button>
+            <button type="button" className="beautiful-buttonadd">
+              ⭐
+            </button>
+            <button type="button" className="beautiful-buttonadd">
+              ➕
+            </button>
+            <button type="button" className="beautifull-buttonadd">
+              ✅
+            </button>
+          </div>
         </div>
       )}
     </div>

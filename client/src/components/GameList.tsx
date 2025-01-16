@@ -6,8 +6,9 @@ import "./GameList.css";
 function GameList() {
   const [recentReleases, setRecentReleases] = useState<GameType[]>([]);
   const [allTimeFavorites, setAllTimeFavorites] = useState<GameType[]>([]);
-  const [showMoreReleases, setShowMoreReleases] = useState(false);
-  const [showMoreFavorites, setShowMoreFavorites] = useState(false);
+  const [currentIndexReleases, setCurrentIndexReleases] = useState(0);
+  const [currentIndexFavorites, setCurrentIndexFavorites] = useState(0);
+  const gamesToShow = 5;
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -32,43 +33,62 @@ function GameList() {
     fetchGames();
   }, []);
 
+  const handleSlideReleases = () => {
+    setCurrentIndexReleases((prevIndex) =>
+      prevIndex + 1 < recentReleases.length - gamesToShow + 1
+        ? prevIndex + 1
+        : 0,
+    );
+  };
+
+  const handleSlideFavorites = () => {
+    setCurrentIndexFavorites((prevIndex) =>
+      prevIndex + 1 < allTimeFavorites.length - gamesToShow + 1
+        ? prevIndex + 1
+        : 0,
+    );
+  };
+
   return (
     <div className="main-content" id="box-principal">
+      <h2 className="mainh2">Recent Releases</h2>
+
       <section className="recent-releases">
-        <h2>Recent Releases</h2>
         <div className="recent-releases-list">
-          {(showMoreReleases ? recentReleases : recentReleases.slice(0, 5)).map(
-            (game) => (
+          {recentReleases
+            .slice(currentIndexReleases, currentIndexReleases + gamesToShow)
+            .map((game) => (
               <GameCard key={game.id} game={game} />
-            ),
-          )}
+            ))}
         </div>
-        {recentReleases.length > 5 && (
+        {recentReleases.length > gamesToShow && (
           <button
             type="button"
-            onClick={() => setShowMoreReleases(!showMoreReleases)}
+            className="beautiful-buttonadd"
+            id="more-btn"
+            onClick={handleSlideReleases}
           >
-            {showMoreReleases ? "Show Less" : "See More"}
+            See More
           </button>
         )}
       </section>
-
+      <h2 className="mainh2">All-Time Favorites</h2>
       <section className="all-time-favorites">
-        <h2>All Time Favorites</h2>
         <div className="all-time-favorites-list">
-          {(showMoreFavorites
-            ? allTimeFavorites
-            : allTimeFavorites.slice(0, 5)
-          ).map((game) => (
-            <GameCard key={game.id} game={game} />
-          ))}
+          {allTimeFavorites
+            .slice(currentIndexFavorites, currentIndexFavorites + gamesToShow)
+            .map((game) => (
+              <GameCard key={game.id} game={game} />
+            ))}
         </div>
-        {allTimeFavorites.length > 5 && (
+        {allTimeFavorites.length > gamesToShow && (
           <button
             type="button"
-            onClick={() => setShowMoreFavorites(!showMoreFavorites)}
+            className="beautiful-buttonadd"
+            id="more-btn2"
+            onClick={handleSlideFavorites}
           >
-            {showMoreFavorites ? "Show Less" : "See More"}
+            See More
           </button>
         )}
       </section>

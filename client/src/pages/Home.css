@@ -3,12 +3,6 @@ body {
   min-height: 100vh;
 }
 
-.game-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
 p {
   color: var(--white);
   font-family: var(--font-paragraph);

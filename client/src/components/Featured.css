@@ -5,10 +5,9 @@
 }
 
 .featured-title {
-  text-align: left;
-  margin-bottom: 3%;
-  font-size: 24px;
-  font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+  margin: 2%;
 }
 
 .featured-slider {
