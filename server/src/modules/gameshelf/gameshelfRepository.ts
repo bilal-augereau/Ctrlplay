@@ -2,6 +2,22 @@ import databaseClient from "../../../database/client";
 import type { Rows } from "../../../database/client";
 
 class gameShelfRepository {
+	async create(userId: number, gameId: number): Promise<void> {
+		await databaseClient.query(
+			`INSERT INTO game_shelf (user_id, game_id)
+       VALUES (?, ?)`,
+			[userId, gameId],
+		);
+	}
+
+	async exists(userId: number, gameId: number) {
+		const [rows] = await databaseClient.query<Rows>(
+			"SELECT 1 FROM game_shelf WHERE user_id = ? AND game_id = ?",
+			[userId, gameId],
+		);
+		return rows.length > 0;
+	}
+
 	async readAllByUser(id: number) {
 		const [games] = await databaseClient.query<Rows>(
 			"SELECT * FROM game JOIN game_shelf AS gs ON gs.game_id = game.id WHERE gs.user_id = ?",
@@ -18,6 +34,13 @@ class gameShelfRepository {
 		);
 
 		return games;
+	}
+
+	async readTop3TimeSpent(id: number) {
+		const [games] = await databaseClient.query<Rows>(
+			"SELECT * FROM game JOIN game_shelf AS gs ON gs.game_id = game.id WHERE gs.user_id = ? ORDER BY time_spent DESC LIMIT 3",
+			[id],
+		);
 	}
 }
 
