@@ -38,4 +38,56 @@ const add: RequestHandler = async (req, res, next) => {
 	}
 };
 
-export default { add };
+const remove: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameId } = req.body;
+
+		if (!userId || !gameId) {
+			res.status(400).json({ error: "Both userId and gameId are required." });
+		}
+
+		const user = await userRepository.read(userId);
+		if (!user) {
+			res.status(404).json({ error: "User not found." });
+		}
+
+		const game = await gameRepository.read(gameId);
+		if (!game) {
+			res.status(404).json({ error: "Game not found." });
+		}
+
+		const exists = await gameShelfRepository.exists(userId, gameId);
+		if (!exists) {
+			res.status(404).json({ error: "Game not found in the user's library." });
+		}
+
+		await gameShelfRepository.delete(userId, gameId);
+
+		res
+			.status(200)
+			.json({ message: "Game removed from user library successfully." });
+	} catch (err) {
+		next(err);
+	}
+};
+
+const exists: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameId } = req.params;
+
+		if (!userId || !gameId) {
+			res.status(400).json({ error: "Both userId and gameId are required." });
+		}
+
+		const exists = await gameShelfRepository.exists(
+			Number(userId),
+			Number(gameId),
+		);
+
+		res.status(200).json({ exists });
+	} catch (err) {
+		next(err);
+	}
+};
+
+export default { add, remove, exists };
