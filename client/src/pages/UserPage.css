@@ -1,0 +1,11 @@
+#user-main {
+	background: var(--background-gradient);
+}
+
+#user-aside {
+	width: 25%;
+}
+
+#user-main .user-box {
+	padding: 2rem;
+}
