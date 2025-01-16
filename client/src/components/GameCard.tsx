@@ -1,17 +1,9 @@
 import { useState } from "react";
+import type GameType from "../interface/GameType";
 import "./GameCard.css";
 
-interface Game {
-  id: number;
-  title: string;
-  year: number | null;
-  image: string | null;
-  genre?: string;
-  device?: string[];
-}
-
 interface GameCardProps {
-  game: Game;
+  game: GameType;
 }
 
 function GameCard({ game }: GameCardProps) {
@@ -28,8 +20,8 @@ function GameCard({ game }: GameCardProps) {
         <div className="hover-details">
           <h3>{game.title}</h3>
           <p>Year: {game.year ? game.year : "N/A"}</p>
-          <p>Genre: {game.genre || "Unknown"}</p>
-          <p>Device: {game.device?.join(", ") || "Unknown"}</p>
+          <p>Genre: {game.genres || "Unknown"}</p>
+          <p>Device: {game.devices?.join(", ") || "Unknown"}</p>
         </div>
       )}
     </div>

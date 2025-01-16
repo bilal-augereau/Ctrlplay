@@ -1,20 +1,11 @@
 import { useEffect, useState } from "react";
+import type GameType from "../interface/GameType";
 import GameCard from "./GameCard";
 import "./GameList.css";
 
-interface Game {
-  id: number;
-  title: string;
-  year: number | null;
-  image: string | null;
-  genre?: string;
-  device?: string[];
-  note?: number;
-}
-
 function GameList() {
-  const [recentReleases, setRecentReleases] = useState<Game[]>([]);
-  const [allTimeFavorites, setAllTimeFavorites] = useState<Game[]>([]);
+  const [recentReleases, setRecentReleases] = useState<GameType[]>([]);
+  const [allTimeFavorites, setAllTimeFavorites] = useState<GameType[]>([]);
   const [showMoreReleases, setShowMoreReleases] = useState(false);
   const [showMoreFavorites, setShowMoreFavorites] = useState(false);
 
@@ -22,7 +13,7 @@ function GameList() {
     const fetchGames = async () => {
       try {
         const response = await fetch("http://localhost:3310/games");
-        const games: Game[] = await response.json();
+        const games: GameType[] = await response.json();
 
         const sortedByYear = [...games]
           .filter((game) => game.year)

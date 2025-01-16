@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
+import type GameType from "../interface/GameType";
 import "./featured.css";
 
-interface Game {
-  id: number;
-  title: string;
-  image: string;
-  image_2: string;
-}
-
 const Featured = () => {
-  const [games, setGames] = useState<Game[]>([]);
+  const [games, setGames] = useState<GameType[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPrimaryImage, setIsPrimaryImage] = useState(true);
 
@@ -21,7 +15,7 @@ const Featured = () => {
           throw new Error("Failed to fetch games");
         }
         const allGames = await response.json();
-        const filteredGames = allGames.filter((game: Game) =>
+        const filteredGames = allGames.filter((game: GameType) =>
           [1, 16, 32, 66].includes(Number(game.id)),
         );
         setGames(filteredGames);
