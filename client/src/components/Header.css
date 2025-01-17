@@ -16,7 +16,7 @@
   cursor: pointer;
   border: none;
   position: relative;
-  padding-left: 50vw;
+  padding-left: 45vw;
 }
 
 .buttons {
@@ -24,6 +24,20 @@
   gap: 10px;
   padding: 5px;
   margin: 2px;
+}
+
+.top-portal-button {
+  background-image: url("../assets/images/button_icons/portalorange.png");
+
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  margin-top: 2%;
+  height: 75px;
+  width: 75px;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .login-button {

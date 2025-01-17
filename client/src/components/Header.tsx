@@ -4,6 +4,13 @@ import "./Header.css";
 function Header() {
   const navigate = useNavigate();
 
+  const handleFooter = () => {
+    const footerPortal = document.getElementById("footer-portal");
+    if (footerPortal) {
+      footerPortal.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleLogin = () => {
     navigate("/login");
   };
@@ -22,6 +29,11 @@ function Header() {
         />
       </div>
       <div className="buttons">
+        <button
+          type="button"
+          className="top-portal-button"
+          onClick={handleFooter}
+        />
         <button type="button" className="login-button" onClick={handleLogin}>
           <span>Login</span>
         </button>
