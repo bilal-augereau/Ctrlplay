@@ -11,17 +11,20 @@ const add: RequestHandler = async (req, res, next) => {
 			res.status(400).json({ error: "Both userId and gameId are required." });
 		}
 
-		const user = await userRepository.read(userId);
+		const user = await userRepository.read(Number(userId));
 		if (!user) {
 			res.status(404).json({ error: "User not found." });
 		}
 
-		const game = await gameRepository.read(gameId);
+		const game = await gameRepository.read(Number(gameId));
 		if (!game) {
 			res.status(404).json({ error: "Game not found." });
 		}
 
-		const alreadyExists = await gameShelfRepository.exists(userId, gameId);
+		const alreadyExists = await gameShelfRepository.exists(
+			Number(userId),
+			Number(gameId),
+		);
 		if (alreadyExists) {
 			res
 				.status(409)
@@ -46,22 +49,25 @@ const remove: RequestHandler = async (req, res, next) => {
 			res.status(400).json({ error: "Both userId and gameId are required." });
 		}
 
-		const user = await userRepository.read(userId);
+		const user = await userRepository.read(Number(userId));
 		if (!user) {
 			res.status(404).json({ error: "User not found." });
 		}
 
-		const game = await gameRepository.read(gameId);
+		const game = await gameRepository.read(Number(gameId));
 		if (!game) {
 			res.status(404).json({ error: "Game not found." });
 		}
 
-		const exists = await gameShelfRepository.exists(userId, gameId);
+		const exists = await gameShelfRepository.exists(
+			Number(userId),
+			Number(gameId),
+		);
 		if (!exists) {
 			res.status(404).json({ error: "Game not found in the user's library." });
 		}
 
-		await gameShelfRepository.delete(userId, gameId);
+		await gameShelfRepository.delete(Number(userId), Number(gameId));
 
 		res
 			.status(200)

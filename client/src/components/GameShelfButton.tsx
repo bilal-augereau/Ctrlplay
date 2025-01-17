@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const LibraryButton = ({
+const GameShelfButton = ({
 	userId,
 	gameId,
 }: {
@@ -22,7 +22,8 @@ const LibraryButton = ({
 						},
 					},
 				);
-				if (response.ok) setIsInLibrary(true);
+				const { exists } = await response.json();
+				setIsInLibrary(exists);
 			} catch (err) {
 				toast.error("Error: Unable to check game status.", { theme: "dark" });
 			}
@@ -32,7 +33,7 @@ const LibraryButton = ({
 
 	const addToLibrary = async () => {
 		try {
-			const response = await fetch("http://localhost:3310/api/gameshelf", {
+			const response = await fetch("http://localhost:3310/api/gameshelf/", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -57,7 +58,7 @@ const LibraryButton = ({
 
 	const removeFromLibrary = async () => {
 		try {
-			const response = await fetch("http://localhost:3310/api/gameshelf", {
+			const response = await fetch("http://localhost:3310/api/gameshelf/", {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
@@ -89,4 +90,4 @@ const LibraryButton = ({
 	);
 };
 
-export default LibraryButton;
+export default GameShelfButton;
