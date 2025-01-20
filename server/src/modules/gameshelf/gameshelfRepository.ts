@@ -41,6 +41,8 @@ class gameShelfRepository {
 			"SELECT * FROM game JOIN game_shelf AS gs ON gs.game_id = game.id WHERE gs.user_id = ? ORDER BY time_spent DESC LIMIT 3",
 			[id],
 		);
+
+		return games;
 	}
 }
 

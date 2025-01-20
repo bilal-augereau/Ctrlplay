@@ -16,6 +16,12 @@ const getGameDetails = (id: string) => {
 		.then((data) => data);
 };
 
+const getUserDetails = (id: string) => {
+	return fetch(`${import.meta.env.VITE_API_URL}/api/users/${id}`)
+		.then((res) => res.json())
+		.then((data) => data);
+};
+
 const router = createBrowserRouter([
 	{
 		element: <App />,
@@ -27,6 +33,9 @@ const router = createBrowserRouter([
 			{
 				path: "/user/:id",
 				element: <UserPage />,
+				loader: ({ params }) => {
+					return getUserDetails(params.id ?? "0");
+				},
 			},
 			{
 				path: "/game/:id",
