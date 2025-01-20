@@ -1,0 +1,94 @@
+.card-game-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.card-game {
+	position: relative;
+	width: 200px;
+	height: 290px;
+	overflow: hidden;
+	border-radius: 10px;
+	border: 1px solid #f400b3;
+	cursor: pointer;
+	transition: transform 0.3s ease, z-index 0.3s ease;
+	margin: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.card-game:hover {
+	z-index: 10;
+	transform: scale(1.05);
+}
+
+.card-game.hovered {
+	transform: scale(1.05);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-game img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 10px;
+}
+
+.hover-details {
+	position: absolute;
+	top: 0;
+	right: -250px;
+	width: 250px;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.9);
+	color: #fff;
+	padding: 15px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	opacity: 0;
+	transform: translateX(10px);
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.card-game:hover .hover-details {
+	opacity: 1;
+	transform: translateX(0);
+	right: 0;
+}
+
+.hover-details h3 {
+	font-size: 1.2rem;
+	margin-bottom: 10px;
+}
+
+.hover-details p {
+	margin: 0;
+	font-size: 0.9rem;
+}
+
+.hover-details .button-container {
+	margin-top: 15px;
+	display: flex;
+	gap: 10px;
+}
+
+.hover-details .button-container button {
+	background-color: #6c63ff;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
+	border-radius: 5px;
+	font-size: 0.9rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.hover-details .button-container button:hover {
+	background-color: #4b47cc;
+}
