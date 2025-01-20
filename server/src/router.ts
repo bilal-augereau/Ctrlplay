@@ -7,7 +7,6 @@ import gameShelfActions from "./modules/gameShelf/gameShelfActions";
 import userActions from "./modules/user/userActions";
 
 router.get("/api/games/:id", gameActions.read);
-router.get("/api/games", gameActions.browseGame);
 
 router.post("/api/gameshelf", gameShelfActions.add);
 
