@@ -221,6 +221,8 @@ p {
 	width: 13.1875rem;
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
+
+	cursor: pointer;
 }
 
 .beautiful-button:hover {

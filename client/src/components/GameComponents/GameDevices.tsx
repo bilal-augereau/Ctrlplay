@@ -1,10 +1,10 @@
 import "./GameDevices.css";
 
-import Nintendo from "../assets/images/devices/Nintendo.png";
-import Others from "../assets/images/devices/Others.png";
-import PC from "../assets/images/devices/PC.png";
-import PlayStation from "../assets/images/devices/PlayStation.png";
-import Xbox from "../assets/images/devices/Xbox.png";
+import Nintendo from "../../assets/images/devices/Nintendo.png";
+import Others from "../../assets/images/devices/Others.png";
+import PC from "../../assets/images/devices/PC.png";
+import PlayStation from "../../assets/images/devices/PlayStation.png";
+import Xbox from "../../assets/images/devices/Xbox.png";
 
 function GameDevices({
 	devices,
