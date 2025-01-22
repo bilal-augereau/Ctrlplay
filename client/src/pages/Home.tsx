@@ -1,4 +1,4 @@
-import AddToLibraryButton from "../components/AddToLibraryButton";
+import GameShelfButton from "../components/GameShelfButton";
 
 function Home() {
 	return (
@@ -7,7 +7,7 @@ function Home() {
 			<button className="beautiful-button" type="button">
 				Login
 			</button>
-			<AddToLibraryButton gameId={1} userId={1} />
+			<GameShelfButton gameId={1} userId={1} />
 		</div>
 	);
 }
