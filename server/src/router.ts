@@ -9,6 +9,8 @@ import userActions from "./modules/user/userActions";
 router.get("/api/games/:id", gameActions.read);
 
 router.post("/api/gameshelf", gameShelfActions.add);
+router.delete("/api/gameshelf/", gameShelfActions.remove);
+router.get("/api/gameshelf/exists/:userId/:gameId", gameShelfActions.exists);
 
 router.get("/api/users/:id", userActions.read);
 
