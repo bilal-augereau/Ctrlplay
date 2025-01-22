@@ -4,7 +4,7 @@ import type { Rows } from "../../../database/client";
 class UserRepository {
 	async read(id: number) {
 		const [[user]] = await databaseClient.query<Rows>(
-			"SELECT * FROM user WHERE id = ?",
+			"SELECT * FROM user WHERE user.id = ?",
 			[id],
 		);
 
