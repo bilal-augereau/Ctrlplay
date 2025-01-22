@@ -37,5 +37,42 @@ const add: RequestHandler = async (req, res, next) => {
 		next(err);
 	}
 };
+const favorite: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameId, favorite } = req.body;
 
-export default { add };
+		if (!userId || !gameId || favorite !== "boolean") {
+			res.status(400).json({
+				error:
+					"Both userId and gameId are required, and favorite must be a boolean.",
+			});
+		}
+
+		const user = await userRepository.read(userId);
+		if (!user) {
+			res.status(404).json({ error: "User not found." });
+		}
+
+		const game = await gameRepository.read(gameId);
+		if (!game) {
+			res.status(404).json({ error: "Game not found." });
+		}
+
+		const alreadyExists = await gameShelfRepository.exists(userId, gameId);
+		if (!alreadyExists) {
+			res.status(404).json({ error: "Game not found in user's library." });
+		}
+
+		await gameShelfRepository.favorite(userId, gameId, favorite);
+
+		res
+			.status(200)
+			.json({ message: "Game updated in user library successfully." });
+	} catch (err) {
+		if (!res.headersSent) {
+			next(err);
+		}
+	}
+};
+
+export default { add, favorite };

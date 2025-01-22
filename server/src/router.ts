@@ -11,5 +11,6 @@ import gameShelfActions from "./modules/gameShelf/gameShelfActions";
 
 router.post("/api/gameshelf", gameShelfActions.add);
 router.get("/api/games/:id", gameActions.read);
+router.put("/api/gameshelf", gameShelfActions.favorite);
 
 export default router;

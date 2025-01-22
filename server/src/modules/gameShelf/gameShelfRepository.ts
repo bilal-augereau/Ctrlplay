@@ -16,6 +16,18 @@ class gameShelfRepository {
 		);
 		return rows.length > 0;
 	}
+	async favorite(
+		userId: number,
+		gameId: number,
+		favorite: boolean,
+	): Promise<void> {
+		await databaseClient.query(
+			`UPDATE game_shelf
+	   SET favorite = ?
+	   WHERE user_id = ? AND game_id = ?`,
+			[favorite ? 1 : 0, userId, gameId],
+		);
+	}
 }
 
 export default new gameShelfRepository();
