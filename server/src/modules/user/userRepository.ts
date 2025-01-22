@@ -1,10 +1,10 @@
 import databaseClient from "../../../database/client";
 import type { Rows } from "../../../database/client";
 
-class userRepository {
+class UserRepository {
 	async read(id: number) {
 		const [[user]] = await databaseClient.query<Rows>(
-			"SELECT pseudo, avatar FROM user WHERE user.id = ?",
+			"SELECT * FROM user WHERE user.id = ?",
 			[id],
 		);
 
@@ -12,4 +12,4 @@ class userRepository {
 	}
 }
 
-export default new userRepository();
+export default new UserRepository();

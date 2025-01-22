@@ -10,17 +10,8 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
 
-const getGameDetails = (id: string) => {
-	return fetch(`${import.meta.env.VITE_API_URL}/api/games/${id}`)
-		.then((res) => res.json())
-		.then((data) => data);
-};
-
-const getUserDetails = (id: string) => {
-	return fetch(`${import.meta.env.VITE_API_URL}/api/users/${id}`)
-		.then((res) => res.json())
-		.then((data) => data);
-};
+import getGameDetails from "./services/game";
+import getUserDetails from "./services/user";
 
 const router = createBrowserRouter([
 	{

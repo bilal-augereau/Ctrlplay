@@ -25,10 +25,23 @@ class gameShelfRepository {
 		return rows.length > 0;
 	}
 
-	async readAllByUser(id: number) {
+	async readAllByUser(userId: number, order?: string, limit?: number) {
+		const queries = [];
+		const values: (string | number)[] = [userId];
+		if (order) {
+			values.push(order);
+			queries.push("ORDER BY ?");
+		}
+		if (limit) {
+			values.push(limit);
+			queries.push("LIMIT ?");
+		}
+
+		const clauses = queries.length > 0 ? `${queries.join(" ")}` : "";
+
 		const [games] = await databaseClient.query<Rows>(
-			"SELECT * FROM game JOIN game_shelf AS gs ON gs.game_id = game.id WHERE gs.user_id = ?",
-			[id],
+			`SELECT * FROM game JOIN game_shelf AS gs ON gs.game_id = game.id WHERE gs.user_id = ? ${clauses}`,
+			values,
 		);
 
 		return games;
@@ -37,15 +50,6 @@ class gameShelfRepository {
 	async readFavoritesByUser(id: number) {
 		const [games] = await databaseClient.query<Rows>(
 			"SELECT * FROM game JOIN game_shelf AS gs ON gs.game_id = game.id WHERE gs.user_id = ? AND gs.favorite = 1",
-			[id],
-		);
-
-		return games;
-	}
-
-	async readTop3TimeSpent(id: number) {
-		const [games] = await databaseClient.query<Rows>(
-			"SELECT * FROM game JOIN game_shelf AS gs ON gs.game_id = game.id WHERE gs.user_id = ? ORDER BY time_spent DESC LIMIT 3",
 			[id],
 		);
 

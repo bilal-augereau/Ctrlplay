@@ -20,7 +20,7 @@ import spiderman from "../assets/images/avatar/avatarspider.png";
 function UserPage() {
 	const user = useLoaderData() as UserType;
 
-	// UPDATE WHEN CRITERIA FOR FEATURED GAMES DEFINED
+	// TO DO : UPDATE WHEN CRITERIA FOR FEATURED GAMES DEFINED
 	const gameFeaturedId = 33;
 
 	const [gameFeatured, setGameFeatured] = useState<GameType>();
@@ -35,17 +35,17 @@ function UserPage() {
 		const shorten = description.slice(0, maxChar);
 		return `${shorten.slice(0, shorten.lastIndexOf(" "))}...`;
 	}
-	let descriptionShort = null;
 
+	let shortDescription = null;
 	if (gameFeatured) {
-		descriptionShort = parse(
+		shortDescription = parse(
 			DOMPurify.sanitize(shortenDescription(gameFeatured.description, 250), {
 				USE_PROFILES: { html: true },
 			}),
 		);
 	}
 
-	// UPDATE WHEN CRITERIA FOR RECOMMANDATION DEFINED
+	// TO DO : UPDATE WHEN CRITERIA FOR RECOMMANDATION DEFINED
 	const [gamesReco, setGamesReco] = useState<GameType[]>();
 	useEffect(() => {
 		fetch(`${import.meta.env.VITE_API_URL}/api/games`)
@@ -78,7 +78,7 @@ function UserPage() {
 									<h4>{gameFeatured?.title}</h4>
 									<GameRatings note={gameFeatured.note} />
 								</div>
-								{descriptionShort ? <p>{descriptionShort}</p> : <></>}
+								{shortDescription ? <p>{shortDescription}</p> : <></>}
 								<Link
 									to={`/game/${gameFeaturedId}`}
 									className="beautiful-button user-beautiful-button"

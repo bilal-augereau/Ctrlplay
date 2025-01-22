@@ -10,7 +10,11 @@ const read: RequestHandler = async (req, res, next) => {
 
 		if (!user) res.sendStatus(404);
 		else {
-			user.topGames = await gameShelfRepository.readTop3TimeSpent(userId);
+			user.topGames = await gameShelfRepository.readAllByUser(
+				userId,
+				"DESC",
+				3,
+			);
 			res.json(user);
 		}
 	} catch (err) {
