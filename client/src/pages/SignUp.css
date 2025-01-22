@@ -68,3 +68,14 @@
 	height: 2rem;
 	width: 2rem;
 }
+
+.avatar button {
+	background: transparent;
+	cursor: pointer;
+	border: none;
+}
+
+.avatar-image img {
+	height: 5rem;
+	width: 5rem;
+}

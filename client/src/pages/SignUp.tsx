@@ -1,34 +1,90 @@
 import "./SignUp.css";
+import { useState } from "react";
 import leftarrowsignup from "../assets/images/button_icons/leftarrowsignup.png";
 import rightarrowsignup from "../assets/images/button_icons/rightarrowsignup.png";
+import Avatar from "../components/UserComponents/Avatar.tsx";
+
+const avatarList = [
+	"poule",
+	"hat",
+	"isaac",
+	"luigi",
+	"pokeball",
+	"rayman",
+	"sonic",
+	"spiderman",
+];
+
 function SignUp() {
+	const [currentAvatarIndex, setCurrentAvatarIndex] = useState(0);
+
+	const handlePreviousAvatar = () => {
+		setCurrentAvatarIndex((prevIndex) =>
+			prevIndex === 0 ? avatarList.length - 1 : prevIndex - 1,
+		);
+	};
+
+	const handleNextAvatar = () => {
+		setCurrentAvatarIndex((prevIndex) =>
+			prevIndex === avatarList.length - 1 ? 0 : prevIndex + 1,
+		);
+	};
+
 	return (
 		<div id="main">
 			<section className="content-box">
 				<div className="content-boxsignup">
 					<h1>Welcome new user!</h1>
 					<p className="textsignup">
-						Crtl+Play is a digital platform for gamers to organize their game
+						Ctrl+Play is a digital platform for gamers to organize their game
 						collection. Sign up for free and start building your dream
 						Gameshelf!
 					</p>
 					<div className="avatar">
-						<img src={leftarrowsignup} alt="Left arrow for sign up" />
-						<p className="textsignup">AVATAR</p>
-						<img src={rightarrowsignup} alt="Right arrow for sign up" />
+						<button type="button">
+							<img
+								src={leftarrowsignup}
+								alt="Previous avatar"
+								onClick={handlePreviousAvatar}
+								onKeyUp={(e) => {
+									if (e.key === "Enter" || e.key === " ") {
+										handlePreviousAvatar();
+									}
+								}}
+								className="avatar-arrow"
+							/>
+						</button>
+						<div className="avatar-image">
+							<Avatar avatar={avatarList[currentAvatarIndex]} />
+						</div>
+						<button type="button">
+							<img
+								src={rightarrowsignup}
+								alt="Next avatar"
+								onClick={handleNextAvatar}
+								onKeyUp={(e) => {
+									if (e.key === "Enter" || e.key === " ") {
+										handleNextAvatar();
+									}
+								}}
+								className="avatar-arrow"
+							/>
+						</button>
 						<p className="textsignup">Choose your avatar</p>
 					</div>
 					<form className="formsignup">
 						<div className="labelgroup">
-							<label htmlFor="username">What should we call you ?</label>
+							<label htmlFor="username">What should we call you?</label>
 							<input type="text" id="username" name="username" />
 						</div>
 						<div className="labelgroup">
-							<label htmlFor="username">Choose a password</label>
+							<label htmlFor="password">Choose a password</label>
 							<input type="password" id="password" name="password" />
 						</div>
 						<div className="labelgroup">
-							<label htmlFor="username">Confirm your password</label>
+							<label htmlFor="passwordconfirmation">
+								Confirm your password
+							</label>
 							<input
 								type="password"
 								id="passwordconfirmation"
@@ -50,7 +106,7 @@ function SignUp() {
 						Just sign up for now
 					</button>
 				</div>
-				<p className="textsignup">Already have an account ?</p>
+				<p className="textsignup">Already have an account?</p>
 			</section>
 		</div>
 	);
