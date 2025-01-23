@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type GameType from "../interface/GameType";
 import "./featured.css";
+import GameDevices from "./GameComponents/GameDevices";
 
 const Featured = () => {
   const [games, setGames] = useState<GameType[]>([]);
@@ -78,6 +79,43 @@ const Featured = () => {
           />
           <div className="thumb-text">
             <h3 className="game-name">{games[currentIndex]?.title}</h3>
+
+            <div className="device-container">
+              {Array.isArray(games[currentIndex]?.devices) ? (
+                <GameDevices devices={games[currentIndex].devices} />
+              ) : typeof games[currentIndex]?.devices === "string" ? (
+                <GameDevices
+                  devices={(games[currentIndex].devices as string)
+                    .split(",")
+                    .map(
+                      (device: string) =>
+                        device.trim() as
+                          | "PlayStation"
+                          | "Nintendo"
+                          | "PC"
+                          | "Xbox"
+                          | "Others",
+                    )}
+                />
+              ) : (
+                <p>Devices: Unknown</p>
+              )}
+            </div>
+
+            <p className="game-genres">
+              {" "}
+              {Array.isArray(games[currentIndex]?.genres)
+                ? games[currentIndex]?.genres.join(", ")
+                : games[currentIndex]?.genres || "Unknown"}
+            </p>
+
+            <p className="game-tags">
+              #{" "}
+              {Array.isArray(games[currentIndex]?.tags)
+                ? games[currentIndex]?.tags.join(", ")
+                : games[currentIndex]?.tags || "Unknown"}
+            </p>
+
             <img
               src={
                 isPrimaryImage
@@ -92,6 +130,7 @@ const Featured = () => {
           </div>
         </div>
       )}
+
       <div className="game-actions">
         <button type="button" className="beautiful-button">
           i

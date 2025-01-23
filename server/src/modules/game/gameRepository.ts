@@ -1,59 +1,59 @@
 import DatabaseClient from "../../../database/client";
 import type { Rows } from "../../../database/client";
-
-type Game = {
-  id: string;
-  title: string;
-  year: number;
-  description: string;
-  image: string;
-  image_2: string;
-  note: number;
-  genres: string[];
-  tags: string[];
-  devices: string[];
-};
-
+import type GameType from "../../interface/GameType";
 class gameRepository {
-  async readAll(limit = 82) {
-    const [rows] = await DatabaseClient.query<Rows>(
-      "SELECT * FROM game LIMIT ?",
-      [limit],
-    );
-    return rows as Game[];
+  async readAll(
+    filters: {
+      genre?: string;
+      device?: string;
+      tag?: string;
+      publisher?: string;
+    } = {},
+  ) {
+    const conditions: string[] = [];
+    const values: (string | number)[] = [];
+    if (filters.genre) {
+      conditions.push("genres LIKE ?");
+      values.push(`%${filters.genre}%`);
+    }
+    if (filters.device) {
+      conditions.push("devices LIKE ?");
+      values.push(`%${filters.device}%`);
+    }
+    if (filters.tag) {
+      conditions.push("tags LIKE ?");
+      values.push(`%${filters.tag}%`);
+    }
+    if (filters.publisher) {
+      conditions.push("publishers LIKE ?");
+      values.push(`%${filters.publisher}%`);
+    }
+    const HavingClause =
+      conditions.length > 0 ? `HAVING (${conditions.join(" AND ")})` : "";
+    const query = `
+        SELECT g.*, GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
+        FROM game g
+        LEFT JOIN game_genre AS gg ON gg.game_id = g.id
+        LEFT JOIN genre ge ON gg.genre_id = ge.id
+        LEFT JOIN game_device AS gd ON gd.game_id = g.id
+        LEFT JOIN device d ON gd.device_id = d.id
+        LEFT JOIN game_tag AS gt ON gt.game_id = g.id
+        LEFT JOIN tag ON gt.game_id = tag.id
+        LEFT JOIN game_publisher AS gp ON gp.game_id = g.id
+        LEFT JOIN publisher ON gp.game_id = publisher.id
+        GROUP BY g.id
+        ${HavingClause}
+        `;
+    const [rows] = await DatabaseClient.query<Rows>(query, values);
+    return rows as GameType[];
   }
+
   async read(id: number) {
-    const [rows] = await DatabaseClient.query<Rows>(
-      "SELECT game.*, genre.name AS genre, device.name AS device, tag.name AS tag FROM game LEFT JOIN game_genre AS gg ON gg.game_id = game.id LEFT JOIN genre ON gg.genre_id = genre.id LEFT JOIN game_device AS gd ON gd.game_id = game.id LEFT JOIN device ON gd.device_id = device.id LEFT JOIN game_tag AS gt ON gt.game_id = game.id LEFT JOIN tag ON gt.tag_id = tag.id WHERE game.id = ?",
+    const [[game]] = await DatabaseClient.query<Rows>(
+      "SELECT * FROM game WHERE game.id = ?",
       [id],
     );
-
-    const game = <Game>{
-      id: rows[0].id,
-      title: rows[0].title,
-      year: rows[0].year,
-      description: rows[0].description,
-      image: rows[0].image,
-      image_2: rows[0].image_2,
-      note: rows[0].note,
-      genres: [],
-      tags: [],
-      devices: [],
-    };
-
-    for (const row of rows) {
-      if (!game.genres.includes(row.genre)) {
-        game.genres.push(row.genre);
-      }
-      if (!game.tags.includes(row.tag)) {
-        game.tags.push(row.tag);
-      }
-      if (!game.devices.includes(row.device)) {
-        game.devices.push(row.device);
-      }
-    }
     return game;
   }
 }
-
 export default new gameRepository();

@@ -8,7 +8,7 @@
   position: relative;
   width: 200px;
   height: 290px;
-  border: 1px solid #f400b3;
+  border: 2px solid #a661d0;
   border-radius: 15px;
   overflow: hidden;
   cursor: pointer;
@@ -84,4 +84,16 @@
 
 .card-game .button-container button:hover {
   background-color: #4b47cc;
+}
+
+.device-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.device-container img {
+  display: flex;
+  height: 35px;
+  width: 35px;
+  border-radius: 0;
 }

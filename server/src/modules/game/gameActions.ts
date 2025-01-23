@@ -3,7 +3,7 @@ import gameRepository from "./gameRepository";
 
 const browseGame: RequestHandler = async (req, res, next) => {
   try {
-    const items = await gameRepository.readAll();
+    const items = await gameRepository.readAll(req.query);
 
     const modifiedGame = items.map((game) => {
       const { description, ...rest } = game;

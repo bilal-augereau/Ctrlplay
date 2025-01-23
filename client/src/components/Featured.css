@@ -29,10 +29,10 @@
 }
 
 .game-image {
-  max-width: 460px;
-  height: 400px;
+  max-width: 450px;
+  height: 350px;
   border-radius: 10px;
-  border: 1px solid #f400b3;
+  border: 2px solid #a661d0;
   cursor: pointer;
   transition: transform 0.3s ease, opacity 0.3s ease;
   margin-left: 10%;
@@ -52,11 +52,10 @@
   width: 300px;
   height: auto;
   border-radius: 5px;
-  border: 1px solid #f400b3;
+  border: 2px solid #a661d0;
   cursor: pointer;
   transition: transform 0.2s ease, opacity 0.3s ease;
   margin-bottom: 5vh;
-  margin-left: 20%;
 }
 
 .game-thumbnail:hover {
@@ -65,9 +64,9 @@
 
 .game-name {
   font-family: var(--font-title);
-  font-size: 28px;
+  font-size: 30px;
   text-align: center;
-
+  margin-bottom: 1rem;
   color: white;
 }
 

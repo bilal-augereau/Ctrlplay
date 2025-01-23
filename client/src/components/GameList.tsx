@@ -56,7 +56,7 @@ function GameList() {
       <section className="recent-releases">
         <div className="recent-releases-list">
           {recentReleases
-            .slice(currentIndexReleases, currentIndexReleases + gamesToShow)
+            ?.slice(currentIndexReleases, currentIndexReleases + gamesToShow)
             .map((game) => (
               <GameCard key={game.id} game={game} />
             ))}
@@ -76,7 +76,7 @@ function GameList() {
       <section className="all-time-favorites">
         <div className="all-time-favorites-list">
           {allTimeFavorites
-            .slice(currentIndexFavorites, currentIndexFavorites + gamesToShow)
+            ?.slice(currentIndexFavorites, currentIndexFavorites + gamesToShow)
             .map((game) => (
               <GameCard key={game.id} game={game} />
             ))}
