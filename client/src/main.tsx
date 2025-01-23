@@ -10,11 +10,8 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
 
-const getGameDetails = (id: string) => {
-	return fetch(`${import.meta.env.VITE_API_URL}/api/games/${id}`)
-		.then((res) => res.json())
-		.then((data) => data);
-};
+import getGameDetails from "./services/game";
+import getUserDetails from "./services/user";
 
 const router = createBrowserRouter([
 	{
@@ -25,8 +22,11 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: "/userpage",
+				path: "/user/:id",
 				element: <UserPage />,
+				loader: ({ params }) => {
+					return getUserDetails(params.id ?? "0");
+				},
 			},
 			{
 				path: "/game/:id",

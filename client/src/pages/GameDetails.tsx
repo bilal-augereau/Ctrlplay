@@ -4,13 +4,11 @@ import { useLoaderData } from "react-router-dom";
 
 import type GameType from "../interface/GameType";
 
-import GameDevices from "../components/GameDevices";
-import GameTags from "../components/GameTags";
+import GameDevices from "../components/GameComponents/GameDevices";
+import GameRatings from "../components/GameComponents/GameRatings";
+import GameTags from "../components/GameComponents/GameTags";
 
 import "./GameDetails.css";
-
-import whiteStars from "../assets/images/ratings/0stars.png";
-import yellowStars from "../assets/images/ratings/5stars.png";
 
 function GameDetails() {
 	const game = useLoaderData() as GameType;
@@ -40,17 +38,7 @@ function GameDetails() {
 						</div>
 					</div>
 					<div>
-						<img
-							src={whiteStars}
-							alt={`rating : ${game.note}/5`}
-							id="game-details-stars"
-						/>
-						<img
-							src={yellowStars}
-							alt={`rating : ${game.note}/5`}
-							width={`${(100 * game.note) / 5}px`}
-							id="game-details-rating"
-						/>
+						<GameRatings note={game.note} />
 						<div className="game-details-lists">
 							<GameDevices devices={game.devices} />
 						</div>

@@ -50,25 +50,6 @@
 	padding-bottom: 1rem;
 }
 
-#game-details-main
-	#game-details-section
-	article#game-details-content
-	img#game-details-stars {
-	padding: 1rem 0;
-}
-
-main#game-details-main
-	section#game-details-section
-	article#game-details-content
-	img#game-details-rating {
-	padding: 1rem 0;
-
-	margin-left: -100px;
-	height: 19px;
-	object-fit: cover;
-	object-position: 0 0;
-}
-
 #game-details-main #game-details-section #game-details-img-bottom {
 	width: 500px;
 
