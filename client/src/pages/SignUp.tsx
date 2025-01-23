@@ -1,5 +1,6 @@
 import "./SignUp.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import leftarrowsignup from "../assets/images/button_icons/leftarrowsignup.png";
 import rightarrowsignup from "../assets/images/button_icons/rightarrowsignup.png";
 import Avatar from "../components/UserComponents/Avatar.tsx";
@@ -32,9 +33,9 @@ function SignUp() {
 
 	return (
 		<div id="main">
-			<section className="content-box">
+			<section className="content-box" id="boxsignup">
 				<div className="content-boxsignup">
-					<h1>Welcome new user!</h1>
+					<h1 id="titlesignup">Welcome new user!</h1>
 					<p className="textsignup">
 						Ctrl+Play is a digital platform for gamers to organize their game
 						collection. Sign up for free and start building your dream
@@ -75,17 +76,28 @@ function SignUp() {
 					<form className="formsignup">
 						<div className="labelgroup">
 							<label htmlFor="username">What should we call you?</label>
-							<input type="text" id="username" name="username" />
+							<input
+								className="game-tag"
+								type="text"
+								id="username"
+								name="username"
+							/>
 						</div>
 						<div className="labelgroup">
 							<label htmlFor="password">Choose a password</label>
-							<input type="password" id="password" name="password" />
+							<input
+								className="game-tag"
+								type="password"
+								id="password"
+								name="password"
+							/>
 						</div>
 						<div className="labelgroup">
 							<label htmlFor="passwordconfirmation">
 								Confirm your password
 							</label>
 							<input
+								className="game-tag"
 								type="password"
 								id="passwordconfirmation"
 								name="passwordconfirmation"
@@ -99,14 +111,17 @@ function SignUp() {
 					</p>
 				</div>
 				<div className="buttons">
-					<button className="beautiful-button" type="button">
+					<button id="buttonwidth" className="beautiful-button" type="button">
 						Complete my profile
 					</button>
-					<button className="beautiful-button" type="button">
+					<button id="buttonwidth" className="beautiful-button" type="button">
 						Just sign up for now
 					</button>
 				</div>
-				<p className="textsignup">Already have an account?</p>
+
+				<Link to="/login" className="alreadyaccount">
+					Already have an account?
+				</Link>
 			</section>
 		</div>
 	);
