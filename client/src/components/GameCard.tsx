@@ -40,17 +40,17 @@ function GameCard({ game }: GameCardProps) {
 
 				<p>{game.genres || "Unknown"}</p>
 				<div className="button-container">
-					<button className="beautiful-buttonadd" type="button">
-						❤️
+					<button id="" className="beautiful-buttonadd" type="button">
+						i
 					</button>
 					<button className="beautiful-buttonadd" type="button">
-						⭐
+						✔
 					</button>
 					<button className="beautiful-buttonadd" type="button">
-						➕
+						🤍
 					</button>
 					<button className="beautiful-buttonadd" type="button">
-						✅
+						+
 					</button>
 				</div>
 			</div>
