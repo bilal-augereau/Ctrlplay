@@ -45,14 +45,13 @@ function UserPage() {
 		);
 	}
 
-	// TO DO : UPDATE WHEN CRITERIA FOR RECOMMANDATION DEFINED
 	const [gamesReco, setGamesReco] = useState<GameType[]>();
 	useEffect(() => {
 		fetch(`${import.meta.env.VITE_API_URL}/api/users/recommandation/${user.id}`)
 			.then((res) => res.json())
 			.then((data) => setGamesReco(data));
 	});
-	const [gamesRecoLength, setGamesRecoLength] = useState<number>(19);
+	const [gamesRecoLength, setGamesRecoLength] = useState<number>(20);
 
 	return (
 		<main id="user-main">
@@ -117,7 +116,7 @@ function UserPage() {
 					<h3 id="user-recommandation-title">Recommandations</h3>
 					{gamesReco ? (
 						<div id="user-game-list">
-							{gamesReco.slice(0, gamesRecoLength).map((game: GameType) => (
+							{gamesReco.slice(0, gamesRecoLength - 1).map((game: GameType) => (
 								<GameCard game={game} key={game.id} />
 							))}
 						</div>
