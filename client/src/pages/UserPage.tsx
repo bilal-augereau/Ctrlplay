@@ -48,7 +48,7 @@ function UserPage() {
 	// TO DO : UPDATE WHEN CRITERIA FOR RECOMMANDATION DEFINED
 	const [gamesReco, setGamesReco] = useState<GameType[]>();
 	useEffect(() => {
-		fetch(`${import.meta.env.VITE_API_URL}/api/games`)
+		fetch(`${import.meta.env.VITE_API_URL}/api/users/recommandation/${user.id}`)
 			.then((res) => res.json())
 			.then((data) => setGamesReco(data));
 	});

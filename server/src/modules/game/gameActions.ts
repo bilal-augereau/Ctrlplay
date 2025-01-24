@@ -23,4 +23,26 @@ const read: RequestHandler = async (req, res, next) => {
 	}
 };
 
-export default { read };
+const browseReco: RequestHandler = async (req, res, next) => {
+	try {
+		const userId = Number(req.params.id);
+
+		const genres = await genreRepository.readAllbyUserId(userId);
+		const devices = await deviceRepository.readAllbyUserId(userId);
+		const tags = await tagRepository.readAllbyUserId(userId);
+
+		const games = await gameRepository.readAllReco(
+			userId,
+			devices,
+			genres,
+			tags,
+		);
+
+		if (!games) res.sendStatus(404);
+		else res.json(games);
+	} catch (err) {
+		next(err);
+	}
+};
+
+export default { read, browseReco };
