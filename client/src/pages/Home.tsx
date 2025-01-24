@@ -4,17 +4,17 @@ import WelcomeBanner from "../components/WelcomeBanner";
 import "./Home.css";
 
 function Home() {
-  return (
-    <div>
-      <header className="home-header" />
-      <WelcomeBanner />
-      <Featured />
+	return (
+		<div>
+			<header className="home-header" />
+			<WelcomeBanner />
+			<Featured />
 
-      <div className="game-list">
-        <GameList />
-      </div>
-    </div>
-  );
+			<div className="game-list">
+				<GameList />
+			</div>
+		</div>
+	);
 }
 
 export default Home;

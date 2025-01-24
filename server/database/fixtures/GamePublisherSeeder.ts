@@ -1,14 +1,14 @@
 import games from "../gameDetails.json";
 import AbstractSeeder from "./AbstractSeeder";
 import GameSeeder from "./GameSeeder";
-import TagSeeder from "./TagSeeder";
+import PublisherSeeder from "./PublisherSeeder";
 
-class GameTagSeeder extends AbstractSeeder {
+class GamePublisherSeeder extends AbstractSeeder {
 	constructor() {
 		super({
-			table: "game_tag",
+			table: "game_publisher",
 			truncate: true,
-			dependencies: [GameSeeder, TagSeeder],
+			dependencies: [GameSeeder, PublisherSeeder],
 		});
 	}
 
@@ -18,19 +18,19 @@ class GameTagSeeder extends AbstractSeeder {
 		for (const game of games) {
 			const gameId = game.id;
 
-			for (const tag of game.tags) {
-				const tagId = tag.id;
-				const pairKey = `${gameId}_${tagId}`;
+			for (const publisher of game.publishers) {
+				const publisherId = publisher.id;
+				const pairKey = `${gameId}_${publisherId}`;
 
 				if (!insertedPairs.has(pairKey)) {
 					insertedPairs.add(pairKey);
 
 					const newPairing: {
 						game_id: number;
-						tag_id: number;
+						publisher_id: number;
 					} = {
 						game_id: this.getRef(`game_${gameId}`).insertId,
-						tag_id: this.getRef(`tag_${tagId}`).insertId,
+						publisher_id: this.getRef(`publisher_${publisherId}`).insertId,
 					};
 
 					this.insert(newPairing);
@@ -40,4 +40,4 @@ class GameTagSeeder extends AbstractSeeder {
 	}
 }
 
-export default GameTagSeeder;
+export default GamePublisherSeeder;

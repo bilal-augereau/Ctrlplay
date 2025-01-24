@@ -1,0 +1,12 @@
+#ratings-div img#ratings-empty-stars {
+	padding: 1rem 0;
+}
+
+#ratings-div img#ratings-full-stars {
+	padding: 1rem 0;
+
+	margin-left: -100px;
+	height: 19px;
+	object-fit: cover;
+	object-position: 0 0;
+}
