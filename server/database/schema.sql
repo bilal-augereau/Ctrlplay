@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `db_crtl_play`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `pseudo` VARCHAR(50) NULL,
   `password` VARCHAR(50) NULL,
+  `avatar` VARCHAR(50) NULL DEFAULT "rayman",
   PRIMARY KEY (`id`),
   UNIQUE INDEX `pseudo_UNIQUE` (`pseudo` ASC) VISIBLE)
 ENGINE = InnoDB;

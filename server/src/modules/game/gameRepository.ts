@@ -1,5 +1,4 @@
-import { log } from "node:console";
-import DatabaseClient from "../../../database/client";
+import databaseClient from "../../../database/client";
 import type { Rows } from "../../../database/client";
 import type GameType from "../../interface/GameType";
 
@@ -96,13 +95,13 @@ class GameRepository {
 			`;
 		}
 
-		const [rows] = await DatabaseClient.query<Rows>(query, values);
+		const [rows] = await databaseClient.query<Rows>(query, values);
 
 		return rows as GameType[];
 	}
 
 	async read(id: number) {
-		const [[game]] = await DatabaseClient.query<Rows>(
+		const [[game]] = await databaseClient.query<Rows>(
 			"SELECT * FROM game WHERE game.id = ?",
 			[id],
 		);

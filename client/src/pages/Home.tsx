@@ -1,13 +1,18 @@
-import FilterGame from "../components/Filters";
-import SearchBar from "../components/SearchBar";
+import Featured from "../components/Featured";
+import GameList from "../components/GameList";
+import WelcomeBanner from "../components/WelcomeBanner";
+import "./Home.css";
 
 function Home() {
 	return (
 		<div>
-			<h1>Home Page</h1>
-			<p>Welcome to the Home Page!</p>
-			<SearchBar />
-			<FilterGame />
+			<header className="home-header" />
+			<WelcomeBanner />
+			<Featured />
+
+			<div className="game-list">
+				<GameList />
+			</div>
 		</div>
 	);
 }
