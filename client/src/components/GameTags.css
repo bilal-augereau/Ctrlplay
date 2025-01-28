@@ -1,4 +1,4 @@
-p.game-tag {
+.game-tag {
 	color: var(--white);
 
 	border-radius: var(--border-radius);

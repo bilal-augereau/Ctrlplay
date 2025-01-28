@@ -1,15 +1,113 @@
+import { log } from "node:console";
 import DatabaseClient from "../../../database/client";
 import type { Rows } from "../../../database/client";
+import type GameType from "../../interface/GameType";
 
-class gameRepository {
+class GameRepository {
+	async readAll(
+		filters: {
+			genre?: string | string[];
+			device?: string | string[];
+			tag?: string | string[];
+			publisher?: string | string[];
+			search?: string;
+		} = {},
+	) {
+		const values: (string | number)[] = [];
+		let query = "";
+
+		if (filters.search) {
+			query = "SELECT * FROM game WHERE game.title LIKE ? ";
+			values.push(`%${filters.search}%`);
+		} else {
+			const conditions: string[] = [];
+			const conditionsByProperty: {
+				genres: string[];
+				devices: string[];
+				tags: string[];
+				publishers: string[];
+			} = {
+				genres: [],
+				devices: [],
+				tags: [],
+				publishers: [],
+			};
+
+			if (filters.genre && Array.isArray(filters.genre)) {
+				filters.genre.map((ge) => {
+					conditionsByProperty.genres.push("genres LIKE ?");
+					values.push(`%${ge}%`);
+				});
+				conditions.push(`(${conditionsByProperty.genres.join(" OR ")})`);
+			} else if (filters.genre) {
+				conditions.push("genres LIKE ?");
+				values.push(`%${filters.genre}%`);
+			}
+
+			if (filters.device && Array.isArray(filters.device)) {
+				filters.device.map((de) => {
+					conditionsByProperty.devices.push("devices LIKE ?");
+					values.push(`%${de}%`);
+				});
+				conditions.push(`(${conditionsByProperty.devices.join(" OR ")})`);
+			} else if (filters.device) {
+				conditions.push("devices LIKE ?");
+				values.push(`%${filters.device}%`);
+			}
+
+			if (filters.tag && Array.isArray(filters.tag)) {
+				filters.tag.map((t) => {
+					conditionsByProperty.tags.push("tags LIKE ?");
+					values.push(`%${t}%`);
+				});
+				conditions.push(`(${conditionsByProperty.tags.join(" OR ")})`);
+			} else if (filters.tag) {
+				conditions.push("tags LIKE ?");
+				values.push(`%${filters.tag}%`);
+			}
+
+			if (filters.publisher && Array.isArray(filters.publisher)) {
+				filters.publisher.map((pb) => {
+					conditionsByProperty.publishers.push("publishers LIKE ?");
+					values.push(`%${pb}%`);
+				});
+				conditions.push(`(${conditionsByProperty.publishers.join(" OR ")})`);
+			} else if (filters.publisher) {
+				conditions.push("publishers LIKE ?");
+				values.push(`%${filters.publisher}%`);
+			}
+
+			const HavingClause =
+				conditions.length > 0 ? `HAVING (${conditions.join(" AND ")})` : "";
+
+			query = `
+				SELECT g.*, GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
+				FROM game g
+				LEFT JOIN game_genre AS gg ON gg.game_id = g.id
+				LEFT JOIN genre ge ON gg.genre_id = ge.id
+				LEFT JOIN game_device AS gd ON gd.game_id = g.id
+				LEFT JOIN device d ON gd.device_id = d.id
+				LEFT JOIN game_tag AS gt ON gt.game_id = g.id
+				LEFT JOIN tag ON gt.game_id = tag.id
+				LEFT JOIN game_publisher AS gp ON gp.game_id = g.id
+				LEFT JOIN publisher ON gp.game_id = publisher.id
+				GROUP BY g.id
+				${HavingClause}
+			`;
+		}
+
+		const [rows] = await DatabaseClient.query<Rows>(query, values);
+
+		return rows as GameType[];
+	}
+
 	async read(id: number) {
 		const [[game]] = await DatabaseClient.query<Rows>(
 			"SELECT * FROM game WHERE game.id = ?",
 			[id],
 		);
-
 		return game;
 	}
 }
 
-export default new gameRepository();
+export default new GameRepository();
