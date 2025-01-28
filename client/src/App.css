@@ -188,7 +188,9 @@ h4 {
 	font-size: 1rem;
 }
 
-p {
+p,
+input,
+a {
 	font-size: 1rem;
 	font-family: var(--font-paragraph);
 }
