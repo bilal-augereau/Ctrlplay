@@ -19,7 +19,9 @@ function Avatar({ avatar }: { avatar: string }) {
 		spiderman: spiderman,
 	};
 
-	return <img src={avatarsURL.poule} alt={avatar} />;
+	return (
+		<img src={avatarsURL[avatar as keyof typeof avatarsURL]} alt={avatar} />
+	);
 }
 
 export default Avatar;
