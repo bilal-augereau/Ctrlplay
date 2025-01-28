@@ -24,5 +24,6 @@ router.get("/api/gameshelf/exists/:userId/:gameId", gameShelfActions.exists);
 router.get("/api/users/:id", authServices.isAuthorized, userActions.read);
 router.post("/api/users", authServices.hashPassword, userActions.add);
 router.post("/api/login", authActions.login);
+router.get("/api/users/:id/recommandation", gameActions.browseReco);
 
 export default router;
