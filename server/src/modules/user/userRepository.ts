@@ -30,6 +30,15 @@ class UserRepository {
 
 		return result;
 	}
+
+	async readByPseudo(pseudo: string) {
+		const [[user]] = await databaseClient.query<Rows>(
+			"SELECT * FROM user WHERE user.pseudo = ?",
+			[pseudo],
+		);
+
+		return user;
+	}
 }
 
 export default new UserRepository();
