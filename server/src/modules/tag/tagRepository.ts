@@ -16,6 +16,15 @@ class TagRepository {
 
 		return tags.map((tag) => tag.name);
 	}
+
+	async readAllbyUserId(userId: number) {
+		const [tags] = await DatabaseClient.query<Rows>(
+			"SELECT name FROM tag JOIN game_tag gt ON gt.tag_id = tag.id JOIN game ON gt.game_id = game.id JOIN game_shelf gs ON gs.game_id = game.id WHERE gs.user_id = ? GROUP BY tag.name",
+			[userId],
+		);
+
+		return tags.map((tag) => tag.name);
+	}
 }
 
 export default new TagRepository();
