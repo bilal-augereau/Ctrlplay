@@ -9,6 +9,7 @@ import GameRatings from "../components/GameComponents/GameRatings";
 import GameTags from "../components/GameComponents/GameTags";
 
 import "./GameDetails.css";
+import FavoriteButton from "../components/FavoriteButton";
 
 function GameDetails() {
 	const game = useLoaderData() as GameType;
@@ -53,9 +54,7 @@ function GameDetails() {
 					<button type="button" className="beautiful-buttonadd">
 						+
 					</button>
-					<button type="button" className="beautiful-buttonadd">
-						🤍
-					</button>
+					<FavoriteButton userId={2} gameId={2} />
 					<button type="button" className="beautiful-buttonadd">
 						✔️
 					</button>
