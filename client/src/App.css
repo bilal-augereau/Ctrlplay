@@ -190,7 +190,8 @@ h4 {
 
 p,
 input,
-a {
+a,
+label {
 	font-size: 1rem;
 	font-family: var(--font-paragraph);
 }
