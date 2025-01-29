@@ -1,23 +1,28 @@
 import { useCallback, useEffect, useState } from "react";
-import "./Filters.css";
+import "./FiltersGame.css";
 import { MultiSelect } from "react-multi-select-component";
 
 type ObjectMultiSelect = { value: string; label: string };
 
-type Filters = {
+type FiltersState = {
 	genres: string[];
 	devices: string[];
 	tags: string[];
 	publishers: string[];
 };
 
-function FilterGame() {
+type FiltersProps = {
+	setSelectedFilters: React.Dispatch<React.SetStateAction<FiltersState>>;
+	selectedFilters: FiltersState;
+};
+
+function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
 	const [showFilters, setShowFilters] = useState(true);
 	const toggleFilters = () => {
 		setShowFilters(!showFilters);
 	};
 
-	const [filters, setFilters] = useState<Filters>({
+	const [filters, setFilters] = useState<FiltersState>({
 		genres: [],
 		devices: [],
 		tags: [],
@@ -37,7 +42,7 @@ function FilterGame() {
 	}, [getFilters]);
 
 	const optionsTags = filters.tags.map((tag) => ({
-		label: `#${tag}`,
+		label: `#${tag.split(" ").join("").toLowerCase()}`,
 		value: tag,
 	}));
 
@@ -46,21 +51,14 @@ function FilterGame() {
 		value: publisher,
 	}));
 
-	const [selectedFilters, setSelectedFilters] = useState<Filters>({
-		genres: [],
-		devices: [],
-		tags: [],
-		publishers: [],
-	});
-
 	const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, checked, name } = event.target;
 
-		setSelectedFilters((prev: Filters) => ({
+		setSelectedFilters((prev: FiltersState) => ({
 			...prev,
 			[name]: checked
-				? [...prev[name as keyof Filters], value]
-				: prev[name as keyof Filters].filter(
+				? [...prev[name as keyof FiltersState], value]
+				: prev[name as keyof FiltersState].filter(
 						(selection: string) => selection !== value,
 					),
 		}));
@@ -127,7 +125,7 @@ function FilterGame() {
 								options={optionsTags}
 								hasSelectAll={false}
 								value={selectedFilters.tags.map((tag) => ({
-									label: `#${tag}`,
+									label: `#${tag.split(" ").join("").toLowerCase()}`,
 									value: tag,
 								}))}
 								onChange={(selectedTags: ObjectMultiSelect[]) =>

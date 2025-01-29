@@ -14,7 +14,7 @@ class TagRepository {
 	async readAll() {
 		const [tags] = await DatabaseClient.query<Rows>("SELECT name FROM tag");
 
-		return tags.map((tag) => tag.name.replaceAll(" ", "").toLowerCase());
+		return tags.map((tag) => tag.name);
 	}
 }
 

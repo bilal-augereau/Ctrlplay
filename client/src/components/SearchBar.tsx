@@ -2,9 +2,12 @@ import { useState } from "react";
 import type { FormEventHandler } from "react";
 import "./SearchBar.css";
 
-function SearchBar() {
+type SearchProps = {
+	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function SearchBar({ setSearchQuery }: SearchProps) {
 	const [search, setSearch] = useState("");
-	const [searchQuery, setSearchQuery] = useState("");
 
 	const handleSearch: FormEventHandler = (event) => {
 		event.preventDefault();
@@ -31,7 +34,6 @@ function SearchBar() {
 					</button>
 				</form>
 			</div>
-			<p>{searchQuery}</p>
 		</div>
 	);
 }

@@ -16,7 +16,6 @@ router.get("/api/games", gameActions.browse);
 import gameShelfActions from "./modules/gameShelf/gameShelfActions";
 import userActions from "./modules/user/userActions";
 
-router.get("/games/:id", gameActions.read);
 router.get("/api/games/:id", gameActions.read);
 
 router.get("/api/genres", genreActions.browse);
