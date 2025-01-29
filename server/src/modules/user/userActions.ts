@@ -1,5 +1,4 @@
-import type { RequestHandler } from "express";
-
+import type { NextFunction, Request, RequestHandler, Response } from "express";
 import gameShelfRepository from "../gameShelf/gameShelfRepository";
 import userRepository from "./userRepository";
 
@@ -22,4 +21,39 @@ const read: RequestHandler = async (req, res, next) => {
 	}
 };
 
-export default { read };
+const add: RequestHandler = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const { pseudo, password, avatar } = req.body;
+
+		if (!pseudo || !password) {
+			res.status(400).json({ error: "Pseudo and password are required." });
+			return;
+		}
+
+		const result = await userRepository.add(
+			pseudo,
+			password,
+			avatar || "rayman",
+		);
+
+		if (!result.insertId) {
+			res.status(422).json({ error: "Unable to add user." });
+			return;
+		}
+
+		const user = await userRepository.read(result.insertId);
+
+		res
+			.status(201)
+			.json({ message: "User added successfully", userId: result.insertId });
+	} catch (err) {
+		console.error(err);
+		next(err);
+	}
+};
+
+export default { read, add };
