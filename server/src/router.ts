@@ -2,17 +2,34 @@ import express from "express";
 
 const router = express.Router();
 
+/* ************************************************************************* */
+// Define Your API Routes Here
+/* ************************************************************************* */
+
 import authActions from "./modules/auth/authActions";
 import authServices from "./modules/auth/authServices";
+import deviceActions from "./modules/device/deviceActions";
 import gameActions from "./modules/game/gameActions";
+import genreActions from "./modules/genre/genreActions";
+import publisherActions from "./modules/publisher/publisherActions";
+import tagActions from "./modules/tag/tagActions";
+
+router.get("/api/games", gameActions.browse);
 import gameShelfActions from "./modules/gameShelf/gameShelfActions";
 import userActions from "./modules/user/userActions";
 
-router.get("/games", gameActions.browseGame);
-
-router.get("/games/:id", gameActions.read);
 router.get("/api/games/:id", gameActions.read);
 
+router.get("/api/genres", genreActions.browse);
+
+router.get("/api/devices", deviceActions.browse);
+
+router.get("/api/tags", tagActions.browse);
+
+router.get("/api/publishers", publisherActions.browse);
+
+router.post("/api/gameshelf", gameShelfActions.add);
+router.delete("/api/gameshelf/", gameShelfActions.remove);
 router.post("/api/gameshelf", authServices.isAuthorized, gameShelfActions.add);
 router.delete(
 	"/api/gameshelf/",

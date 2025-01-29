@@ -6,7 +6,7 @@ import publisherRepository from "../publisher/publisherRepository";
 import tagRepository from "../tag/tagRepository";
 import gameRepository from "./gameRepository";
 
-const browseGame: RequestHandler = async (req, res, next) => {
+const browse: RequestHandler = async (req, res, next) => {
 	try {
 		const items = await gameRepository.readAll(req.query);
 
@@ -60,4 +60,4 @@ const browseReco: RequestHandler = async (req, res, next) => {
 	}
 };
 
-export default { read, browseReco, browseGame };
+export default { read, browseReco, browse };
