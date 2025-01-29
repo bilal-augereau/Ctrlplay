@@ -228,6 +228,17 @@ function UserPage() {
 					</button>
 				</div>
 				<article>
+					<h3 id="user-recommandation-title">
+						{displayMode === "recommendations"
+							? "Recommandations"
+							: displayMode === "allGames"
+								? "All My Games"
+								: displayMode === "favorites"
+									? "Favorite Games"
+									: displayMode === "toDo"
+										? "To-Do List"
+										: "Games"}
+					</h3>
 					{displayMode === "recommendations" && gamesReco ? (
 						<div id="user-game-list">
 							{gamesReco.slice(0, gamesRecoLength - 1).map((game: GameType) => (
