@@ -4,11 +4,8 @@
 	border-radius: var(--border-radius);
 	padding: .5rem 1rem;
 
-	background: linear-gradient(
-			to right,
-			var(--background-color),
-			var(--background-color)
-		), linear-gradient(to right, #19a1be, #7d4192);
+	background: linear-gradient(to right, black, black),
+		linear-gradient(to right, #19a1be, #7d4192);
 	background-clip: padding-box, border-box;
 	background-origin: padding-box, border-box;
 	border: solid 2px transparent;
