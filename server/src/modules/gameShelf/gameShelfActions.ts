@@ -177,7 +177,7 @@ const removeFavorite: RequestHandler = async (req, res, next) => {
 
 		const favorites = await gameShelfRepository.readAllByUser(Number(userId));
 		const isFavorite = favorites.some(
-			(favGame) => favGame.id === Number(gameId),
+			(favGame) => Number(favGame.id) === Number(gameId),
 		);
 		if (!isFavorite) {
 			res.status(404).json({
