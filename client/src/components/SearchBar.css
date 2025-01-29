@@ -1,0 +1,46 @@
+.search-container {
+	background-color: var(--background-color);
+	border-radius: 20px;
+	color: var(--white);
+	padding: var(--padding);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+h3.search-game {
+	font-family: var(--font-title);
+	color: var(--white);
+	font-size: var(--font-size);
+	margin-bottom: 15px;
+}
+
+.search-bar {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.research input {
+	color: #aaa;
+	border-radius: var(--border-radius);
+	background: linear-gradient(to right, var(--black), var(--black)),
+		linear-gradient(to right, #19a1be, #7d4192);
+	background-clip: padding-box, border-box;
+	background-origin: padding-box, border-box;
+	border: solid 2px transparent;
+	font-size: 0.8rem;
+	cursor: auto;
+	height: 30px;
+	width: 450px;
+	flex-grow: 1;
+	outline: none;
+	padding-left: 10px;
+}
+
+.search-icon {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
