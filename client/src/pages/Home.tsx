@@ -1,3 +1,4 @@
+import FavoriteButton from "../components/FavoriteButton";
 import GameShelfButton from "../components/GameShelfButton";
 
 function Home() {
@@ -8,6 +9,7 @@ function Home() {
 				Login
 			</button>
 			<GameShelfButton gameId={1} userId={1} />
+			<FavoriteButton gameId={1} userId={1} />
 		</div>
 	);
 }
