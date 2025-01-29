@@ -17,5 +17,8 @@ router.get("/api/gameshelf/exists/:userId/:gameId", gameShelfActions.exists);
 
 router.get("/api/users/:id", userActions.read);
 router.get("/api/users/:id/recommandation", gameActions.browseReco);
+router.get("/api/users/:id/games", gameShelfActions.browseUserGames);
+router.get("/api/users/:id/favorites", gameShelfActions.browseFavorite);
+router.get("/api/users/:id/todo", gameShelfActions.browseToDo);
 
 export default router;

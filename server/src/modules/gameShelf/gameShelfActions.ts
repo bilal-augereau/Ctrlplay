@@ -96,4 +96,56 @@ const exists: RequestHandler = async (req, res, next) => {
 	}
 };
 
-export default { add, remove, exists };
+const browseUserGames: RequestHandler = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+
+		if (!id) {
+			res.status(400).json({ error: "UserId is required." });
+		}
+		const games = await gameShelfRepository.readAllByUser(Number(id));
+		res.json(games || []);
+	} catch (err) {
+		console.error("Erreur dans getUserGames:", err);
+		next(err);
+	}
+};
+
+const browseFavorite: RequestHandler = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+
+		if (!id) {
+			res.status(400).json({ error: "UserId is required." });
+		}
+		const games = await gameShelfRepository.readFavoritesByUser(Number(id));
+		res.json(games || []);
+	} catch (err) {
+		console.error("Erreur dans browseFavorite:", err);
+		next(err);
+	}
+};
+
+const browseToDo: RequestHandler = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+
+		if (!id) {
+			res.status(400).json({ error: "UserId is required." });
+		}
+		const games = await gameShelfRepository.readToDoByUser(Number(id));
+		res.json(games || []);
+	} catch (err) {
+		console.error("Erreur dans browseFavorite:", err);
+		next(err);
+	}
+};
+
+export default {
+	add,
+	remove,
+	exists,
+	browseUserGames,
+	browseFavorite,
+	browseToDo,
+};
