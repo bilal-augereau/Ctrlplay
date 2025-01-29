@@ -27,6 +27,14 @@ class gameShelfRepository {
 		return rows.length > 0;
 	}
 
+	async isFavorite(userId: number, gameId: number) {
+		const [rows] = await databaseClient.query<Rows>(
+			"SELECT 1 FROM game_shelf WHERE user_id = ? AND game_id = ? AND favorite = 1",
+			[userId, gameId],
+		);
+		return rows.length > 0;
+	}
+
 	async readAllByUser(userId: number, order?: string, limit?: number) {
 		const queries = [];
 		const values: (string | number)[] = [userId];
@@ -142,6 +150,19 @@ class gameShelfRepository {
 		);
 
 		return games as GameType[];
+	}
+
+	async updateFavorite(
+		userId: number,
+		gameId: number,
+		isFavorite: boolean,
+	): Promise<void> {
+		await databaseClient.query(
+			`UPDATE game_shelf
+				SET favorite = ?
+				WHERE user_id = ? AND game_id = ?`,
+			[isFavorite ? 0 : 1, userId, gameId],
+		);
 	}
 }
 

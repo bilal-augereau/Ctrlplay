@@ -1,0 +1,101 @@
+#main {
+	background: var(--background-gradient);
+}
+
+#titlesignup {
+	padding-top: 2rem;
+}
+
+#boxsignup {
+	padding: 3rem;
+}
+
+#buttonwidth {
+	width: 14rem;
+}
+
+.textsignup {
+	color: var(--soft-blue);
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.content-boxsignup {
+	align-items: center;
+	text-align: center;
+}
+
+.formsignup {
+	color: var(--soft-blue);
+}
+
+.avatar {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	gap: 5rem;
+}
+
+.formsignup {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	padding: 1rem;
+}
+
+.labelgroup {
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+	padding-top: 2rem;
+}
+
+.labelgroup label {
+	text-align: right;
+	width: 13rem;
+}
+
+.labelgroup input {
+	width: 15rem;
+	height: 1rem;
+	padding: 0.5rem;
+}
+
+.avatar img {
+	height: 2rem;
+	width: 2rem;
+}
+
+.avatar button {
+	background: transparent;
+	cursor: pointer;
+	border: none;
+}
+
+.avatar-image img {
+	height: 5rem;
+	width: 5rem;
+}
+
+.alreadyaccount {
+	color: var(--soft-blue);
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+	text-align: center;
+	display: block;
+	cursor: pointer;
+	text-decoration: none;
+	transition: text-decoration 0.3s ease;
+}
+
+.alreadyaccount:hover {
+	text-decoration: underline;
+}

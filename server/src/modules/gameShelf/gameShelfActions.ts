@@ -107,6 +107,24 @@ const browseUserGames: RequestHandler = async (req, res, next) => {
 		res.json(games || []);
 	} catch (err) {
 		console.error("Erreur dans getUserGames:", err);
+	}
+};
+
+const isFavorite: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameId } = req.params;
+
+		if (!userId || !gameId) {
+			res.status(400).json({ error: "Both userId and gameId are required." });
+		}
+
+		const exists = await gameShelfRepository.isFavorite(
+			Number(userId),
+			Number(gameId),
+		);
+
+		res.status(200).json({ isFavorite: exists });
+	} catch (err) {
 		next(err);
 	}
 };
@@ -141,6 +159,86 @@ const browseToDo: RequestHandler = async (req, res, next) => {
 	}
 };
 
+const updateFavorite: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameId } = req.body;
+
+		if (!userId || !gameId) {
+			res.status(400).json({
+				error: "userId, gameId are required.",
+			});
+		} else {
+			const user = await userRepository.read(userId);
+			if (!user) {
+				res.status(404).json({ error: "User not found." });
+			} else {
+				const game = await gameRepository.read(gameId);
+				if (!game) {
+					res.status(404).json({ error: "Game not found." });
+				} else {
+					const alreadyExists = await gameShelfRepository.exists(
+						userId,
+						gameId,
+					);
+					if (!alreadyExists) {
+						await gameShelfRepository.create(userId, gameId);
+					}
+
+					const isFavorite = await gameShelfRepository.isFavorite(
+						userId,
+						gameId,
+					);
+
+					await gameShelfRepository.updateFavorite(userId, gameId, isFavorite);
+
+					res.status(200).json({
+						message: "game add to favorite successfully",
+					});
+				}
+			}
+		}
+	} catch (err) {
+		next(err);
+	}
+};
+const removeFavorite: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameId } = req.body;
+
+		if (!userId || !gameId) {
+			res.status(400).json({ error: "Both userId and gameId are required." });
+		}
+
+		const user = await userRepository.read(Number(userId));
+		if (!user) {
+			res.status(404).json({ error: "User not found." });
+		}
+
+		const game = await gameRepository.read(Number(gameId));
+		if (!game) {
+			res.status(404).json({ error: "Game not found." });
+		}
+
+		const favorites = await gameShelfRepository.readAllByUser(Number(userId));
+		const isFavorite = favorites.some(
+			(favGame) => Number(favGame.id) === Number(gameId),
+		);
+		if (!isFavorite) {
+			res.status(404).json({
+				error:
+					"this game is not marked as favorite, cannot be removed from your list.",
+			});
+		}
+
+		await gameShelfRepository.delete(Number(userId), Number(gameId));
+
+		res
+			.status(200)
+			.json({ message: "Game removed from user favorite successfully." });
+	} catch (err) {
+		next(err);
+	}
+};
 export default {
 	add,
 	remove,
@@ -148,4 +246,7 @@ export default {
 	browseUserGames,
 	browseFavorite,
 	browseToDo,
+	updateFavorite,
+	isFavorite,
+	removeFavorite,
 };
