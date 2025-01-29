@@ -1,15 +1,18 @@
-import FavoriteButton from "../components/FavoriteButton";
-import GameShelfButton from "../components/GameShelfButton";
+import Featured from "../components/Featured";
+import GameList from "../components/GameList";
+import WelcomeBanner from "../components/WelcomeBanner";
+import "./Home.css";
 
 function Home() {
 	return (
 		<div>
-			<h1>Home Page</h1>
-			<button className="beautiful-button" type="button">
-				Login
-			</button>
-			<GameShelfButton gameId={1} userId={1} />
-			<FavoriteButton gameId={1} userId={1} />
+			<header className="home-header" />
+			<WelcomeBanner />
+			<Featured />
+
+			<div className="game-list">
+				<GameList />
+			</div>
 		</div>
 	);
 }

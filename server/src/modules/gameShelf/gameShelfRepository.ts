@@ -1,5 +1,7 @@
 import databaseClient from "../../../database/client";
+
 import type { Rows } from "../../../database/client";
+import type GameType from "../../interface/GameType";
 
 class gameShelfRepository {
 	async create(userId: number, gameId: number) {
@@ -52,7 +54,7 @@ class gameShelfRepository {
 			values,
 		);
 
-		return games;
+		return games as GameType[];
 	}
 
 	async readFavoritesByUser(id: number) {

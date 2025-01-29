@@ -6,6 +6,9 @@ import gameActions from "./modules/game/gameActions";
 import gameShelfActions from "./modules/gameShelf/gameShelfActions";
 import userActions from "./modules/user/userActions";
 
+router.get("/games", gameActions.browseGame);
+
+router.get("/games/:id", gameActions.read);
 router.get("/api/games/:id", gameActions.read);
 router.put("/api/gameshelf", gameShelfActions.updateFavorite);
 router.post("/api/gameshelf", gameShelfActions.add);
@@ -17,5 +20,6 @@ router.put(
 	gameShelfActions.updateFavorite,
 	gameShelfActions.isFavorite,
 );
+router.get("/api/users/:id/recommandation", gameActions.browseReco);
 
 export default router;
