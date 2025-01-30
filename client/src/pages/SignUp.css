@@ -10,6 +10,12 @@
 	padding: 3rem;
 }
 
+#buttonsignup {
+	display: flex;
+	justify-content: center;
+	gap: 5rem;
+}
+
 #buttonwidth {
 	width: 14rem;
 }
@@ -34,12 +40,6 @@
 	display: flex;
 	gap: 1rem;
 	justify-content: center;
-}
-
-.buttons {
-	display: flex;
-	justify-content: center;
-	gap: 5rem;
 }
 
 .formsignup {
