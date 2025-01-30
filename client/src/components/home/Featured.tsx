@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 
 import { useAuth } from "../../context/UserContext";
 
-import FavoriteButton from "../ButtonsComponents/FavoriteButton";
-import GameShelfButton from "../ButtonsComponents/GameShelfButton";
-import InfosButton from "../ButtonsComponents/InfosButton";
-import GameDevices from "../GameComponents/GameDevices";
+import FavoriteButton from "../buttons/FavoriteButton";
+import GameShelfButton from "../buttons/GameShelfButton";
+import InfosButton from "../buttons/InfosButton";
+import GameDevices from "../game/GameDevices";
 
 import type GameType from "../../interface/GameType";
 

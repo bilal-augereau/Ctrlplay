@@ -5,12 +5,12 @@ import { useAuth } from "../context/UserContext";
 
 import type GameType from "../interface/GameType";
 
-import GameDevices from "../components/GameComponents/GameDevices";
-import GameRatings from "../components/GameComponents/GameRatings";
-import GameTags from "../components/GameComponents/GameTags";
+import GameDevices from "../components/game/GameDevices";
+import GameRatings from "../components/game/GameRatings";
+import GameTags from "../components/game/GameTags";
 
-import FavoriteButton from "../components/ButtonsComponents/FavoriteButton";
-import GameShelfButton from "../components/ButtonsComponents/GameShelfButton";
+import FavoriteButton from "../components/buttons/FavoriteButton";
+import GameShelfButton from "../components/buttons/GameShelfButton";
 
 import "./GameDetails.css";
 

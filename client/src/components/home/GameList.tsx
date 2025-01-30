@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 import type GameType from "../../interface/GameType";
 
-import GameCard from "../GameComponents/GameCard";
 import SearchBar from "../SearchBar";
+import GameCard from "../game/GameCard";
 import FilterGame from "./FiltersGame";
 
 import "./GameList.css";

@@ -1,6 +1,6 @@
-import Featured from "../components/HomeComponents/Featured";
-import GameList from "../components/HomeComponents/GameList";
-import WelcomeBanner from "../components/HomeComponents/WelcomeBanner";
+import Featured from "../components/home/Featured";
+import GameList from "../components/home/GameList";
+import WelcomeBanner from "../components/home/WelcomeBanner";
 
 import "./Home.css";
 

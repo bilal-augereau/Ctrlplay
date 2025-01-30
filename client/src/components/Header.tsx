@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 
-import Avatar from "./UserComponents/Avatar";
+import Avatar from "./user/Avatar";
 
 import "./Header.css";
 

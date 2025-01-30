@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useAuth } from "../../context/UserContext";
 
-import FavoriteButton from "../ButtonsComponents/FavoriteButton";
-import GameShelfButton from "../ButtonsComponents/GameShelfButton";
-import InfosButton from "../ButtonsComponents/InfosButton";
+import FavoriteButton from "../buttons/FavoriteButton";
+import GameShelfButton from "../buttons/GameShelfButton";
+import InfosButton from "../buttons/InfosButton";
 import GameDevices from "./GameDevices";
 
 import type GameType from "../../interface/GameType";

@@ -7,9 +7,9 @@ import rezio from "../assets/images/avatar/avatarezio.png";
 import scorpion from "../assets/images/avatar/avatarscorpion.png";
 import spiderman from "../assets/images/avatar/avatarspider.png";
 
-import FeaturedGame from "../components/GameComponents/GameFeature";
-import GameListCategory from "../components/GameComponents/GameListCategory";
-import UserWelcome from "../components/UserComponents/UserWelcome";
+import FeaturedGame from "../components/game/GameFeature";
+import GameListCategory from "../components/user/GameListCategory";
+import UserWelcome from "../components/user/UserWelcome";
 
 import type DisplayModeCategory from "../interface/GameCategoryType";
 import type GameType from "../interface/GameType";
