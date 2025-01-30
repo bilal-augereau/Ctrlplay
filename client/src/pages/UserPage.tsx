@@ -30,8 +30,8 @@ function UserPage() {
 			const response = await fetch(
 				`${import.meta.env.VITE_API_URL}/api/games/33`,
 			);
-			const data = await response.json();
-			setGameFeatured(data);
+			const games = await response.json();
+			setGameFeatured(games);
 		};
 
 		fetchFeaturedGame();

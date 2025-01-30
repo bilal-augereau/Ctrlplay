@@ -8,17 +8,16 @@ interface FeaturedGameProps {
 	game: GameType;
 }
 
-const FeaturedGame = ({ game }: FeaturedGameProps) => {
-	const shortenDescription = (description: string, maxChar: number) => {
-		if (description.length <= maxChar) return description;
-		const shorten = description.slice(0, maxChar);
-		return `${shorten.slice(0, shorten.lastIndexOf(" "))}...`;
-	};
-
+const GameFeature = ({ game }: FeaturedGameProps) => {
 	const shortDescription = parse(
-		DOMPurify.sanitize(shortenDescription(game.description, 250), {
-			USE_PROFILES: { html: true },
-		}),
+		DOMPurify.sanitize(
+			game.description.length <= 250
+				? game.description
+				: `${game.description.slice(0, game.description.slice(0, 250).lastIndexOf(" "))}...`,
+			{
+				USE_PROFILES: { html: true },
+			},
+		),
 	);
 
 	return (
@@ -41,4 +40,4 @@ const FeaturedGame = ({ game }: FeaturedGameProps) => {
 	);
 };
 
-export default FeaturedGame;
+export default GameFeature;
