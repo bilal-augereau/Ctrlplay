@@ -34,6 +34,8 @@ router.get("/api/tags", tagActions.browse);
 
 router.get("/api/publishers", publisherActions.browse);
 
+router.post("/api/gameshelf", gameShelfActions.add);
+router.delete("/api/gameshelf", gameShelfActions.remove);
 router.post("/api/gameshelf", authServices.isAuthorized, gameShelfActions.add);
 router.delete(
 	"/api/gameshelf/",
@@ -46,5 +48,8 @@ router.get("/api/users/:id", authServices.isAuthorized, userActions.read);
 router.post("/api/users", authServices.hashPassword, userActions.add);
 router.post("/api/login", authActions.login);
 router.get("/api/users/:id/recommandation", gameActions.browseReco);
+router.get("/api/users/:id/games", gameShelfActions.browseUserGames);
+router.get("/api/users/:id/favorites", gameShelfActions.browseFavorite);
+router.get("/api/users/:id/todo", gameShelfActions.browseToDo);
 
 export default router;

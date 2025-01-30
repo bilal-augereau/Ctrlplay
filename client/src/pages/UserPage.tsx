@@ -1,6 +1,6 @@
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 
 import "./UserPage.css";
@@ -22,6 +22,12 @@ function UserPage() {
 
 	// TO DO : UPDATE WHEN CRITERIA FOR FEATURED GAMES DEFINED
 	const gameFeaturedId = 33;
+	const [displayMode, setDisplayMode] = useState<
+		"recommendations" | "allGames" | "favorites" | "toDo"
+	>("recommendations");
+	const [userGames, setUserGames] = useState<GameType[]>([]);
+	const [favoriteGames, setFavoriteGames] = useState<GameType[]>([]);
+	const [toDoGames, setToDoGames] = useState<GameType[]>([]);
 
 	const [gameFeatured, setGameFeatured] = useState<GameType>();
 	useEffect(() => {
@@ -47,11 +53,105 @@ function UserPage() {
 
 	const [gamesReco, setGamesReco] = useState<GameType[]>();
 	useEffect(() => {
-		fetch(`${import.meta.env.VITE_API_URL}/api/users/${user.id}/recommandation`)
-			.then((res) => res.json())
-			.then((data) => setGamesReco(data));
-	});
+		if (user?.id)
+			fetch(
+				`${import.meta.env.VITE_API_URL}/api/users/${user.id}/recommandation`,
+			)
+				.then((res) => res.json())
+				.then((data) => setGamesReco(data));
+	}, [user?.id]);
 	const [gamesRecoLength, setGamesRecoLength] = useState<number>(20);
+
+	const loadUserGames = useCallback(async () => {
+		if (!user?.id) {
+			console.error("User not found.");
+			return;
+		}
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/users/${user.id}/games`,
+			);
+			const data = await response.json();
+
+			if (data.error) {
+				console.error("API error:", data.error);
+				setUserGames([]);
+				return;
+			}
+
+			setUserGames(Array.isArray(data) ? data : []);
+		} catch (error) {
+			console.error("Error loading user games:", error);
+			setUserGames([]);
+		}
+	}, [user?.id]);
+
+	const loadFavoriteGames = async () => {
+		if (!user?.id) {
+			console.error("User not found.");
+			return;
+		}
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/users/${user.id}/favorites`,
+			);
+			const data = await response.json();
+
+			if (data.error) {
+				console.error("API error:", data.error);
+				setFavoriteGames([]);
+				return;
+			}
+
+			setFavoriteGames(Array.isArray(data) ? data : []);
+		} catch (error) {
+			console.error("Error loading favorite games:", error);
+			setFavoriteGames([]);
+		}
+	};
+
+	const loadToDoGames = async () => {
+		if (!user?.id) {
+			console.error("User not found.");
+			return;
+		}
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/users/${user.id}/todo`,
+			);
+			const data = await response.json();
+
+			if (data.error) {
+				console.error("API error:", data.error);
+				setToDoGames([]);
+				return;
+			}
+
+			setToDoGames(Array.isArray(data) ? data : []);
+		} catch (error) {
+			console.error("Error loading to-do games:", error);
+			setToDoGames([]);
+		}
+	};
+
+	useEffect(() => {
+		if (displayMode === "allGames") {
+			loadUserGames();
+		}
+	}, [displayMode, loadUserGames]);
+
+	const handleButtonClick = (
+		mode: "recommendations" | "allGames" | "favorites" | "toDo",
+	) => {
+		setDisplayMode(mode);
+		if (mode === "allGames") {
+			loadUserGames();
+		} else if (mode === "favorites") {
+			loadFavoriteGames();
+		} else if (mode === "toDo") {
+			loadToDoGames();
+		}
+	};
 
 	return (
 		<main id="user-main">
@@ -95,15 +195,30 @@ function UserPage() {
 				<h3>Search a game</h3>
 				<p>Insérer ici le search bar d'Emilie</p>
 				<div id="user-buttons">
-					<button type="button" className="user-buttons" id="user-button-1">
+					<button
+						type="button"
+						className="user-buttons"
+						id="user-button-1"
+						onClick={() => handleButtonClick("favorites")}
+					>
 						<img src={spiderman} alt="favorites" className="user-buttons-img" />
 						Favorites
 					</button>
-					<button type="button" className="user-buttons" id="user-button-2">
+					<button
+						type="button"
+						className="user-buttons"
+						id="user-button-2"
+						onClick={() => handleButtonClick("toDo")}
+					>
 						<img src={rezio} alt="to-do-list" className="user-buttons-img" />
 						To do list
 					</button>
-					<button type="button" className="user-buttons" id="user-button-3">
+					<button
+						type="button"
+						className="user-buttons"
+						id="user-button-3"
+						onClick={() => handleButtonClick("allGames")}
+					>
 						<img
 							src={scorpion}
 							alt="all-my-games"
@@ -113,23 +228,62 @@ function UserPage() {
 					</button>
 				</div>
 				<article>
-					<h3 id="user-recommandation-title">Recommandations</h3>
-					{gamesReco ? (
+					<h3 id="user-recommandation-title">
+						{displayMode === "recommendations"
+							? "Recommandations"
+							: displayMode === "allGames"
+								? "All My Games"
+								: displayMode === "favorites"
+									? "Favorite Games"
+									: displayMode === "toDo"
+										? "To-Do List"
+										: "Games"}
+					</h3>
+					{displayMode === "recommendations" && gamesReco ? (
 						<div id="user-game-list">
 							{gamesReco.slice(0, gamesRecoLength - 1).map((game: GameType) => (
 								<GameCard game={game} key={game.id} />
 							))}
 						</div>
-					) : (
-						<></>
+					) : displayMode === "allGames" ? (
+						<div id="user-game-list">
+							{userGames.map((game: GameType) => (
+								<GameCard game={game} key={game.id} />
+							))}
+						</div>
+					) : displayMode === "favorites" ? (
+						<div id="user-game-list">
+							{favoriteGames.length > 0 ? (
+								favoriteGames.map((game: GameType) => (
+									<GameCard game={game} key={game.id} />
+								))
+							) : (
+								<p>No favorite games found.</p>
+							)}
+						</div>
+					) : null}
+
+					{displayMode === "recommendations" && (
+						<button
+							type="button"
+							className="beautiful-button user-beautiful-button"
+							onClick={() => setGamesRecoLength(gamesRecoLength + 10)}
+						>
+							More...
+						</button>
 					)}
-					<button
-						type="button"
-						className="beautiful-button user-beautiful-button"
-						onClick={() => setGamesRecoLength(gamesRecoLength + 10)}
-					>
-						More...
-					</button>
+
+					{displayMode === "toDo" ? (
+						<div id="user-game-list">
+							{toDoGames.length > 0 ? (
+								toDoGames.map((game: GameType) => (
+									<GameCard game={game} key={game.id} />
+								))
+							) : (
+								<p>No games in to-do list.</p>
+							)}
+						</div>
+					) : null}
 				</article>
 			</section>
 		</main>
