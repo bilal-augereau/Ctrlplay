@@ -1,6 +1,6 @@
 import type DisplayModeCategory from "../../interface/GameCategoryType";
 import type GameType from "../../interface/GameType";
-import GameCard from "../GameCard";
+import GameCard from "./GameCard";
 
 interface GameListProps {
 	games: GameType[];
