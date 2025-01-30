@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import favoriteFull from "../assets/images/button_icons/favorite.png";
+import favoriteImage from "../assets/images/button_icons/favorite.png";
 import favoriteEmpty from "../assets/images/button_icons/favorite_empty.png";
 
 const favoriteButton = ({
@@ -81,11 +81,11 @@ const favoriteButton = ({
 		>
 			{isInLibrary ? (
 				<img
-					src={isFavorite ? favoriteFull : favoriteEmpty}
+					src={isFavorite ? favoriteImage : favoriteEmpty}
 					alt="Favorite Icon"
 				/>
 			) : (
-				<img src={favoriteFull} alt="Favorite Icon" />
+				<img src={favoriteImage} alt="Favorite Icon" />
 			)}
 		</button>
 	);
