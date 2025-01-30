@@ -173,7 +173,7 @@ function SignUp() {
 							later on your profile page.
 						</p>
 					</div>
-					<div className="buttons">
+					<div className="buttons" id="buttonsignup">
 						<button id="buttonwidth" className="beautiful-button" type="button">
 							Complete my profile
 						</button>
