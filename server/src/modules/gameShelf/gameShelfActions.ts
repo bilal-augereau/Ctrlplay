@@ -96,7 +96,7 @@ const exists: RequestHandler = async (req, res, next) => {
 	}
 };
 
-const browseUserGames: RequestHandler = async (req, res, next) => {
+const browseGamesByUser: RequestHandler = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 
@@ -106,7 +106,7 @@ const browseUserGames: RequestHandler = async (req, res, next) => {
 		const games = await gameShelfRepository.readAllByUser(Number(id));
 		res.json(games || []);
 	} catch (err) {
-		console.error("Erreur dans getUserGames:", err);
+		next(err);
 	}
 };
 
@@ -129,7 +129,7 @@ const isFavorite: RequestHandler = async (req, res, next) => {
 	}
 };
 
-const browseFavorite: RequestHandler = async (req, res, next) => {
+const browseFavorites: RequestHandler = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 
@@ -243,8 +243,8 @@ export default {
 	add,
 	remove,
 	exists,
-	browseUserGames,
-	browseFavorite,
+	browseGamesByUser,
+	browseFavorites,
 	browseToDo,
 	updateFavorite,
 	isFavorite,
