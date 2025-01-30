@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import favoriteImage from "../assets/images/button_icons/favorite.png";
-import favoriteEmpty from "../assets/images/button_icons/favorite_empty.png";
+
+import favoriteImage from "../../assets/images/button_icons/favorite.png";
+import favoriteEmpty from "../../assets/images/button_icons/favorite_empty.png";
 
 const favoriteButton = ({
 	userId,

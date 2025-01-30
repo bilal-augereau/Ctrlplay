@@ -8,7 +8,7 @@ import "./UserPage.css";
 import type GameType from "../interface/GameType";
 import type UserType from "../interface/UserType";
 
-import GameCard from "../components/GameCard";
+import GameCard from "../components/GameComponents/GameCard";
 import GameRatings from "../components/GameComponents/GameRatings";
 import Avatar from "../components/UserComponents/Avatar";
 import Top3 from "../components/UserComponents/Top3";

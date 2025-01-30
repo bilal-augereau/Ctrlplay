@@ -1,8 +1,10 @@
-import "./Login.css";
 import { useRef, useState } from "react";
 import type { FormEventHandler } from "react";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
-import type { AppContextInterface } from "../types/appContext.type";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useAuth } from "../context/UserContext";
+
+import "./Login.css";
 
 function Login() {
 	const navigate = useNavigate();
@@ -10,7 +12,7 @@ function Login() {
 	const [error, setError] = useState("");
 	const pseudoRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
-	const { setUser } = useOutletContext<AppContextInterface>();
+	const { setUser } = useAuth();
 
 	const handleInputChange = () => {
 		setError("");
