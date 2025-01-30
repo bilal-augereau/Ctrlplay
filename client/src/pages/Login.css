@@ -30,14 +30,11 @@
 	color: var(--soft-blue);
 }
 
-.buttons {
+#buttonlogin {
+	margin-top: 1rem;
 	display: flex;
 	justify-content: center;
 	gap: 5rem;
-}
-
-#buttonlogin {
-	margin-top: 1rem;
 }
 
 .formsignup {
