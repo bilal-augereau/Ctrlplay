@@ -96,7 +96,7 @@ const exists: RequestHandler = async (req, res, next) => {
 	}
 };
 
-const browseGames: RequestHandler = async (req, res, next) => {
+const browseGamesByUser: RequestHandler = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 
@@ -243,7 +243,7 @@ export default {
 	add,
 	remove,
 	exists,
-	browseGames,
+	browseGamesByUser,
 	browseFavorites,
 	browseToDo,
 	updateFavorite,
