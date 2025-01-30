@@ -66,9 +66,9 @@ class gameShelfRepository {
 		return games;
 	}
 
-	async readFeaturedGames(id: number) {
+	async readFeaturedGames() {
 		const [games] = await databaseClient.query<Rows>(
-			"SELECT game_id, COUNT(*) AS number_add FROM game_shelf GROUP BY game_id GROUP BY number_add DESC LIMIT 5",
+			"SELECT game_id, COUNT(*) AS number_add FROM game_shelf GROUP BY game_id ORDER BY number_add DESC LIMIT 5",
 		);
 
 		return games;

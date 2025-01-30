@@ -10,14 +10,14 @@ import authActions from "./modules/auth/authActions";
 import authServices from "./modules/auth/authServices";
 import deviceActions from "./modules/device/deviceActions";
 import gameActions from "./modules/game/gameActions";
+import gameShelfActions from "./modules/gameShelf/gameShelfActions";
 import genreActions from "./modules/genre/genreActions";
 import publisherActions from "./modules/publisher/publisherActions";
 import tagActions from "./modules/tag/tagActions";
-
-router.get("/api/games", gameActions.browse);
-import gameShelfActions from "./modules/gameShelf/gameShelfActions";
 import userActions from "./modules/user/userActions";
 
+router.get("/api/games", gameActions.browse);
+router.put("api/games/featured", gameShelfActions.browseFeaturedGames);
 router.get("/api/games/:id", gameActions.read);
 router.put("/api/gameshelf", gameShelfActions.updateFavorite);
 router.post("/api/gameshelf", gameShelfActions.add);
