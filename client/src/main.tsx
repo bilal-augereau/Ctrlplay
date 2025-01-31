@@ -10,8 +10,9 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
 
+import PrivateRoute from "./components/PrivateRoute";
+
 import getGameDetails from "./services/game";
-import getUserDetails from "./services/user";
 
 const router = createBrowserRouter([
 	{
@@ -22,11 +23,14 @@ const router = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: "/user/:id",
-				element: <UserPage />,
-				loader: ({ params }) => {
-					return getUserDetails(params.id ?? "0");
-				},
+				path: "/user",
+				element: <PrivateRoute />,
+				children: [
+					{
+						path: ":id",
+						element: <UserPage />,
+					},
+				],
 			},
 			{
 				path: "/game/:id",

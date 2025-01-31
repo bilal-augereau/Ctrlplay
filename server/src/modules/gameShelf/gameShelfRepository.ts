@@ -112,6 +112,7 @@ class gameShelfRepository {
 
 		return games as GameType[];
 	}
+
 	async readToDoByUser(userId: number, order?: string, limit?: number) {
 		const queries = [];
 		const values: (string | number)[] = [userId];

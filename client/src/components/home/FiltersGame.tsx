@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import "./FiltersGame.css";
 import { MultiSelect } from "react-multi-select-component";
+
+import "./FiltersGame.css";
 
 type ObjectMultiSelect = { value: string; label: string };
 

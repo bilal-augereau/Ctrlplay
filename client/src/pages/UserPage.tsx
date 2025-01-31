@@ -1,29 +1,31 @@
+import { useEffect, useState } from "react";
+
+import "./UserPage.css";
+
 import rezio from "../assets/images/avatar/avatarezio.png";
 import scorpion from "../assets/images/avatar/avatarscorpion.png";
 import spiderman from "../assets/images/avatar/avatarspider.png";
 
-import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
-
-import FeaturedGame from "../components/GameComponents/GameFeature";
-import GameListCategory from "../components/GameComponents/GameListCategory";
-import UserWelcome from "../components/UserComponents/UserWelcome";
+import FeaturedGame from "../components/game/GameFeature";
+import GameListCategory from "../components/user/GameListCategory";
+import UserWelcome from "../components/user/UserWelcome";
 
 import type DisplayModeCategory from "../interface/GameCategoryType";
 import type GameType from "../interface/GameType";
 import type UserType from "../interface/UserType";
 
+import { useAuth } from "../context/UserContext";
 import { useGames } from "../services/useGames";
 
 import "./UserPage.css";
 
 function UserPage() {
-	const user = useLoaderData() as UserType;
+	const { user } = useAuth() as { user: UserType };
 	const [displayMode, setDisplayMode] =
 		useState<DisplayModeCategory>("recommendations");
-	const [gamesRecoLength, setGamesRecoLength] = useState(20);
+	const [gamesRecoLength, setGamesRecoLength] = useState(21);
 	const [gameFeatured, setGameFeatured] = useState<GameType>();
-	const { games, loadGames } = useGames(user?.id);
+	const { games, loadGames } = useGames(user.id, user.token);
 
 	useEffect(() => {
 		const fetchFeaturedGame = async () => {

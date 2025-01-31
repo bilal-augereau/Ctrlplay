@@ -1,8 +1,10 @@
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
+
+import GameRatings from "../game/GameRatings";
+
 import type GameType from "../../interface/GameType";
-import GameRatings from "../GameComponents/GameRatings";
 
 interface FeaturedGameProps {
 	game: GameType;
