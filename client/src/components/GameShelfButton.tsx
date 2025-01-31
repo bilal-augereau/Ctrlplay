@@ -1,3 +1,6 @@
+import addedlibrary from "../assets/images/button_icons/bookactive.png";
+import removedlibrary from "../assets/images/button_icons/bookinactive.png";
+
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -84,7 +87,12 @@ const GameShelfButton = ({
 			type="button"
 			onClick={isInLibrary ? removeFromLibrary : addToLibrary}
 			className={"beautiful-buttonadd"}
+			title={isInLibrary ? "Remove from library" : "Add to library"}
 		>
+			<img
+				src={isInLibrary ? addedlibrary : removedlibrary}
+				alt={isInLibrary ? "Remove from library" : "Add to library"}
+			/>
 			{isInLibrary ? "-" : "+"}
 		</button>
 	);

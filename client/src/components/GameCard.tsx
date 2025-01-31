@@ -1,5 +1,7 @@
+import GameShelfButton from "../components/GameShelfButton.tsx";
 import type GameType from "../interface/GameType";
 import GameDevices from "./GameComponents/GameDevices";
+
 import "./GameCard.css";
 import { useEffect } from "react";
 
@@ -49,9 +51,9 @@ function GameCard({ game }: GameCardProps) {
 					<button className="beautiful-buttonadd" type="button">
 						🤍
 					</button>
-					<button className="beautiful-buttonadd" type="button">
-						+
-					</button>
+					<div id="game-shelf-button">
+						<GameShelfButton userId={1} gameId={1} />
+					</div>
 				</div>
 			</div>
 		</div>
