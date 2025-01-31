@@ -1,17 +1,17 @@
-import { useOutletContext } from "react-router-dom";
-import Featured from "../components/Featured";
-import GameList from "../components/GameList";
-import WelcomeBanner from "../components/WelcomeBanner";
-import type { AppContextInterface } from "../types/appContext.type";
+import Featured from "../components/home/Featured";
+import GameList from "../components/home/GameList";
+import WelcomeBanner from "../components/home/WelcomeBanner";
+import { useAuth } from "../context/UserContext";
+
 import "./Home.css";
 
 function Home() {
-	const { user } = useOutletContext<AppContextInterface>();
+	const { user } = useAuth();
+
 	return (
 		<div>
-			<p>Welcome : {user?.pseudo}</p>
 			<header className="home-header" />
-			<WelcomeBanner />
+			{!user && <WelcomeBanner />}
 			<Featured />
 
 			<div className="game-list">

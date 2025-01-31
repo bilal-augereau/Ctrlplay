@@ -1,6 +1,9 @@
 import argon from "argon2";
-import type { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+
+import type { NextFunction, Request, Response } from "express";
+
+import gameShelfRepository from "../gameShelf/gameShelfRepository";
 import userRepository from "../user/userRepository";
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
@@ -22,6 +25,11 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 					expiresIn: "1h",
 				});
 				user.token = token;
+				user.topGames = await gameShelfRepository.readAllByUser(
+					user.id,
+					"DESC",
+					3,
+				);
 				res.status(200).json(user);
 			}
 		}
@@ -29,4 +37,5 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 		next(error);
 	}
 };
+
 export default { login };

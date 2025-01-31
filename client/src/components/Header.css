@@ -10,78 +10,83 @@
 .logo-button {
 	background-image: url("../assets/images/logocontrol.png");
 	background-repeat: no-repeat;
+	background-color: transparent;
+
 	height: 300px;
 	width: 300px;
-	background-color: transparent;
+
 	cursor: pointer;
 	border: none;
-	position: relative;
-	padding-left: 45vw;
+
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-inline: auto;
 }
 
-.buttons {
+.header-buttons {
 	display: flex;
 	gap: 10px;
+	align-items: center;
+
 	padding: 5px;
-	margin: 2px;
+	margin-right: 20px;
 }
 
-.top-portal-button {
-	background-image: url("../assets/images/button_icons/portalorange.png");
-
-	background-repeat: no-repeat;
-	background-color: transparent;
-	cursor: pointer;
-	border: none;
-	margin-top: 2%;
-	height: 75px;
-	width: 75px;
-	display: flex;
-	flex-direction: column-reverse;
-}
-
-.login-button {
-	background-image: url("../assets/images/button_icons/pipe.png");
+.header-button {
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-color: transparent;
 	cursor: pointer;
 	border: none;
 	height: 75px;
+	width: 60px;
+
 	display: flex;
 	flex-direction: column-reverse;
+	align-items: center;
+	justify-content: flex-start;
+
+	font-size: .6rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	color: var(--soft-blue);
+	text-align: center;
+
+	position: relative;
+}
+
+.top-portal-button {
+	background-image: url("../assets/images/button_icons/portalorange.png");
+	height: 40px;
+	width: 40px;
+}
+
+.login-button {
+	background-image: url("../assets/images/button_icons/pipe.png");
 }
 
 .login-button:hover {
 	transform: scale(1.1);
 }
 
-.login-button span {
-	margin-top: 10px;
-	font-size: 14px;
-	color: #fffbfb;
-	text-align: center;
-}
-
 .signup-button {
 	background-image: url("../assets/images/button_icons/bumper.png");
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-color: transparent;
-	cursor: pointer;
-	border: none;
-	height: 75px;
-	display: flex;
-	flex-direction: column-reverse;
+}
+
+.disconnect-button {
+	background-image: url("../assets/images/button_icons/disconnect.png");
+}
+
+.mypage-button img {
+	height: 60px;
+	width: auto;
+
+	position: absolute;
+	top: 0;
+	margin-inline: auto;
 }
 
 .signup-button:hover {
 	transform: scale(1.1);
-}
-
-.signup-button span {
-	margin-top: 10px;
-	font-size: 14px;
-	color: #fffbfb;
-	text-align: center;
 }
