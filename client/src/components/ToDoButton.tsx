@@ -32,8 +32,8 @@ const toDoButton = ({ userId, gameId }: { userId: number; gameId: number }) => {
 								headers: { "Content-Type": "application/json" },
 							},
 						);
-						const { isToDO } = await response.json();
-						setIsToDo(isToDO);
+						const { isToDo } = await response.json();
+						setIsToDo(isToDo);
 					} catch (err) {
 						toast.error("Error: Unable to check to do list status.", {
 							theme: "dark",

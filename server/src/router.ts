@@ -24,16 +24,15 @@ router.post("/api/gameshelf", gameShelfActions.add);
 router.delete("/api/gameshelf/", gameShelfActions.remove);
 router.get("/api/gameshelf/exists/:userId/:gameId", gameShelfActions.exists);
 router.get("/api/users/:id", userActions.read);
-router.put(
-	"/api/gameshelf/favorite",
-	gameShelfActions.updateFavorite,
+router.put("/api/gameshelf/favorite", gameShelfActions.updateFavorite);
+router.get(
+	"/api/gameshelf/isFavorite/:userId/:gameId",
 	gameShelfActions.isFavorite,
 );
-router.put(
-	"/api/gameshelf/to_do",
-	gameShelfActions.updateToDo,
-	gameShelfActions.isToDo,
-);
+
+router.put("/api/gameshelf/to_do", gameShelfActions.updateToDo);
+
+router.get("/api/gameshelf/isToDo/:userId/:gameId", gameShelfActions.isToDo);
 
 router.get("/api/genres", genreActions.browse);
 
