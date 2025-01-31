@@ -68,7 +68,7 @@ class gameShelfRepository {
 
 	async readFeaturedGames() {
 		const [games] = await databaseClient.query<Rows>(
-			"SELECT game_id, COUNT(*) AS number_add FROM game_shelf GROUP BY game_id ORDER BY number_add DESC LIMIT 5",
+			"WITH filtered_games AS (SELECT game_id, COUNT(*) AS number_add FROM game_shelf GROUP BY game_id ORDER BY number_add DESC LIMIT 5) SELECT filtered_games.*, g.*, GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers FROM filtered_games JOIN game AS g ON g.id = filtered_games.game_id LEFT JOIN game_genre AS gg ON gg.game_id = g.id LEFT JOIN genre ge ON gg.genre_id = ge.id LEFT JOIN game_device AS gd ON gd.game_id = g.id LEFT JOIN device d ON gd.device_id = d.id LEFT JOIN game_tag AS gt ON gt.game_id = g.id LEFT JOIN tag ON gt.tag_id = tag.id LEFT JOIN game_publisher AS gp ON gp.game_id = g.id LEFT JOIN publisher ON gp.publisher_id = publisher.id GROUP BY g.id",
 		);
 
 		return games;

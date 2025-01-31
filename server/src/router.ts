@@ -17,7 +17,7 @@ import tagActions from "./modules/tag/tagActions";
 import userActions from "./modules/user/userActions";
 
 router.get("/api/games", gameActions.browse);
-router.put("api/games/featured", gameShelfActions.browseFeaturedGames);
+router.get("/api/games/featured/today", gameShelfActions.browseFeaturedGames);
 router.get("/api/games/:id", gameActions.read);
 router.put("/api/gameshelf", gameShelfActions.updateFavorite);
 router.post("/api/gameshelf", gameShelfActions.add);

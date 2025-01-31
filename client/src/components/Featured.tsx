@@ -11,15 +11,14 @@ const Featured = () => {
 	useEffect(() => {
 		const fetchGames = async () => {
 			try {
-				const response = await fetch("http://localhost:3310/api/games");
+				const response = await fetch(
+					"http://localhost:3310/api/games/featured/today",
+				);
 				if (!response.ok) {
 					throw new Error("Failed to fetch games");
 				}
-				const allGames = await response.json();
-				const filteredGames = allGames.filter((game: GameType) =>
-					[1, 16, 32, 66].includes(Number(game.id)),
-				);
-				setGames(filteredGames);
+				const featuredGames = await response.json();
+				setGames(featuredGames);
 			} catch (error) {
 				console.error("Error fetching games:", error);
 			}

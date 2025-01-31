@@ -198,7 +198,7 @@ const removeFavorite: RequestHandler = async (req, res, next) => {
 
 const browseFeaturedGames: RequestHandler = async (req, res, next) => {
 	try {
-		const [games] = await gameShelfRepository.readFeaturedGames();
+		const games = await gameShelfRepository.readFeaturedGames();
 		res.json(games);
 	} catch (err) {
 		console.error("Error retrieving featured games", err);

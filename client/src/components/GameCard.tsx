@@ -1,15 +1,12 @@
 import type GameType from "../interface/GameType";
 import GameDevices from "./GameComponents/GameDevices";
 import "./GameCard.css";
-import { useEffect } from "react";
 
 interface GameCardProps {
 	game: GameType;
 }
 
 function GameCard({ game }: GameCardProps) {
-	useEffect(() => console.log(game));
-
 	return (
 		<div className="card-game">
 			{game.image && <img src={game.image} alt={`${game.title} cover`} />}
