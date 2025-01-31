@@ -52,5 +52,8 @@ router.get("/api/users/:id", authServices.isAuthorized, userActions.read);
 router.post("/api/users", authServices.hashPassword, userActions.add);
 router.post("/api/login", authActions.login);
 router.get("/api/users/:id/recommandation", gameActions.browseReco);
+router.get("/api/users/:id/games", gameShelfActions.browseGamesByUser);
+router.get("/api/users/:id/favorites", gameShelfActions.browseFavorites);
+router.get("/api/users/:id/todo", gameShelfActions.browseToDo);
 
 export default router;

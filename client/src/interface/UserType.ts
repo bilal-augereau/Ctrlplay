@@ -1,7 +1,7 @@
 import type GameType from "./GameType";
 
 type UserGame = {
-	id: string;
+	id: number;
 	pseudo: string;
 	avatar: string;
 	topGames?: GameType[];
