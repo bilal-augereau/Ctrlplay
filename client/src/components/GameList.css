@@ -1,5 +1,5 @@
 #box-principal {
-	background-color: #18181b;
+	background-color: var(--background-color);
 	padding: 30px;
 	position: relative;
 	text-align: center;

@@ -18,7 +18,6 @@
 
 .featured-card {
 	display: flex;
-
 	align-items: flex-end;
 	width: 100%;
 }
@@ -29,27 +28,30 @@
 }
 
 .game-image {
-	max-width: 450px;
-	height: 350px;
+	max-width: 400px;
+	height: 300px;
 	border-radius: 10px;
 	border: 2px solid #a661d0;
 	cursor: pointer;
 	transition: transform 0.3s ease, opacity 0.3s ease;
-	margin-left: 10%;
+	margin-left: 5%;
+}
+
+.device-container {
+	gap: 25px;
 }
 
 .thumb-text {
-	margin-left: 10%;
+	margin-left: 20px;
 	height: 43vh;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	align-items: center;
 }
 
 .game-thumbnail {
 	margin-top: 10px;
-	width: 300px;
+	width: 200px;
 	height: auto;
 	border-radius: 5px;
 	border: 2px solid #a661d0;

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type GameType from "../interface/GameType";
 import "./featured.css";
+import DOMPurify from "dompurify";
+import parse from "html-react-parser";
 import GameDevices from "./GameComponents/GameDevices";
 
 const Featured = () => {
@@ -26,6 +28,20 @@ const Featured = () => {
 
 		fetchGames();
 	}, []);
+
+	const shortenDescription = (game: GameType) => {
+		const shortDescription = parse(
+			DOMPurify.sanitize(
+				game.description.length <= 200
+					? game.description
+					: `${game.description.slice(0, game.description.slice(0, 200).lastIndexOf(" "))}...`,
+				{
+					USE_PROFILES: { html: true },
+				},
+			),
+		);
+		return shortDescription;
+	};
 
 	const handleNext = () => {
 		if (games.length > 0) {
@@ -102,17 +118,15 @@ const Featured = () => {
 						</div>
 
 						<p className="game-genres">
-							{" "}
 							{Array.isArray(games[currentIndex]?.genres)
 								? games[currentIndex]?.genres.join(", ")
 								: games[currentIndex]?.genres || "Unknown"}
 						</p>
 
-						<p className="game-tags">
-							#{" "}
-							{Array.isArray(games[currentIndex]?.tags)
-								? games[currentIndex]?.tags.join(", ")
-								: games[currentIndex]?.tags || "Unknown"}
+						<p className="short-description">
+							{shortenDescription(games[currentIndex]) && (
+								<p>{shortenDescription(games[currentIndex])}</p>
+							)}
 						</p>
 
 						<img
