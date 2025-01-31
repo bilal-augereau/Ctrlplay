@@ -29,6 +29,11 @@ router.put(
 	gameShelfActions.updateFavorite,
 	gameShelfActions.isFavorite,
 );
+router.put(
+	"/api/gameshelf/to_do",
+	gameShelfActions.updateToDo,
+	gameShelfActions.isToDo,
+);
 
 router.get("/api/genres", genreActions.browse);
 
