@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import toDoImage from "../assets/images/button_icons/check.png";
-import toDoEmpty from "../assets/images/button_icons/checkempty.png";
+import toDoImage from "../../assets/images/button_icons/check.png";
+import toDoEmpty from "../../assets/images/button_icons/checkempty.png";
 
 const toDoButton = ({ userId, gameId }: { userId: number; gameId: number }) => {
 	const [isInLibrary, setIsInLibrary] = useState(false);
