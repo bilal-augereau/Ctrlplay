@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/UserContext";
 
 const GameShelfButton = ({
 	userId,
@@ -9,6 +10,7 @@ const GameShelfButton = ({
 	gameId: number;
 }) => {
 	const [isInLibrary, setIsInLibrary] = useState(false);
+	const { user } = useAuth();
 
 	useEffect(() => {
 		const checkLibrary = async () => {
@@ -19,6 +21,7 @@ const GameShelfButton = ({
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
+							Authorization: `${user?.token}`,
 						},
 					},
 				);
@@ -29,7 +32,7 @@ const GameShelfButton = ({
 			}
 		};
 		checkLibrary();
-	}, [gameId, userId]);
+	}, [gameId, userId, user]);
 
 	const addToLibrary = async () => {
 		try {
@@ -37,6 +40,7 @@ const GameShelfButton = ({
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `${user?.token}`,
 				},
 				body: JSON.stringify({ userId, gameId }),
 			});
@@ -46,6 +50,10 @@ const GameShelfButton = ({
 					theme: "dark",
 				});
 				setIsInLibrary(true);
+			} else if (response.status === 401) {
+				toast.error(
+					"Problem with authentification, try disconnect and relogin",
+				);
 			} else {
 				toast.error("Game already exists in the user's library.", {
 					theme: "dark",
@@ -62,6 +70,7 @@ const GameShelfButton = ({
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `${user?.token}`,
 				},
 				body: JSON.stringify({ userId, gameId }),
 			});

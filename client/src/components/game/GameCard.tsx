@@ -1,14 +1,20 @@
-import type GameType from "../interface/GameType";
-import GameDevices from "./GameComponents/GameDevices";
+import { useAuth } from "../../context/UserContext";
+
+import FavoriteButton from "../buttons/FavoriteButton";
+import GameShelfButton from "../buttons/GameShelfButton";
+import InfosButton from "../buttons/InfosButton";
+import GameDevices from "./GameDevices";
+
+import type GameType from "../../interface/GameType";
+
 import "./GameCard.css";
-import { useEffect } from "react";
 
 interface GameCardProps {
 	game: GameType;
 }
 
 function GameCard({ game }: GameCardProps) {
-	useEffect(() => console.log(game));
+	const { user } = useAuth();
 
 	return (
 		<div className="card-game">
@@ -40,18 +46,21 @@ function GameCard({ game }: GameCardProps) {
 
 				<p>{game.genres || "Unknown"}</p>
 				<div className="button-container">
-					<button id="" className="beautiful-buttonadd" type="button">
-						i
-					</button>
-					<button className="beautiful-buttonadd" type="button">
-						✔
-					</button>
-					<button className="beautiful-buttonadd" type="button">
-						🤍
-					</button>
-					<button className="beautiful-buttonadd" type="button">
-						+
-					</button>
+					<InfosButton id={game.id} />
+					{user ? (
+						<>
+							<GameShelfButton
+								userId={user.id}
+								gameId={Number.parseInt(game.id)}
+							/>
+							<FavoriteButton
+								userId={user.id}
+								gameId={Number.parseInt(game.id)}
+							/>
+						</>
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
 		</div>

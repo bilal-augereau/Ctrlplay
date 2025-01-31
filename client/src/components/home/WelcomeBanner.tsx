@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import "./WelcomeBanner.css";
 
 const Banner = () => {
@@ -9,7 +10,7 @@ const Banner = () => {
 	if (!isVisible) return null;
 
 	return (
-		<div className="content-box" id="welcome-banner">
+		<div className="content-box homepage-content-box" id="welcome-banner">
 			<button
 				type="button"
 				className="content-boxclose"
