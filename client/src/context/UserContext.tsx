@@ -1,12 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
-
-type UserType = {
-	id: number;
-	pseudo: string;
-	password: string;
-	avatar: string;
-};
+import type UserType from "../interface/UserType";
 
 type UserContextType = {
 	user: UserType | null;

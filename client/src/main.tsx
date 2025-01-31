@@ -13,7 +13,6 @@ import UserPage from "./pages/UserPage";
 import PrivateRoute from "./components/PrivateRoute";
 
 import getGameDetails from "./services/game";
-import getUserDetails from "./services/user";
 
 const router = createBrowserRouter([
 	{
@@ -30,7 +29,6 @@ const router = createBrowserRouter([
 					{
 						path: ":id",
 						element: <UserPage />,
-						loader: ({ params }) => getUserDetails(params.id ?? "0"),
 					},
 				],
 			},

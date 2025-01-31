@@ -48,15 +48,16 @@ function Login() {
 			if (response.status === 200) {
 				const user = await response.json();
 				setUser(user);
-				navigate("/");
+				navigate(`/user/${user.id}`);
 			} else {
-				setError("Error: Unable to create user account.");
+				setError("Error: Unable to log in.");
 			}
 		} catch (error) {
 			console.error(error);
 			setError("Error: Unable to connect to the server.");
 		}
 	};
+
 	return (
 		<>
 			{error && error}

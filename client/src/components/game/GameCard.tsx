@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAuth } from "../../context/UserContext";
 
 import FavoriteButton from "../buttons/FavoriteButton";
@@ -15,7 +14,6 @@ interface GameCardProps {
 }
 
 function GameCard({ game }: GameCardProps) {
-	useEffect(() => console.log(game));
 	const { user } = useAuth();
 
 	return (

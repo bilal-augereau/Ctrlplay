@@ -4,6 +4,7 @@ type UserType = {
 	id: number;
 	pseudo: string;
 	avatar: string;
+	token: string;
 	topGames?: GameType[];
 };
 

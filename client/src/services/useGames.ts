@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import type DisplayModeCategory from "../interface/GameCategoryType";
 import type GameType from "../interface/GameType";
 
-export const useGames = (userId: number) => {
+export const useGames = (userId: number, userToken: string) => {
 	const [games, setGames] = useState<{
 		userGames: GameType[];
 		favoriteGames: GameType[];
@@ -32,7 +32,9 @@ export const useGames = (userId: number) => {
 
 			try {
 				const apiUrl = `${import.meta.env.VITE_API_URL}/api/users/${userId}/${endpoints[mode]}`;
-				const response = await fetch(apiUrl);
+				const response = await fetch(apiUrl, {
+					headers: { Authorization: userToken },
+				});
 
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
@@ -61,7 +63,7 @@ export const useGames = (userId: number) => {
 				console.error(`Error loading ${mode} games:`, error);
 			}
 		},
-		[userId],
+		[userId, userToken],
 	);
 
 	return { games, loadGames };

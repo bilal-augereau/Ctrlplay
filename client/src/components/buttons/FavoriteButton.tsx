@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/UserContext";
 
 import favoriteImage from "../../assets/images/button_icons/favorite.png";
 import favoriteEmpty from "../../assets/images/button_icons/favorite_empty.png";
 
-const favoriteButton = ({
-	userId,
-	gameId,
-}: { userId: number; gameId: number }) => {
+const favoriteButton = ({ gameId }: { userId: number; gameId: number }) => {
 	const [isInLibrary, setIsInLibrary] = useState(false);
 	const [isFavorite, setIsFavorite] = useState(false);
+	const { user } = useAuth();
+	const userId = user?.id;
 
 	useEffect(() => {
 		if (isFavorite) setIsInLibrary(true);
@@ -22,7 +22,10 @@ const favoriteButton = ({
 					`http://localhost:3310/api/gameshelf/exists/${userId}/${gameId}`,
 					{
 						method: "GET",
-						headers: { "Content-Type": "application/json" },
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `${user?.token}`,
+						},
 					},
 				);
 				const { exists } = await response.json();
@@ -33,7 +36,10 @@ const favoriteButton = ({
 							`http://localhost:3310/api/gameshelf/isFavorite/${userId}/${gameId}`,
 							{
 								method: "GET",
-								headers: { "Content-Type": "application/json" },
+								headers: {
+									"Content-Type": "application/json",
+									Authorization: `${user?.token}`,
+								},
 							},
 						);
 						const { isFavorite } = await response.json();
@@ -52,13 +58,16 @@ const favoriteButton = ({
 		};
 
 		fetchGameStatus();
-	}, [gameId, userId]);
+	}, [gameId, userId, user]);
 
 	const handleToggleFavorite = async () => {
 		try {
 			await fetch("http://localhost:3310/api/gameshelf/favorite", {
 				method: "PUT",
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `${user?.token}`,
+				},
 				body: JSON.stringify({ userId, gameId }),
 			});
 
