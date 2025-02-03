@@ -49,10 +49,12 @@ function GameCard({ game }: GameCardProps) {
 					<InfosButton id={game.id} />
 					{user ? (
 						<>
-							<GameShelfButton
-								userId={user.id}
-								gameId={Number.parseInt(game.id)}
-							/>
+							<div id="game-shelf-button">
+								<GameShelfButton
+									userId={user.id}
+									gameId={Number.parseInt(game.id)}
+								/>
+							</div>
 							<FavoriteButton
 								userId={user.id}
 								gameId={Number.parseInt(game.id)}
