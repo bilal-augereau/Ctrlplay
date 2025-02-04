@@ -19,9 +19,9 @@ class gameShelfRepository {
 		);
 	}
 
-	async exists(userId: number, gameId: number) {
+	async readAllGameShelf(userId: number, gameId: number) {
 		const [rows] = await databaseClient.query<Rows>(
-			"SELECT 1 FROM game_shelf WHERE user_id = ? AND game_id = ?",
+			"SELECT * FROM game_shelf WHERE user_id = ? AND game_id = ?",
 			[userId, gameId],
 		);
 		return rows.length > 0;

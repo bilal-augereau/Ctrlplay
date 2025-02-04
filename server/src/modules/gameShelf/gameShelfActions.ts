@@ -21,7 +21,7 @@ const add: RequestHandler = async (req, res, next) => {
 			res.status(404).json({ error: "Game not found." });
 		}
 
-		const alreadyExists = await gameShelfRepository.exists(
+		const alreadyExists = await gameShelfRepository.readAllGameShelf(
 			Number(userId),
 			Number(gameId),
 		);
@@ -59,7 +59,7 @@ const remove: RequestHandler = async (req, res, next) => {
 			res.status(404).json({ error: "Game not found." });
 		}
 
-		const exists = await gameShelfRepository.exists(
+		const exists = await gameShelfRepository.readAllGameShelf(
 			Number(userId),
 			Number(gameId),
 		);
@@ -77,7 +77,7 @@ const remove: RequestHandler = async (req, res, next) => {
 	}
 };
 
-const exists: RequestHandler = async (req, res, next) => {
+const browseAllGameShelf: RequestHandler = async (req, res, next) => {
 	try {
 		const { userId, gameId } = req.params;
 
@@ -85,7 +85,7 @@ const exists: RequestHandler = async (req, res, next) => {
 			res.status(400).json({ error: "Both userId and gameId are required." });
 		}
 
-		const exists = await gameShelfRepository.exists(
+		const exists = await gameShelfRepository.readAllGameShelf(
 			Number(userId),
 			Number(gameId),
 		);
@@ -176,7 +176,7 @@ const updateFavorite: RequestHandler = async (req, res, next) => {
 				if (!game) {
 					res.status(404).json({ error: "Game not found." });
 				} else {
-					const alreadyExists = await gameShelfRepository.exists(
+					const alreadyExists = await gameShelfRepository.readAllGameShelf(
 						userId,
 						gameId,
 					);
@@ -275,7 +275,7 @@ const updateToDo: RequestHandler = async (req, res, next) => {
 				if (!game) {
 					res.status(404).json({ error: "Game not found." });
 				} else {
-					const alreadyExists = await gameShelfRepository.exists(
+					const alreadyExists = await gameShelfRepository.readAllGameShelf(
 						userId,
 						gameId,
 					);
@@ -336,7 +336,7 @@ const removeToDo: RequestHandler = async (req, res, next) => {
 export default {
 	add,
 	remove,
-	exists,
+	browseAllGameShelf,
 	browseGamesByUser,
 	browseFavorites,
 	browseToDo,
