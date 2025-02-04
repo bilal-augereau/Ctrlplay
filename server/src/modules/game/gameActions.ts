@@ -27,7 +27,7 @@ const read: RequestHandler = async (req, res, next) => {
 		const game = await gameRepository.read(gameId);
 
 		game.devices = await deviceRepository.readAllByGameId(gameId);
-		game.genre = await genreRepository.readAllByGameId(gameId);
+		game.genres = await genreRepository.readAllByGameId(gameId);
 		game.tags = await tagRepository.readAllByGameId(gameId);
 		game.publishers = await publisherRepository.readAllByGameId(gameId);
 
