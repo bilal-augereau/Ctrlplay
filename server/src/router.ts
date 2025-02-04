@@ -37,37 +37,8 @@ router.get(
 	"/api/gameshelf/isFavorite/:userId/:gameId",
 	gameShelfActions.isFavorite,
 );
-
 router.put("/api/gameshelf/to_do", gameShelfActions.updateToDo);
-
 router.get("/api/gameshelf/isToDo/:userId/:gameId", gameShelfActions.isToDo);
-
-router.get("/api/genres", genreActions.browse);
-
-router.get("/api/devices", deviceActions.browse);
-
-router.get("/api/tags", tagActions.browse);
-
-router.get("/api/publishers", publisherActions.browse);
-
-router.post("/api/gameshelf", gameShelfActions.add);
-router.delete("/api/gameshelf/", gameShelfActions.remove);
-router.post("/api/gameshelf", authServices.isAuthorized, gameShelfActions.add);
-router.delete(
-	"/api/gameshelf/",
-	authServices.isAuthorized,
-	gameShelfActions.remove,
-);
-router.delete("/api/gameshelf", gameShelfActions.remove);
-router.put(
-	"/api/gameshelf/favorite",
-	gameShelfActions.updateFavorite,
-	gameShelfActions.isFavorite,
-);
-router.get(
-	"/api/gameshelf/exists/:userId/:gameId",
-	gameShelfActions.browseAllGameShelf,
-);
 
 router.get("/api/users/:id", userActions.read);
 router.get("/api/users/:id/todo", gameShelfActions.browseToDo);

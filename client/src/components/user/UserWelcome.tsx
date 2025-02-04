@@ -13,7 +13,9 @@ const UserWelcome = ({ user }: UserWelcomeProps) => (
 			<Avatar avatar={user.avatar} />
 			<h2>Welcome {user.pseudo}!</h2>
 		</div>
-		{user.topGames && <Top3 topGames={user.topGames} />}
+		{user.topGames && user.topGames.length > 0 && (
+			<Top3 topGames={user.topGames} />
+		)}
 	</section>
 );
 

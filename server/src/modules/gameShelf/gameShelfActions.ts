@@ -239,6 +239,7 @@ const removeFavorite: RequestHandler = async (req, res, next) => {
 		next(err);
 	}
 };
+
 const isToDo: RequestHandler = async (req, res, next) => {
 	try {
 		const { userId, gameId } = req.params;
@@ -297,6 +298,7 @@ const updateToDo: RequestHandler = async (req, res, next) => {
 		next(err);
 	}
 };
+
 const removeToDo: RequestHandler = async (req, res, next) => {
 	try {
 		const { userId, gameId } = req.body;

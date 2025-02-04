@@ -25,11 +25,12 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 					expiresIn: "1h",
 				});
 				user.token = token;
-				user.topGames = await gameShelfRepository.readAllByUser(
+				const topGames = await gameShelfRepository.readAllByUser(
 					user.id,
 					"DESC",
 					3,
 				);
+				if (topGames) user.topGames = topGames;
 				res.status(200).json(user);
 			}
 		}
