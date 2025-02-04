@@ -1,6 +1,7 @@
 import type UserType from "../../interface/UserType";
-import Avatar from "../UserComponents/Avatar";
-import Top3 from "../UserComponents/Top3";
+
+import Avatar from "./Avatar";
+import Top3 from "./Top3";
 
 interface UserWelcomeProps {
 	user: UserType;

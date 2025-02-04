@@ -3,7 +3,7 @@ import type GameType from "../interface/GameType";
 import "./featured.css";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
-import GameDevices from "./GameComponents/GameDevices";
+import GameDevices from "./game/GameDevices";
 
 const Featured = () => {
 	const [games, setGames] = useState<GameType[]>([]);

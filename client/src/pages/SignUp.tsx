@@ -3,7 +3,7 @@ import { type FormEventHandler, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import leftarrowsignup from "../assets/images/button_icons/leftarrowsignup.png";
 import rightarrowsignup from "../assets/images/button_icons/rightarrowsignup.png";
-import Avatar from "../components/UserComponents/Avatar.tsx";
+import Avatar from "../components/user/Avatar.tsx";
 
 const avatarList = [
 	"poule",

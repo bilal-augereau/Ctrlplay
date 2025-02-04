@@ -1,5 +1,12 @@
-import type GameType from "../interface/GameType";
-import GameDevices from "./GameComponents/GameDevices";
+import { useAuth } from "../../context/UserContext";
+
+import FavoriteButton from "../buttons/FavoriteButton";
+import GameShelfButton from "../buttons/GameShelfButton";
+import InfosButton from "../buttons/InfosButton";
+import GameDevices from "./GameDevices";
+
+import type GameType from "../../interface/GameType";
+
 import "./GameCard.css";
 
 interface GameCardProps {
@@ -7,6 +14,8 @@ interface GameCardProps {
 }
 
 function GameCard({ game }: GameCardProps) {
+	const { user } = useAuth();
+
 	return (
 		<div className="card-game">
 			{game.image && <img src={game.image} alt={`${game.title} cover`} />}
@@ -37,18 +46,23 @@ function GameCard({ game }: GameCardProps) {
 
 				<p>{game.genres || "Unknown"}</p>
 				<div className="button-container">
-					<button id="" className="beautiful-buttonadd" type="button">
-						i
-					</button>
-					<button className="beautiful-buttonadd" type="button">
-						✔
-					</button>
-					<button className="beautiful-buttonadd" type="button">
-						🤍
-					</button>
-					<button className="beautiful-buttonadd" type="button">
-						+
-					</button>
+					<InfosButton id={game.id} />
+					{user ? (
+						<>
+							<div id="game-shelf-button">
+								<GameShelfButton
+									userId={user.id}
+									gameId={Number.parseInt(game.id)}
+								/>
+							</div>
+							<FavoriteButton
+								userId={user.id}
+								gameId={Number.parseInt(game.id)}
+							/>
+						</>
+					) : (
+						<></>
+					)}
 				</div>
 			</div>
 		</div>

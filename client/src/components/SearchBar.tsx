@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { FormEventHandler } from "react";
+
 import "./SearchBar.css";
 
 type SearchProps = {
