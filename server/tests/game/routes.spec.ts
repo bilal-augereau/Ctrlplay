@@ -11,20 +11,8 @@ let server: any;
 
 const port = process.env.APP_PORT;
 
-beforeAll((done) => {
-	server = app
-		.listen(port, () => {
-			console.info(`Server is listening on port ${port}`);
-			done();
-		})
-		.on("error", (err: Error) => {
-			console.error("Error:", err.message);
-		});
-});
-
 afterAll((done) => {
 	databaseClient.end().then(() => {
-		server.close();
 		done();
 	});
 });
