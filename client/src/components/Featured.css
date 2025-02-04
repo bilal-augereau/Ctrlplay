@@ -41,6 +41,12 @@
 	gap: 25px;
 }
 
+.content-box p {
+	font-weight: 500;
+	margin-top: 3%;
+	margin-bottom: 0%;
+}
+
 .thumb-text {
 	margin-left: 20px;
 	height: 43vh;
