@@ -265,26 +265,7 @@ const browseFeaturedGames: RequestHandler = async (req, res, next) => {
 		res.json(games);
 	} catch (err) {
 		console.error("Error retrieving featured games", err);
-		const isToDo: RequestHandler = async (req, res, next) => {
-			try {
-				const { userId, gameId } = req.params;
-
-				if (!userId || !gameId) {
-					res
-						.status(400)
-						.json({ error: "Both userId and gameId are required." });
-				}
-
-				const exists = await gameShelfRepository.isToDo(
-					Number(userId),
-					Number(gameId),
-				);
-
-				res.status(200).json({ isToDo: exists });
-			} catch (err) {
-				next(err);
-			}
-		};
+		next(err);
 	}
 };
 
