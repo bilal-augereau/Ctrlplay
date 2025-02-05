@@ -1,21 +1,31 @@
-import addedlibrary from "../../assets/images/button_icons/bookactive.png";
-import removedlibrary from "../../assets/images/button_icons/bookinactive.png";
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/UserContext";
 
-const GameShelfButton = ({
-	userId,
-	gameId,
-}: {
-	userId: number;
-	gameId: number;
-}) => {
-	const [isInLibrary, setIsInLibrary] = useState(false);
-	const { user } = useAuth();
+import addedLibraryIcon from "../../assets/images/button_icons/bookactive.png";
+import removedLibraryIcon from "../../assets/images/button_icons/bookinactive.png";
 
+const GameShelfButton = ({
+	gameId,
+	isFavorite,
+	isInLibrary,
+	setIsInLibrary,
+}: {
+	gameId: number;
+	userId: number;
+	isFavorite: boolean;
+	isInLibrary: boolean;
+	setIsInLibrary: (value: boolean) => void;
+}) => {
+	const { user } = useAuth();
+	const userId = user?.id;
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies(isFavorite): reload library status when favorite status changes
 	useEffect(() => {
+		if (!userId || !gameId) {
+			toast.error("UserId and GameId required", { theme: "dark" });
+		}
+
 		const checkLibrary = async () => {
 			try {
 				const response = await fetch(
@@ -28,78 +38,74 @@ const GameShelfButton = ({
 						},
 					},
 				);
+
+				if (!response.ok) throw new Error("Failed to fetch game status");
+
 				const { exists } = await response.json();
 				setIsInLibrary(exists);
 			} catch (err) {
 				toast.error("Error: Unable to check game status.", { theme: "dark" });
 			}
 		};
+
 		checkLibrary();
-	}, [gameId, userId, user]);
+	}, [gameId, userId, user, isFavorite, setIsInLibrary]);
 
-	const addToLibrary = async () => {
-		try {
-			const response = await fetch("http://localhost:3310/api/gameshelf/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `${user?.token}`,
-				},
-				body: JSON.stringify({ userId, gameId }),
+	const toggleLibraryStatus = async () => {
+		if (!userId) {
+			toast.error("You must be logged in to modify your library.", {
+				theme: "dark",
 			});
+		}
 
-			if (response.ok) {
-				toast.success("Game added to user library successfully.", {
-					theme: "dark",
-				});
-				setIsInLibrary(true);
-			} else if (response.status === 401) {
-				toast.error(
-					"Problem with authentification, try disconnect and relogin",
+		try {
+			let response: Response;
+			if (isInLibrary) {
+				response = await fetch(
+					`http://localhost:3310/api/gameshelf/${userId}/${gameId}`,
+					{
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `${user?.token}`,
+						},
+					},
 				);
 			} else {
-				toast.error("Game already exists in the user's library.", {
-					theme: "dark",
+				response = await fetch("http://localhost:3310/api/gameshelf", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `${user?.token}`,
+					},
+					body: JSON.stringify({ userId, gameId }),
 				});
 			}
-		} catch (err) {
-			toast.error("Error: Unable to connect to the server.", { theme: "dark" });
-		}
-	};
 
-	const removeFromLibrary = async () => {
-		try {
-			const response = await fetch("http://localhost:3310/api/gameshelf/", {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `${user?.token}`,
-				},
-				body: JSON.stringify({ userId, gameId }),
-			});
-
-			if (response.ok) {
-				toast.success("Game removed from user library successfully.", {
-					theme: "dark",
-				});
-				setIsInLibrary(false);
-			} else {
-				toast.error("Error: Unable to remove the game.", { theme: "dark" });
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.error || "Failed to update library.");
 			}
+
+			setIsInLibrary(!isInLibrary);
+			toast.success(
+				`Game ${isInLibrary ? "removed from" : "added to"} your library successfully.`,
+				{ theme: "dark" },
+			);
 		} catch (err) {
-			toast.error("Error: Unable to connect to the server.", { theme: "dark" });
+			toast.error("This is not working", { theme: "dark" });
 		}
 	};
 
 	return (
 		<button
 			type="button"
-			onClick={isInLibrary ? removeFromLibrary : addToLibrary}
+			onClick={toggleLibraryStatus}
 			className={"beautiful-buttonadd"}
 			title={isInLibrary ? "Remove from library" : "Add to library"}
 		>
 			<img
-				src={isInLibrary ? addedlibrary : removedlibrary}
+				src={isInLibrary ? addedLibraryIcon : removedLibraryIcon}
 				alt={isInLibrary ? "Remove from library" : "Add to library"}
 			/>
 			{isInLibrary ? "-" : "+"}

@@ -13,10 +13,13 @@ import FavoriteButton from "../components/buttons/FavoriteButton";
 import GameShelfButton from "../components/buttons/GameShelfButton";
 
 import "./GameDetails.css";
+import { useState } from "react";
 
 function GameDetails() {
 	const game = useLoaderData() as GameType;
 	const { user } = useAuth();
+	const [isFavorite, setIsFavorite] = useState<boolean>(false);
+	const [isInLibrary, setIsInLibrary] = useState<boolean>(false);
 
 	const descriptionCleaned = DOMPurify.sanitize(game.description, {
 		USE_PROFILES: { html: true },
@@ -60,10 +63,16 @@ function GameDetails() {
 							<GameShelfButton
 								userId={user.id}
 								gameId={Number.parseInt(game.id)}
+								isFavorite={isFavorite}
+								setIsInLibrary={setIsInLibrary}
+								isInLibrary={isInLibrary}
 							/>
 							<FavoriteButton
 								userId={user.id}
 								gameId={Number.parseInt(game.id)}
+								isFavorite={isFavorite}
+								setIsFavorite={setIsFavorite}
+								isInLibrary={isInLibrary}
 							/>
 						</>
 					) : (
