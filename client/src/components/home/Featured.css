@@ -1,13 +1,15 @@
 #featured {
-	height: 550px;
+	height: 600px;
 	position: relative;
 	overflow: hidden;
+	margin: 0 10%;
 }
 
 .featured-title {
 	display: flex;
 	justify-content: flex-start;
 	margin: 2%;
+	padding-left: 20px;
 }
 
 .featured-slider {
@@ -18,7 +20,6 @@
 
 .featured-card {
 	display: flex;
-
 	align-items: flex-end;
 	width: 100%;
 }
@@ -29,22 +30,24 @@
 }
 
 .game-image {
-	max-width: 450px;
+	max-width: 580px;
 	height: 350px;
 	border-radius: 10px;
 	border: 2px solid #a661d0;
 	cursor: pointer;
 	transition: transform 0.3s ease, opacity 0.3s ease;
-	margin-left: 10%;
+	margin-left: 8%;
 }
 
 .thumb-text {
-	margin-left: 10%;
-	height: 43vh;
+	margin-left: 4%;
+	height: 430px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
+	gap: 15px;
+	max-width: 500px;
 }
 
 .game-thumbnail {
@@ -66,15 +69,34 @@
 	font-family: var(--font-title);
 	font-size: 30px;
 	text-align: center;
-	margin-bottom: 1rem;
+	margin-bottom: 18px;
 	color: white;
+}
+
+.device-container {
+	gap: 10px;
+	margin-bottom: 15px;
+}
+
+.game-genres {
+	font-style: italic;
+}
+
+.game-description {
+	text-align: justify;
+	line-height: 24px;
+	margin-bottom: 15px;
 }
 
 .game-actions {
 	display: flex;
-	justify-content: flex-end;
-	gap: 10px;
-	margin-right: 20%;
+	justify-content: right;
+	gap: 15px;
+	margin-right: 22%;
+}
+
+.beautiful-buttonadd {
+	cursor: pointer;
 }
 
 .arrow {
@@ -95,7 +117,7 @@
 
 .arrow.left {
 	left: 30px;
-	background-image: url("../assets/images/button_icons/buttomfleche.png");
+	background-image: url("../../assets/images/button_icons/buttomfleche.png");
 	background-color: transparent;
 }
 
@@ -106,6 +128,6 @@
 
 .arrow.right {
 	right: 30px;
-	background-image: url("../assets/images/button_icons/buttomflecheright.png");
+	background-image: url("../../assets/images/button_icons/buttomflecheright.png");
 	background-color: transparent;
 }

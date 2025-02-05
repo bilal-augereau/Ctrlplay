@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-
+import type GameType from "../../interface/GameType";
+import "./featured.css";
+import DOMPurify from "dompurify";
+import parse from "html-react-parser";
 import { useAuth } from "../../context/UserContext";
 
 import GameButtons from "../buttons/GameButtons";
 import GameDevices from "../game/GameDevices";
-
-import type GameType from "../../interface/GameType";
-
-import "./featured.css";
 
 const Featured = () => {
 	const [games, setGames] = useState<GameType[]>([]);
@@ -18,15 +17,14 @@ const Featured = () => {
 	useEffect(() => {
 		const fetchGames = async () => {
 			try {
-				const response = await fetch("http://localhost:3310/api/games");
+				const response = await fetch(
+					"http://localhost:3310/api/games/featured/today",
+				);
 				if (!response.ok) {
 					throw new Error("Failed to fetch games");
 				}
-				const allGames = await response.json();
-				const filteredGames = allGames.filter((game: GameType) =>
-					[1, 16, 32, 66].includes(Number(game.id)),
-				);
-				setGames(filteredGames);
+				const featuredGames = await response.json();
+				setGames(featuredGames);
 			} catch (error) {
 				console.error("Error fetching games:", error);
 			}
@@ -34,6 +32,20 @@ const Featured = () => {
 
 		fetchGames();
 	}, []);
+
+	const shortenDescription = (game: GameType) => {
+		const shortDescription = parse(
+			DOMPurify.sanitize(
+				game.description.length <= 200
+					? game.description
+					: `${game.description.slice(0, game.description.slice(0, 200).lastIndexOf(" "))}...`,
+				{
+					USE_PROFILES: { html: true },
+				},
+			),
+		);
+		return shortDescription;
+	};
 
 	const handleNext = () => {
 		if (games.length > 0) {
@@ -62,7 +74,7 @@ const Featured = () => {
 	};
 
 	return (
-		<div className="content-box homepage-content-box" id="featured">
+		<div className="content-box" id="featured">
 			<h2 className="featured-title">Featured Games</h2>
 			<button
 				type="button"
@@ -111,17 +123,15 @@ const Featured = () => {
 							</div>
 
 							<p className="game-genres">
-								{" "}
 								{Array.isArray(games[currentIndex]?.genres)
 									? games[currentIndex]?.genres.join(", ")
 									: games[currentIndex]?.genres || "Unknown"}
 							</p>
 
-							<p className="game-tags">
-								#{" "}
-								{Array.isArray(games[currentIndex]?.tags)
-									? games[currentIndex]?.tags.join(", ")
-									: games[currentIndex]?.tags || "Unknown"}
+							<p className="short-description">
+								{shortenDescription(games[currentIndex]) && (
+									<p>{shortenDescription(games[currentIndex])}</p>
+								)}
 							</p>
 
 							<img
