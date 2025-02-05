@@ -1,17 +1,22 @@
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
 import { useLoaderData } from "react-router-dom";
+import { useAuth } from "../context/UserContext";
 
 import type GameType from "../interface/GameType";
 
-import GameDevices from "../components/GameComponents/GameDevices";
-import GameRatings from "../components/GameComponents/GameRatings";
-import GameTags from "../components/GameComponents/GameTags";
+import GameDevices from "../components/game/GameDevices";
+import GameRatings from "../components/game/GameRatings";
+import GameTags from "../components/game/GameTags";
+
+import FavoriteButton from "../components/buttons/FavoriteButton";
+import GameShelfButton from "../components/buttons/GameShelfButton";
 
 import "./GameDetails.css";
 
 function GameDetails() {
 	const game = useLoaderData() as GameType;
+	const { user } = useAuth();
 
 	const descriptionCleaned = DOMPurify.sanitize(game.description, {
 		USE_PROFILES: { html: true },
@@ -50,21 +55,21 @@ function GameDetails() {
 					id="game-details-img-bottom"
 				/>
 				<div className="game-details-lists">
-					<button type="button" className="beautiful-buttonadd">
-						+
-					</button>
-					<button type="button" className="beautiful-buttonadd">
-						🤍
-					</button>
-					<button type="button" className="beautiful-buttonadd">
-						✔️
-					</button>
-					<a
-						href={game.website}
-						target="_blank"
-						className="beautiful-button"
-						rel="noreferrer"
-					>
+					{user ? (
+						<>
+							<GameShelfButton
+								userId={user.id}
+								gameId={Number.parseInt(game.id)}
+							/>
+							<FavoriteButton
+								userId={user.id}
+								gameId={Number.parseInt(game.id)}
+							/>
+						</>
+					) : (
+						<></>
+					)}
+					<a href={game.website} className="beautiful-button">
 						See the website
 					</a>
 				</div>

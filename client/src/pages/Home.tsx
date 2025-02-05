@@ -1,13 +1,17 @@
-import Featured from "../components/Featured";
-import GameList from "../components/GameList";
-import WelcomeBanner from "../components/WelcomeBanner";
+import Featured from "../components/home/Featured";
+import GameList from "../components/home/GameList";
+import WelcomeBanner from "../components/home/WelcomeBanner";
+import { useAuth } from "../context/UserContext";
+
 import "./Home.css";
 
 function Home() {
+	const { user } = useAuth();
+
 	return (
 		<div>
 			<header className="home-header" />
-			<WelcomeBanner />
+			{!user && <WelcomeBanner />}
 			<Featured />
 
 			<div className="game-list">

@@ -1,4 +1,4 @@
-.content-box {
+.homepage-content-box {
 	background-color: #18181b;
 	padding: 30px;
 	position: relative;
@@ -26,7 +26,7 @@
 	cursor: pointer;
 }
 
-#welcome-banner p {
+.homepage-content-box p {
 	font-family: var(--font-paragraph);
 	color: #7099cf;
 	font-weight: 600;

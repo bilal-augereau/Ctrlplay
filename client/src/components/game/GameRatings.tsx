@@ -1,6 +1,6 @@
 import "./GameRatings.css";
 
-import whiteStars from "../../assets/images/ratings/0stars.png";
+import whiteStars from "../../assets/images/ratings/0star.png";
 import yellowStars from "../../assets/images/ratings/5stars.png";
 
 function GameRatings({ note }: { note: number }) {

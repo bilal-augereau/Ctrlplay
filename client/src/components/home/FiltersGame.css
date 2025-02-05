@@ -1,0 +1,142 @@
+.filter {
+	background-color: var(--background-color);
+	border-radius: 15px;
+	border: #7d4192 solid 2px;
+	padding: 20px;
+}
+
+.title-filters {
+	display: flex;
+	justify-content: space-between;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.toggle-filters {
+	cursor: pointer;
+}
+
+p {
+	color: var(--white);
+	font-family: var(--font-paragraph);
+}
+
+.custom-checkbox {
+	appearance: none;
+	width: 18px;
+	height: 18px;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	transition: all 0.3s ease;
+	cursor: pointer;
+	background: linear-gradient(to right, var(--black), var(--black)),
+		linear-gradient(to right, #19a1be, #7d4192);
+	background-clip: padding-box, border-box;
+	background-origin: padding-box, border-box;
+	border: solid 2px transparent;
+}
+
+.custom-checkbox:checked {
+	background: linear-gradient(to right, var(--turquoise), var(--violet)),
+		linear-gradient(to right, #19a1be, #7d4192);
+	background-clip: border-box;
+	background-origin: border-box;
+}
+
+.checkbox-genre {
+	color: var(--white);
+	font-family: var(--font-paragraph);
+	font-weight: 100;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 30px;
+}
+
+.game-genre {
+	display: flex;
+	justify-content: space-evenly;
+	gap: 25px;
+}
+
+.check-genre {
+	min-width: 150px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.checkbox-device {
+	color: var(--white);
+	font-family: var(--font-paragraph);
+	font-weight: 100;
+	display: flex;
+}
+
+.game-device {
+	display: flex;
+	gap: 20px;
+	margin-bottom: 30px;
+}
+
+.check-device {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	margin-right: 50px;
+}
+
+.tag-publisher-box {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.custom-multiselect {
+	color: #aaa;
+	border-radius: var(--border-radius);
+	background: linear-gradient(to right, var(--black), var(--black)),
+		linear-gradient(to right, #19a1be, #7d4192);
+	background-clip: padding-box, border-box;
+	background-origin: padding-box, border-box;
+	border: solid 2px transparent;
+	font-size: 0.8rem;
+	cursor: pointer;
+	height: 30px;
+}
+
+.dropdown-container {
+	--rmsc-main: none;
+	--rmsc-hover: var(--black);
+	--rmsc-selected: var(--black);
+	--rmsc-border: none;
+	--rmsc-gray: #aaa;
+	--rmsc-bg: transparent;
+	--rmsc-radius: 4px;
+	--rmsc-h: 30px;
+	font-family: var(--font-paragraph);
+	cursor: pointer;
+}
+
+.dropdown-container * {
+	color: #aaa;
+	cursor: pointer;
+	background-color: var(--black);
+}
+
+.dropdown-container {
+	width: 350px;
+	height: 30px;
+}
+
+.dropdown-heading {
+	background-color: transparent;
+}
+
+.game-tags,
+.game-publisher {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	gap: 40px;
+}

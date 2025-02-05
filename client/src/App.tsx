@@ -1,15 +1,20 @@
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Header from "./components/Header";
-import "./App.css";
+import { UserProvider } from "./context/UserContext";
+
 import Footer from "./components/Footer";
+import Header from "./components/Header";
+
+import "./App.css";
 
 function App() {
 	return (
 		<>
-			<Header />
-			<ToastContainer stacked autoClose={3000} />
-			<Outlet />
+			<UserProvider>
+				<Header />
+				<ToastContainer stacked autoClose={3000} />
+				<Outlet />
+			</UserProvider>
 			<Footer />
 		</>
 	);

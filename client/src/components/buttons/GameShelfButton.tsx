@@ -1,5 +1,9 @@
+import addedlibrary from "../../assets/images/button_icons/bookactive.png";
+import removedlibrary from "../../assets/images/button_icons/bookinactive.png";
+
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/UserContext";
 
 const GameShelfButton = ({
 	userId,
@@ -9,6 +13,7 @@ const GameShelfButton = ({
 	gameId: number;
 }) => {
 	const [isInLibrary, setIsInLibrary] = useState(false);
+	const { user } = useAuth();
 
 	useEffect(() => {
 		const checkLibrary = async () => {
@@ -19,6 +24,7 @@ const GameShelfButton = ({
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
+							Authorization: `${user?.token}`,
 						},
 					},
 				);
@@ -29,7 +35,7 @@ const GameShelfButton = ({
 			}
 		};
 		checkLibrary();
-	}, [gameId, userId]);
+	}, [gameId, userId, user]);
 
 	const addToLibrary = async () => {
 		try {
@@ -37,6 +43,7 @@ const GameShelfButton = ({
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `${user?.token}`,
 				},
 				body: JSON.stringify({ userId, gameId }),
 			});
@@ -46,6 +53,10 @@ const GameShelfButton = ({
 					theme: "dark",
 				});
 				setIsInLibrary(true);
+			} else if (response.status === 401) {
+				toast.error(
+					"Problem with authentification, try disconnect and relogin",
+				);
 			} else {
 				toast.error("Game already exists in the user's library.", {
 					theme: "dark",
@@ -62,6 +73,7 @@ const GameShelfButton = ({
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
+					Authorization: `${user?.token}`,
 				},
 				body: JSON.stringify({ userId, gameId }),
 			});
@@ -84,7 +96,12 @@ const GameShelfButton = ({
 			type="button"
 			onClick={isInLibrary ? removeFromLibrary : addToLibrary}
 			className={"beautiful-buttonadd"}
+			title={isInLibrary ? "Remove from library" : "Add to library"}
 		>
+			<img
+				src={isInLibrary ? addedlibrary : removedlibrary}
+				alt={isInLibrary ? "Remove from library" : "Add to library"}
+			/>
 			{isInLibrary ? "-" : "+"}
 		</button>
 	);

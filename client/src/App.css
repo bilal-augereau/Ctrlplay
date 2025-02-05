@@ -188,6 +188,14 @@ h4 {
 	font-size: 1rem;
 }
 
+p,
+input,
+a,
+label {
+	font-size: 1rem;
+	font-family: var(--font-paragraph);
+}
+
 .content-box {
 	background-color: var(--background-color);
 
@@ -247,6 +255,8 @@ h4 {
 	max-height: 3.25rem;
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
+
+	cursor: pointer;
 }
 
 .beautiful-buttonadd:hover {
