@@ -95,7 +95,7 @@
 
 .arrow.left {
 	left: 30px;
-	background-image: url("../assets/images/button_icons/buttomfleche.png");
+	background-image: url("../../assets/images/button_icons/buttomfleche.png");
 	background-color: transparent;
 }
 
@@ -106,6 +106,6 @@
 
 .arrow.right {
 	right: 30px;
-	background-image: url("../assets/images/button_icons/buttomflecheright.png");
+	background-image: url("../../assets/images/button_icons/buttomflecheright.png");
 	background-color: transparent;
 }
