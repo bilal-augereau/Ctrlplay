@@ -59,7 +59,12 @@ function GameDetails() {
 					<button type="button" className="beautiful-buttonadd">
 						✔️
 					</button>
-					<a href={game.website} className="beautiful-button">
+					<a
+						href={game.website}
+						target="_blank"
+						className="beautiful-button"
+						rel="noreferrer"
+					>
 						See the website
 					</a>
 				</div>

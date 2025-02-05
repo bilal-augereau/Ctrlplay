@@ -8,7 +8,6 @@ import userActions from "./modules/user/userActions";
 
 router.get("/games", gameActions.browseGame);
 
-router.get("/games/:id", gameActions.read);
 router.get("/api/games/:id", gameActions.read);
 
 router.post("/api/gameshelf", gameShelfActions.add);
