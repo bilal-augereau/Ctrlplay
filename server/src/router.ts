@@ -12,6 +12,8 @@ import publisherActions from "./modules/publisher/publisherActions";
 import tagActions from "./modules/tag/tagActions";
 import userActions from "./modules/user/userActions";
 
+router.get("/api/games", gameActions.browse);
+router.get("/api/games/featured/today", gameShelfActions.browseFeaturedGames);
 router.post("/api/login", authActions.login);
 router.post("/api/users", authServices.hashPassword, userActions.add);
 

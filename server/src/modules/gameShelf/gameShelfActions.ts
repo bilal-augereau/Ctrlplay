@@ -259,6 +259,16 @@ const isToDo: RequestHandler = async (req, res, next) => {
 	}
 };
 
+const browseFeaturedGames: RequestHandler = async (req, res, next) => {
+	try {
+		const games = await gameShelfRepository.readFeaturedGames();
+		res.json(games);
+	} catch (err) {
+		console.error("Error retrieving featured games", err);
+		next(err);
+	}
+};
+
 const updateToDo: RequestHandler = async (req, res, next) => {
 	try {
 		const { userId, gameId } = req.body;
@@ -335,6 +345,7 @@ const removeToDo: RequestHandler = async (req, res, next) => {
 		next(err);
 	}
 };
+
 export default {
 	add,
 	remove,
@@ -345,6 +356,7 @@ export default {
 	updateFavorite,
 	isFavorite,
 	removeFavorite,
+	browseFeaturedGames,
 	updateToDo,
 	isToDo,
 	removeToDo,

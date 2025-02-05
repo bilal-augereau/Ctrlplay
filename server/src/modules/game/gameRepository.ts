@@ -101,7 +101,7 @@ class GameRepository {
 				LEFT JOIN game_tag AS gt ON gt.game_id = g.id
 				LEFT JOIN tag ON gt.game_id = tag.id
 				LEFT JOIN game_publisher AS gp ON gp.game_id = g.id
-				LEFT JOIN publisher ON gp.game_id = publisher.id
+				LEFT JOIN publisher ON gp.publisher_id = publisher.id
 				GROUP BY g.id
 				${HavingClause}
 			`;
