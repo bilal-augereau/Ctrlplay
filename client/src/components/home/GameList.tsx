@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-
 import type GameType from "../../interface/GameType";
-
 import SearchBar from "../SearchBar";
 import GameCard from "../game/GameCard";
 import FilterGame from "./FiltersGame";
-
 import "./GameList.css";
 
 type Filters = {
@@ -28,22 +25,22 @@ function GameList() {
 	});
 	const [currentIndexReleases, setCurrentIndexReleases] = useState(0);
 	const [currentIndexFavorites, setCurrentIndexFavorites] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
 	const gamesToShow = 5;
 
 	useEffect(() => {
 		const fetchGames = async () => {
-			if (searchQuery) {
-				try {
+			setIsLoading(true);
+			const startTime = Date.now();
+
+			try {
+				if (searchQuery) {
 					const res = await fetch(
 						`${import.meta.env.VITE_API_URL}/api/games?search=${searchQuery}`,
 					);
 					const data = await res.json();
 					setGames(data);
-				} catch (err) {
-					console.error("Error fetching games:", err);
-				}
-			} else {
-				try {
+				} else {
 					const genreParams = selectedFilters.genres
 						.map((g) => `genre=${g}`)
 						.join("&");
@@ -61,8 +58,19 @@ function GameList() {
 					);
 					const data = await res.json();
 					setGames(data);
-				} catch (error) {
-					console.error("Error fetching games:", error);
+				}
+			} catch (error) {
+				console.error("Error fetching games:", error);
+			} finally {
+				const endTime = Date.now();
+				const timeTaken = endTime - startTime;
+
+				if (timeTaken < 2000) {
+					setTimeout(() => {
+						setIsLoading(false);
+					}, 2000 - timeTaken);
+				} else {
+					setIsLoading(false);
 				}
 			}
 		};
@@ -113,15 +121,29 @@ function GameList() {
 			/>
 
 			{haveFilters || searchQuery ? (
-				<section className="filtered-games">
-					<div className="filtered-games-list">
-						{games.length > 0 ? (
-							games.map((game) => <GameCard key={game.id} game={game} />)
-						) : (
-							<p>No existing games</p>
-						)}
+				isLoading ? (
+					<div className="loader-container">
+						<div className="loader-wrapper">
+							<div className="packman" />
+							<div className="dots">
+								<div className="dot" />
+								<div className="dot" />
+								<div className="dot" />
+								<div className="dot" />
+							</div>
+						</div>
 					</div>
-				</section>
+				) : (
+					<section className="filtered-games">
+						<div className="filtered-games-list">
+							{games.length > 0 ? (
+								games.map((game) => <GameCard key={game.id} game={game} />)
+							) : (
+								<p>No existing games</p>
+							)}
+						</div>
+					</section>
+				)
 			) : (
 				<>
 					<h2 className="mainh2">Recent Releases</h2>

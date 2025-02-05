@@ -130,10 +130,14 @@
 	opacity: 0.6;
 }
 
+#user-main #user-main-box .user-buttons:hover .user-buttons-img {
+	transform: scale(1.4);
+	transition: transform 0.3s ease-in-out;
+}
+
 #user-main #user-main-box .user-buttons .user-buttons-img {
 	width: 80px;
 	height: 80px;
-
 	position: absolute;
 	left: -30px;
 	top: 0px;
