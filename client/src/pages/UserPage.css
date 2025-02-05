@@ -162,3 +162,7 @@
 	display: flex;
 	flex-flow: row wrap;
 }
+
+#user-main #user-main-box #user-game-list h3 {
+	padding-left: 0;
+}
