@@ -9,6 +9,7 @@
 	display: flex;
 	justify-content: flex-start;
 	margin: 2%;
+	padding-left: 20px;
 }
 
 .featured-slider {
@@ -29,17 +30,17 @@
 }
 
 .game-image {
-	max-width: 450px;
+	max-width: 580px;
 	height: 350px;
 	border-radius: 10px;
 	border: 2px solid #a661d0;
 	cursor: pointer;
 	transition: transform 0.3s ease, opacity 0.3s ease;
-	margin-left: 10%;
+	margin-left: 8%;
 }
 
 .thumb-text {
-	margin-left: 10%;
+	margin-left: 4%;
 	height: 430px;
 	display: flex;
 	flex-direction: column;

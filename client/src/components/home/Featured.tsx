@@ -3,12 +3,17 @@ import type GameType from "../../interface/GameType";
 import "./featured.css";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
+import { useAuth } from "../../context/UserContext";
+import FavoriteButton from "../buttons/FavoriteButton";
+import GameShelfButton from "../buttons/GameShelfButton";
+import InfosButton from "../buttons/InfosButton";
 import GameDevices from "../game/GameDevices";
 
 const Featured = () => {
 	const [games, setGames] = useState<GameType[]>([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isPrimaryImage, setIsPrimaryImage] = useState(true);
+	const { user } = useAuth();
 
 	useEffect(() => {
 		const fetchGames = async () => {
@@ -80,78 +85,88 @@ const Featured = () => {
 			/>
 
 			{games.length > 0 && (
-				<div className="featured-card">
-					<img
-						src={
-							isPrimaryImage
-								? games[currentIndex].image
-								: games[currentIndex].image_2
-						}
-						alt={games[currentIndex]?.title || "Game"}
-						className="game-image"
-						onClick={toggleImage}
-						onKeyDown={toggleImage}
-					/>
-					<div className="thumb-text">
-						<h3 className="game-name">{games[currentIndex]?.title}</h3>
-
-						<div className="device-container">
-							{Array.isArray(games[currentIndex]?.devices) ? (
-								<GameDevices devices={games[currentIndex].devices} />
-							) : typeof games[currentIndex]?.devices === "string" ? (
-								<GameDevices
-									devices={(games[currentIndex].devices as string)
-										.split(",")
-										.map(
-											(device: string) =>
-												device.trim() as
-													| "PlayStation"
-													| "Nintendo"
-													| "PC"
-													| "Xbox"
-													| "Others",
-										)}
-								/>
-							) : (
-								<p>Devices: Unknown</p>
-							)}
-						</div>
-
-						<p className="game-genres">
-							{Array.isArray(games[currentIndex]?.genres)
-								? games[currentIndex]?.genres.join(", ")
-								: games[currentIndex]?.genres || "Unknown"}
-						</p>
-
-						<p className="short-description">
-							{shortenDescription(games[currentIndex]) && (
-								<p>{shortenDescription(games[currentIndex])}</p>
-							)}
-						</p>
-
+				<>
+					<div className="featured-card">
 						<img
 							src={
 								isPrimaryImage
-									? games[currentIndex].image_2
-									: games[currentIndex].image
+									? games[currentIndex].image
+									: games[currentIndex].image_2
 							}
-							alt="Thumbnail"
-							className="game-thumbnail"
-							onClick={handleThumbnailClick}
-							onKeyDown={handleThumbnailClick}
+							alt={games[currentIndex]?.title || "Game"}
+							className="game-image"
+							onClick={toggleImage}
+							onKeyDown={toggleImage}
 						/>
-					</div>
-				</div>
-			)}
+						<div className="thumb-text">
+							<h3 className="game-name">{games[currentIndex]?.title}</h3>
 
-			<div className="game-actions">
-				<button type="button" className="beautiful-buttonadd">
-					i
-				</button>
-				<button type="button" className="beautiful-buttonadd">
-					+
-				</button>
-			</div>
+							<div className="device-container">
+								{Array.isArray(games[currentIndex]?.devices) ? (
+									<GameDevices devices={games[currentIndex].devices} />
+								) : typeof games[currentIndex]?.devices === "string" ? (
+									<GameDevices
+										devices={(games[currentIndex].devices as string)
+											.split(",")
+											.map(
+												(device: string) =>
+													device.trim() as
+														| "PlayStation"
+														| "Nintendo"
+														| "PC"
+														| "Xbox"
+														| "Others",
+											)}
+									/>
+								) : (
+									<p>Devices: Unknown</p>
+								)}
+							</div>
+
+							<p className="game-genres">
+								{Array.isArray(games[currentIndex]?.genres)
+									? games[currentIndex]?.genres.join(", ")
+									: games[currentIndex]?.genres || "Unknown"}
+							</p>
+
+							<p className="short-description">
+								{shortenDescription(games[currentIndex]) && (
+									<p>{shortenDescription(games[currentIndex])}</p>
+								)}
+							</p>
+
+							<img
+								src={
+									isPrimaryImage
+										? games[currentIndex].image_2
+										: games[currentIndex].image
+								}
+								alt="Thumbnail"
+								className="game-thumbnail"
+								onClick={handleThumbnailClick}
+								onKeyDown={handleThumbnailClick}
+							/>
+						</div>
+					</div>
+					<div className="game-actions">
+						<InfosButton id={games[currentIndex].id} />
+						{user ? (
+							<>
+								<GameShelfButton
+									userId={user.id}
+									gameId={Number.parseInt(games[currentIndex].id)}
+								/>
+								<FavoriteButton
+									userId={user.id}
+									gameId={Number.parseInt(games[currentIndex].id)}
+								/>
+							</>
+						) : (
+							<></>
+						)}
+					</div>
+				</>
+			)}
 
 			<button
 				type="button"
