@@ -1,12 +1,20 @@
 .filter {
 	background-color: var(--background-color);
 	border-radius: 15px;
-	border: #7d4192 solid 2px;
 	padding: 20px;
+}
+
+.filter * {
+	z-index: 11;
+}
+
+.filter.true {
+	border: #7d4192 solid 2px;
 }
 
 .title-filters {
 	display: flex;
+	flex-direction: row-reverse;
 	justify-content: space-between;
 	font-weight: 500;
 	margin-bottom: 20px;

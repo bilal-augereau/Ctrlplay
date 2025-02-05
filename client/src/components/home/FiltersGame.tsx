@@ -66,9 +66,8 @@ function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
 	};
 
 	return (
-		<div className="filter">
+		<div className={`filter ${showFilters}`}>
 			<div className="title-filters">
-				<h3 className="filters-game">Filters</h3>
 				<p
 					onKeyUp={(e) => {
 						if (e.key === " " || e.key === "enter") toggleFilters;
@@ -78,6 +77,7 @@ function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
 				>
 					{showFilters ? "Hide filters" : "Show filters"}
 				</p>
+				{showFilters && <h3 className="filters-game">Filters</h3>}
 			</div>
 
 			{showFilters && (
