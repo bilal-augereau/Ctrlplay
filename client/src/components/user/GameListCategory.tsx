@@ -2,6 +2,7 @@ import type DisplayModeCategory from "../../interface/GameCategoryType";
 import type GameType from "../../interface/GameType";
 
 import GameCard from "../game/GameCard";
+import Tuto from "./Tuto";
 
 interface GameListProps {
 	games: GameType[];
@@ -28,7 +29,7 @@ const GameList = ({
 		</h3>
 		<div id="user-game-list">
 			{!games?.length ? (
-				<p>No games found.</p>
+				<Tuto />
 			) : (
 				<>
 					{(displayMode === "recommendations"
