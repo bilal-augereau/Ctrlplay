@@ -8,6 +8,7 @@ import type GameType from "../interface/GameType";
 import GameDevices from "../components/game/GameDevices";
 import GameRatings from "../components/game/GameRatings";
 import GameTags from "../components/game/GameTags";
+import TimeSpent from "../components/game/TimeSpent";
 
 import FavoriteButton from "../components/buttons/FavoriteButton";
 import GameShelfButton from "../components/buttons/GameShelfButton";
@@ -20,6 +21,11 @@ function GameDetails() {
 	const { user } = useAuth();
 	const [isFavorite, setIsFavorite] = useState<boolean>(false);
 	const [isInLibrary, setIsInLibrary] = useState<boolean>(false);
+	const [, setTimeSpent] = useState<number>(0);
+
+	const handleTimeSpentChange = (newTimeSpent: number) => {
+		setTimeSpent(newTimeSpent);
+	};
 
 	const descriptionCleaned = DOMPurify.sanitize(game.description, {
 		USE_PROFILES: { html: true },
@@ -50,6 +56,11 @@ function GameDetails() {
 						<div className="game-details-lists">
 							<GameDevices devices={game.devices} />
 						</div>
+						{user && (
+							<div className="time-spent-container">
+								<TimeSpent onTimeSpentChange={handleTimeSpentChange} />
+							</div>
+						)}
 					</div>
 				</article>
 				<img

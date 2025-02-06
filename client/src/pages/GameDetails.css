@@ -55,3 +55,8 @@
 
 	margin-bottom: 1rem;
 }
+
+.time-spent-container {
+	display: flex;
+	padding-top: 1rem;
+}
