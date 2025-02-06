@@ -1,25 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/UserContext";
 
 import favoriteImage from "../../assets/images/button_icons/favorite.png";
 import favoriteEmpty from "../../assets/images/button_icons/favorite_empty.png";
 
-const favoriteButton = ({ gameId }: { userId: number; gameId: number }) => {
-	const [isInLibrary, setIsInLibrary] = useState(false);
-	const [isFavorite, setIsFavorite] = useState(false);
+const FavoriteButton = ({
+	gameId,
+	isFavorite,
+	setIsFavorite,
+	isInLibrary,
+}: {
+	gameId: number;
+	userId: number;
+	isFavorite: boolean;
+	setIsFavorite: (isFavorite: boolean) => void;
+	isInLibrary: boolean;
+}) => {
 	const { user } = useAuth();
 	const userId = user?.id;
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies(isInLibrary): reload favorite status when library status changes
 	useEffect(() => {
-		if (isFavorite) setIsInLibrary(true);
-	}, [isFavorite]);
+		if (!userId || !gameId) return;
 
-	useEffect(() => {
 		const fetchGameStatus = async () => {
 			try {
 				const response = await fetch(
-					`http://localhost:3310/api/gameshelf/exists/${userId}/${gameId}`,
+					`http://localhost:3310/api/gameshelf/isFavorite/${userId}/${gameId}`,
 					{
 						method: "GET",
 						headers: {
@@ -28,58 +36,65 @@ const favoriteButton = ({ gameId }: { userId: number; gameId: number }) => {
 						},
 					},
 				);
-				const { exists } = await response.json();
-				setIsInLibrary(exists);
-				if (exists) {
-					try {
-						const response = await fetch(
-							`http://localhost:3310/api/gameshelf/isFavorite/${userId}/${gameId}`,
-							{
-								method: "GET",
-								headers: {
-									"Content-Type": "application/json",
-									Authorization: `${user?.token}`,
-								},
-							},
-						);
-						const { isFavorite } = await response.json();
-						setIsFavorite(isFavorite);
-					} catch (err) {
-						toast.error("Error: Unable to check favorite status.", {
-							theme: "dark",
-						});
-					}
-				}
+
+				if (!response.ok)
+					throw new Error("Failed to fetch game favorite status");
+
+				const { isFavorite } = await response.json();
+				setIsFavorite(isFavorite);
 			} catch (err) {
-				toast.error("Erreur:  Unable to check game status.", {
+				toast.error("Error: Unable to check game favorite status.", {
 					theme: "dark",
 				});
 			}
 		};
 
 		fetchGameStatus();
-	}, [gameId, userId, user]);
+	}, [gameId, userId, user, isInLibrary, setIsFavorite]);
 
 	const handleToggleFavorite = async () => {
-		try {
-			await fetch("http://localhost:3310/api/gameshelf/favorite", {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `${user?.token}`,
-				},
-				body: JSON.stringify({ userId, gameId }),
-			});
+		if (!userId || !gameId) {
+			toast.error("Missing userId or gameId.", { theme: "dark" });
+			return;
+		}
 
+		try {
+			let response: Response;
+			if (isFavorite) {
+				response = await fetch(
+					"http://localhost:3310/api/gameshelf/favorite/",
+					{
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `${user?.token}`,
+						},
+						body: JSON.stringify({ userId, gameId }),
+					},
+				);
+			} else {
+				response = await fetch("http://localhost:3310/api/gameshelf/favorite", {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `${user?.token}`,
+					},
+					body: JSON.stringify({ userId, gameId }),
+				});
+			}
+
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.error || "Failed to update favorite status.");
+			}
+
+			setIsFavorite(!isFavorite);
 			toast.success(
-				`Game ${!isFavorite ? "add to favorite" : "remove from favorite"} !`,
+				`Game ${isFavorite ? "removed from" : "added to"} favorites!`,
 				{ theme: "dark" },
 			);
-			setIsFavorite(!isFavorite);
 		} catch (err) {
-			toast.error("failed to update favorite.", {
-				theme: "dark",
-			});
+			toast.error("This is not working", { theme: "dark" });
 		}
 	};
 
@@ -87,18 +102,15 @@ const favoriteButton = ({ gameId }: { userId: number; gameId: number }) => {
 		<button
 			type="button"
 			onClick={handleToggleFavorite}
-			className="beautiful-buttonadd"
+			className={"beautiful-buttonadd"}
+			disabled={!userId}
 		>
-			{isInLibrary ? (
-				<img
-					src={isFavorite ? favoriteImage : favoriteEmpty}
-					alt="Favorite Icon"
-				/>
-			) : (
-				<img src={favoriteImage} alt="Favorite Icon" />
-			)}
+			<img
+				src={isFavorite ? favoriteImage : favoriteEmpty}
+				alt="Favorite Icon"
+			/>
 		</button>
 	);
 };
 
-export default favoriteButton;
+export default FavoriteButton;

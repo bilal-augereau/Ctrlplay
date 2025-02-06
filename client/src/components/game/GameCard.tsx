@@ -1,21 +1,15 @@
-import { useAuth } from "../../context/UserContext";
-
-import FavoriteButton from "../buttons/FavoriteButton";
-import GameShelfButton from "../buttons/GameShelfButton";
-import InfosButton from "../buttons/InfosButton";
 import GameDevices from "./GameDevices";
 
 import type GameType from "../../interface/GameType";
 
 import "./GameCard.css";
+import GameButtons from "../buttons/GameButtons";
 
 interface GameCardProps {
 	game: GameType;
 }
 
 function GameCard({ game }: GameCardProps) {
-	const { user } = useAuth();
-
 	return (
 		<div className="card-game">
 			{game.image && <img src={game.image} alt={`${game.title} cover`} />}
@@ -40,30 +34,13 @@ function GameCard({ game }: GameCardProps) {
 					) : game.devices && Array.isArray(game.devices) ? (
 						<GameDevices devices={game.devices} />
 					) : (
-						<p>Devices: Unknown</p>
-					)}
-				</div>
-
-				<p>{game.genres || "Unknown"}</p>
-				<div className="button-container">
-					<InfosButton id={game.id} />
-					{user ? (
 						<>
-							<div id="game-shelf-button">
-								<GameShelfButton
-									userId={user.id}
-									gameId={Number.parseInt(game.id)}
-								/>
-							</div>
-							<FavoriteButton
-								userId={user.id}
-								gameId={Number.parseInt(game.id)}
-							/>
+							<p>Devices: Unknown</p>
 						</>
-					) : (
-						<></>
 					)}
 				</div>
+				<GameButtons game={game} />
+				<p>{game.genres || "Unknown"}</p>
 			</div>
 		</div>
 	);
