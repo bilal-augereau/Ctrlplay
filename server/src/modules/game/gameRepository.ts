@@ -1,6 +1,7 @@
 import databaseClient from "../../../database/client";
 import type { Rows } from "../../../database/client";
 import type GameType from "../../interface/GameType";
+import type ScoredProperties from "../../interface/ScoredProperties";
 
 class GameRepository {
 	async readAll(
@@ -16,7 +17,7 @@ class GameRepository {
 		let query = "";
 
 		if (filters.search) {
-			query = `SELECT g.*, GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
+			query = `SELECT g.*, GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS devices, GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
 				FROM game g
 				LEFT JOIN game_genre AS gg ON gg.game_id = g.id
 				LEFT JOIN genre ge ON gg.genre_id = ge.id
@@ -91,7 +92,7 @@ class GameRepository {
 				conditions.length > 0 ? `HAVING (${conditions.join(" AND ")})` : "";
 
 			query = `
-				SELECT g.*, GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
+				SELECT g.*, GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, GROUP_CONCAT(DISTINCT d.name ORDER BY FIELD(d.name, 'Others'), d.name SEPARATOR ', ') AS devices, GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
 				FROM game g
 				LEFT JOIN game_genre AS gg ON gg.game_id = g.id
 				LEFT JOIN genre ge ON gg.genre_id = ge.id
@@ -121,54 +122,77 @@ class GameRepository {
 
 	async readAllReco(
 		userId: number,
-		devices: string[],
-		genres: string[],
-		tags: string[],
+		devices: ScoredProperties[],
+		genres: ScoredProperties[],
+		tags: ScoredProperties[],
 	) {
-		const devicesQuery = devices.map((device) => `"${device}"`).join(", ");
+		const devicesQuery = devices.map((device) => `"${device.name}"`).join(", ");
 
 		const conditions: string[] = [];
-		const values = [userId, devicesQuery];
+		const values: (string | number)[] = [userId];
 
 		genres.map((genre) => {
-			conditions.push("(CASE WHEN genres LIKE ? THEN 1 ELSE 0 END)");
-			values.push(`%${genre}%`);
-		});
-
-		tags.map((tag) => {
-			conditions.push("(CASE WHEN tags LIKE ? THEN 1 ELSE 0 END)");
-			values.push(`%${tag}%`);
+			conditions.push(
+				`(CASE WHEN genres LIKE ? THEN ${genre.score} ELSE 0 END)`,
+			);
+			values.push(`%${genre.name}%`);
 		});
 
 		devices.map((device) => {
-			conditions.push("(CASE WHEN devices LIKE ? THEN 1 ELSE 0 END)");
-			values.push(`%${device}%`);
+			conditions.push(
+				`(CASE WHEN devices LIKE ? THEN ${device.score} ELSE 0 END)`,
+			);
+			values.push(`%${device.name}%`);
+		});
+
+		tags.map((tag) => {
+			conditions.push(`(CASE WHEN tags LIKE ? THEN ${tag.score} ELSE 0 END)`);
+			values.push(`%${tag.name}%`);
 		});
 
 		const matches = conditions.join(" + ");
 
-		const query = `WITH filtered_games AS (SELECT g.*, 
-			GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, 
-			GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, 
-			GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, 
-			GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
-		FROM game g 
-		LEFT JOIN game_genre AS gg ON gg.game_id = g.id 
-		LEFT JOIN genre ge ON gg.genre_id = ge.id 
-		LEFT JOIN game_device AS gd ON gd.game_id = g.id 
-		LEFT JOIN device d ON gd.device_id = d.id 
-		LEFT JOIN game_tag AS gt ON gt.game_id = g.id 
-		LEFT JOIN tag ON gt.tag_id = tag.id 
-		LEFT JOIN game_publisher AS gp ON gp.game_id = g.id 
-		LEFT JOIN publisher ON gp.publisher_id = publisher.id 
-		LEFT JOIN game_shelf gs ON gs.game_id = g.id 
-		WHERE gs.user_id != ? 
-			AND d.name IN ( ${devicesQuery} ) 
-		GROUP BY g.id) 
-		
-		SELECT filtered_games.*,
+		const query = `
+		WITH eligible_games AS (
+			SELECT DISTINCT gs.game_id 
+			FROM game_shelf gs
+			WHERE gs.user_id IS NOT NULL
+			AND gs.game_id NOT IN (SELECT game_id FROM game_shelf WHERE user_id = ?)
+
+			UNION
+
+			SELECT g.id 
+			FROM game g
+			LEFT JOIN game_shelf gs ON gs.game_id = g.id
+			WHERE gs.game_id IS NULL
+		),
+
+		detailed_games AS (
+			SELECT 
+					g.*,
+					GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres,
+					GROUP_CONCAT(DISTINCT d.name ORDER BY FIELD(d.name, 'Others'), d.name SEPARATOR ', ') AS devices,
+					GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags,
+					GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
+			FROM eligible_games eg
+			
+			JOIN game g ON eg.game_id = g.id
+			LEFT JOIN game_genre AS gg ON gg.game_id = g.id
+			LEFT JOIN genre ge ON gg.genre_id = ge.id
+			LEFT JOIN game_device AS gd ON gd.game_id = g.id
+			LEFT JOIN device d ON gd.device_id = d.id
+			LEFT JOIN game_tag AS gt ON gt.game_id = g.id 
+			LEFT JOIN tag ON gt.tag_id = tag.id 
+			LEFT JOIN game_publisher AS gp ON gp.game_id = g.id
+			LEFT JOIN publisher ON gp.publisher_id = publisher.id
+
+			WHERE d.name IN ( ${devicesQuery} )
+			GROUP BY g.id
+		)
+
+		SELECT detailed_games.*,
 		(${matches}) AS match_score
-		FROM filtered_games
+		FROM detailed_games
 		ORDER BY match_score DESC`;
 
 		const [games] = await databaseClient.query<Rows>(query, values);

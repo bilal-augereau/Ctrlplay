@@ -66,7 +66,7 @@ function Login() {
 					<div className="content-boxsignup">
 						<h1 id="titlesignup">Login</h1>
 					</div>
-					<form className="formsignup">
+					<form className="formsignup" onSubmit={submitLogin}>
 						<div className="labelgroup" id="labelgroupentity">
 							<label htmlFor="username">Username : </label>
 							<input
@@ -89,17 +89,17 @@ function Login() {
 								onChange={handleInputChange}
 							/>
 						</div>
+						<div className="buttons" id="buttonlogin">
+							<button
+								onClick={submitLogin}
+								id="buttonwidth"
+								className="beautiful-button"
+								type="submit"
+							>
+								Login
+							</button>
+						</div>
 					</form>
-					<div className="buttons" id="buttonlogin">
-						<button
-							onClick={submitLogin}
-							id="buttonwidth"
-							className="beautiful-button"
-							type="button"
-						>
-							Login
-						</button>
-					</div>
 					<Link to="/signup" className="signup">
 						I don't have an account : sign up
 					</Link>

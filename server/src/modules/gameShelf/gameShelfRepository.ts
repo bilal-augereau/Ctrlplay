@@ -1,6 +1,7 @@
 import databaseClient from "../../../database/client";
 
 import type { Rows } from "../../../database/client";
+import type GameShelfType from "../../interface/GameShelfType";
 import type GameType from "../../interface/GameType";
 
 class gameShelfRepository {
@@ -19,21 +20,14 @@ class gameShelfRepository {
 		);
 	}
 
-	async exists(userId: number, gameId: number) {
+	async read(userId: number, gameId: number) {
 		const [rows] = await databaseClient.query<Rows>(
-			"SELECT 1 FROM game_shelf WHERE user_id = ? AND game_id = ?",
+			"SELECT * FROM game_shelf WHERE user_id = ? AND game_id = ?",
 			[userId, gameId],
 		);
-		return rows.length > 0;
+		return rows as GameShelfType[];
 	}
 
-	async isFavorite(userId: number, gameId: number) {
-		const [rows] = await databaseClient.query<Rows>(
-			"SELECT 1 FROM game_shelf WHERE user_id = ? AND game_id = ? AND favorite = 1",
-			[userId, gameId],
-		);
-		return rows.length > 0;
-	}
 	async isToDo(userId: number, gameId: number) {
 		const [rows] = await databaseClient.query<Rows>(
 			"SELECT 1 FROM game_shelf WHERE user_id = ? AND game_id = ? AND to_do = 1",
@@ -59,7 +53,7 @@ class gameShelfRepository {
 		const [games] = await databaseClient.query<Rows>(
 			`SELECT g.*, 
 			GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, 
-			GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, 
+			GROUP_CONCAT(DISTINCT d.name ORDER BY FIELD(d.name, 'Others'), d.name SEPARATOR ', ') AS devices, 
 			GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, 
 			GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
 		FROM game g 
@@ -98,7 +92,7 @@ class gameShelfRepository {
 		const [games] = await databaseClient.query<Rows>(
 			`SELECT g.*, 
             GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, 
-            GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, 
+            GROUP_CONCAT(DISTINCT d.name ORDER BY FIELD(d.name, 'Others'), d.name SEPARATOR ', ') AS devices, 
             GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, 
             GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
         FROM game g 
@@ -138,7 +132,7 @@ class gameShelfRepository {
 		const [games] = await databaseClient.query<Rows>(
 			`SELECT g.*, 
             GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, 
-            GROUP_CONCAT(DISTINCT d.name ORDER BY d.name SEPARATOR ', ') AS devices, 
+            GROUP_CONCAT(DISTINCT d.name ORDER BY FIELD(d.name, 'Others'), d.name SEPARATOR ', ') AS devices, 
             GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, 
             GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
         FROM game g 
@@ -176,7 +170,7 @@ class gameShelfRepository {
 			`UPDATE game_shelf
 				SET favorite = ?
 				WHERE user_id = ? AND game_id = ?`,
-			[isFavorite ? 0 : 1, userId, gameId],
+			[isFavorite ? 1 : 0, userId, gameId],
 		);
 	}
 
