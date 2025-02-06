@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
-
 import "./UserPage.css";
-
+import counterstrike from "../assets/images/avatar/avatarcounterstrike.png";
 import rezio from "../assets/images/avatar/avatarezio.png";
 import scorpion from "../assets/images/avatar/avatarscorpion.png";
 import spiderman from "../assets/images/avatar/avatarspider.png";
-
 import FeaturedGame from "../components/game/GameFeature";
 import GameListCategory from "../components/user/GameListCategory";
 import UserWelcome from "../components/user/UserWelcome";
-
+import { useAuth } from "../context/UserContext";
 import type DisplayModeCategory from "../interface/GameCategoryType";
 import type GameType from "../interface/GameType";
 import type UserType from "../interface/UserType";
-
-import { useAuth } from "../context/UserContext";
 import { useGames } from "../services/useGames";
-
-import "./UserPage.css";
 
 function UserPage() {
 	const { user } = useAuth() as { user: UserType };
@@ -26,6 +20,7 @@ function UserPage() {
 	const [gamesRecoLength, setGamesRecoLength] = useState(21);
 	const [gameFeatured, setGameFeatured] = useState<GameType>();
 	const { games, loadGames } = useGames(user.id, user.token);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchFeaturedGame = async () => {
@@ -41,13 +36,35 @@ function UserPage() {
 
 	useEffect(() => {
 		if (displayMode === "recommendations") {
-			loadGames("recommendations");
+			handleLoadGames("recommendations");
 		}
-	}, [loadGames, displayMode]);
+	}, [displayMode]);
+
+	const handleLoadGames = async (mode: DisplayModeCategory) => {
+		setIsLoading(true);
+		const startTime = Date.now();
+
+		try {
+			await loadGames(mode);
+		} catch (error) {
+			console.error("Error loading games:", error);
+		} finally {
+			const endTime = Date.now();
+			const timeTaken = endTime - startTime;
+
+			if (timeTaken < 2000) {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 2000 - timeTaken);
+			} else {
+				setIsLoading(false);
+			}
+		}
+	};
 
 	const handleButtonClick = (mode: DisplayModeCategory) => {
 		setDisplayMode(mode);
-		loadGames(mode);
+		handleLoadGames(mode);
 	};
 
 	const currentGames = (() => {
@@ -82,40 +99,67 @@ function UserPage() {
 						type="button"
 						className="user-buttons"
 						id="user-button-1"
-						onClick={() => handleButtonClick("favorites")}
-					>
-						<img src={spiderman} alt="favorites" className="user-buttons-img" />
-						Favorites
-					</button>
-					<button
-						type="button"
-						className="user-buttons"
-						id="user-button-2"
-						onClick={() => handleButtonClick("toDo")}
-					>
-						<img src={rezio} alt="to-do-list" className="user-buttons-img" />
-						To do list
-					</button>
-					<button
-						type="button"
-						className="user-buttons"
-						id="user-button-3"
 						onClick={() => handleButtonClick("allGames")}
 					>
 						<img
-							src={scorpion}
+							src={spiderman}
 							alt="all-my-games"
 							className="user-buttons-img"
 						/>
 						All my games
 					</button>
+					<button
+						type="button"
+						className="user-buttons"
+						id="user-button-2"
+						onClick={() => handleButtonClick("favorites")}
+					>
+						<img src={rezio} alt="favorites" className="user-buttons-img" />
+						Favorites
+					</button>
+					<button
+						type="button"
+						className="user-buttons"
+						id="user-button-3"
+						onClick={() => handleButtonClick("toDo")}
+					>
+						<img src={scorpion} alt="to-do-list" className="user-buttons-img" />
+						To do list
+					</button>
+					<button
+						type="button"
+						className="user-buttons"
+						id="user-button-4"
+						onClick={() => handleButtonClick("recommendations")}
+					>
+						<img
+							src={counterstrike}
+							alt="recommendations"
+							className="user-buttons-img"
+						/>
+						Recommendations
+					</button>
 				</div>
-				<GameListCategory
-					games={currentGames || []}
-					displayMode={displayMode}
-					gamesRecoLength={gamesRecoLength}
-					onLoadMore={() => setGamesRecoLength((prev) => prev + 10)}
-				/>
+				{isLoading ? (
+					<div className="loader-container">
+						<div className="loader-wrapper">
+							<div className="packman" />
+							<div className="dots">
+								<div className="dot" />
+								<div className="dot" />
+								<div className="dot" />
+								<div className="dot" />
+							</div>
+						</div>
+					</div>
+				) : (
+					<GameListCategory
+						games={currentGames || []}
+						displayMode={displayMode}
+						gamesRecoLength={gamesRecoLength}
+						onLoadMore={() => setGamesRecoLength((prev) => prev + 10)}
+					/>
+				)}
 			</section>
 		</main>
 	);

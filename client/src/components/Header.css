@@ -78,6 +78,10 @@
 	background-image: url("../assets/images/button_icons/disconnect.png");
 }
 
+.disconnect-button:hover {
+	transform: scale(1.1);
+}
+
 .mypage-button img {
 	height: 60px;
 	width: auto;
@@ -85,6 +89,10 @@
 	position: absolute;
 	top: 0;
 	margin-inline: auto;
+}
+
+.mypage-button:hover {
+	transform: scale(1.1);
 }
 
 .signup-button:hover {
