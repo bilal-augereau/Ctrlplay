@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useAuth } from "../../context/UserContext";
 
 import type GameType from "../../interface/GameType";
+import WishlistButton from "./WishlistButton";
 
 interface GameCardProps {
 	userId?: number;
@@ -37,6 +38,7 @@ function GameButtons({ game }: GameCardProps) {
 						setIsFavorite={setIsFavorite}
 						isInLibrary={isInLibrary}
 					/>
+					<WishlistButton gameId={Number.parseInt(game.id)} />
 				</>
 			) : (
 				<></>

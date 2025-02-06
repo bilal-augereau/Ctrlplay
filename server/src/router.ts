@@ -11,6 +11,7 @@ import genreActions from "./modules/genre/genreActions";
 import publisherActions from "./modules/publisher/publisherActions";
 import tagActions from "./modules/tag/tagActions";
 import userActions from "./modules/user/userActions";
+import wishlistActions from "./modules/wishlist/wishlistActions";
 
 router.get("/api/games", gameActions.browse);
 router.get("/api/games/featured/today", gameShelfActions.browseFeaturedGames);
@@ -43,15 +44,16 @@ router.get(
 );
 router.delete("/api/gameshelf/favorite", gameShelfActions.removeFavorite);
 
-// To-Do List
-router.put("/api/gameshelf/to_do", gameShelfActions.updateToDo);
-router.get("/api/gameshelf/isToDo/:userId/:gameId", gameShelfActions.isToDo);
-router.get("/api/users/:id/todo", gameShelfActions.browseToDo);
+// Wishlist
+router.get("/api/wishlist/:userId/:gameId", wishlistActions.read);
+router.post("/api/wishlist", wishlistActions.add);
+router.delete("/api/wishlist/:userId/:gameId", wishlistActions.remove);
 
 // Users
 router.get("/api/users/:id", userActions.read);
 router.get("/api/users/:id/games", gameShelfActions.browseGamesByUser);
 router.get("/api/users/:id/favorites", gameShelfActions.browseFavorites);
 router.get("/api/users/:id/recommandation", gameActions.browseReco);
+router.get("/api/users/:id/wishlist", wishlistActions.browseByUser);
 
 export default router;
