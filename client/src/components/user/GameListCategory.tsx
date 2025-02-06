@@ -24,7 +24,7 @@ const GameList = ({
 					? "All My Games"
 					: displayMode === "favorites"
 						? "Favorite Games"
-						: "To-Do List"}
+						: "Wishlist"}
 		</h3>
 		<div id="user-game-list">
 			{!games?.length ? (

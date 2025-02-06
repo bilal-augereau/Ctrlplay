@@ -7,12 +7,12 @@ export const useGames = (userId: number, userToken: string) => {
 	const [games, setGames] = useState<{
 		userGames: GameType[];
 		favoriteGames: GameType[];
-		toDoGames: GameType[];
+		wishlistGames: GameType[];
 		recommendedGames?: GameType[];
 	}>({
 		userGames: [],
 		favoriteGames: [],
-		toDoGames: [],
+		wishlistGames: [],
 		recommendedGames: undefined,
 	});
 
@@ -26,7 +26,7 @@ export const useGames = (userId: number, userToken: string) => {
 			const endpoints: Record<DisplayModeCategory, string> = {
 				allGames: "games",
 				favorites: "favorites",
-				toDo: "todo",
+				wishlist: "wishlist",
 				recommendations: "recommandation",
 			};
 
@@ -53,8 +53,8 @@ export const useGames = (userId: number, userToken: string) => {
 						? "userGames"
 						: mode === "favorites"
 							? "favoriteGames"
-							: mode === "toDo"
-								? "toDoGames"
+							: mode === "wishlist"
+								? "wishlistGames"
 								: "recommendedGames"]: Array.isArray(gamesData)
 						? gamesData
 						: [],

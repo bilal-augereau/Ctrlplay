@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
+
 import "./UserPage.css";
+
+import { useAuth } from "../context/UserContext";
+import { useGames } from "../services/useGames";
+
+import FeaturedGame from "../components/game/GameFeature";
+import GameListCategory from "../components/user/GameListCategory";
+import UserWelcome from "../components/user/UserWelcome";
+
 import counterstrike from "../assets/images/avatar/avatarcounterstrike.png";
 import rezio from "../assets/images/avatar/avatarezio.png";
 import scorpion from "../assets/images/avatar/avatarscorpion.png";
 import spiderman from "../assets/images/avatar/avatarspider.png";
-import FeaturedGame from "../components/game/GameFeature";
-import GameListCategory from "../components/user/GameListCategory";
-import UserWelcome from "../components/user/UserWelcome";
-import { useAuth } from "../context/UserContext";
+
 import type DisplayModeCategory from "../interface/GameCategoryType";
 import type GameType from "../interface/GameType";
 import type UserType from "../interface/UserType";
-import { useGames } from "../services/useGames";
 
 function UserPage() {
 	const { user } = useAuth() as { user: UserType };
@@ -73,8 +78,8 @@ function UserPage() {
 				return games.userGames;
 			case "favorites":
 				return games.favoriteGames;
-			case "toDo":
-				return games.toDoGames;
+			case "wishlist":
+				return games.wishlistGames;
 			case "recommendations":
 				return games.recommendedGames;
 			default:
@@ -121,10 +126,10 @@ function UserPage() {
 						type="button"
 						className="user-buttons"
 						id="user-button-3"
-						onClick={() => handleButtonClick("toDo")}
+						onClick={() => handleButtonClick("wishlist")}
 					>
 						<img src={scorpion} alt="to-do-list" className="user-buttons-img" />
-						To do list
+						Wishlist
 					</button>
 					<button
 						type="button"
