@@ -53,7 +53,7 @@ function Header() {
 							className="login-button header-button"
 							onClick={handleLogin}
 						>
-							Login
+							<p>Login</p>
 						</button>
 						<button
 							type="button"
