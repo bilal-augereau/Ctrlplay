@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FormEventHandler } from "react";
 
 import "./SearchBar.css";
+import loupe from "../assets/images/button_icons/loupe.png";
 
 type SearchProps = {
 	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -28,10 +29,7 @@ function SearchBar({ setSearchQuery }: SearchProps) {
 						onChange={(e) => setSearch(e.target.value)}
 					/>
 					<button type="submit" className="search-icon">
-						<img
-							src="./src/assets/images/button_icons/loupe.png"
-							alt="loupe search"
-						/>
+						<img src={loupe} alt="loupe search" />
 					</button>
 				</form>
 			</div>

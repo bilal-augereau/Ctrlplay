@@ -17,7 +17,7 @@ import type UserType from "../interface/UserType";
 import { useAuth } from "../context/UserContext";
 import { useGames } from "../services/useGames";
 
-import "./UserPage.css";
+import SearchBar from "../components/SearchBar";
 
 function UserPage() {
 	const { user } = useAuth() as { user: UserType };
@@ -26,6 +26,7 @@ function UserPage() {
 	const [gamesRecoLength, setGamesRecoLength] = useState(21);
 	const [gameFeatured, setGameFeatured] = useState<GameType>();
 	const { games, loadGames } = useGames(user.id, user.token);
+	const [searchQuery, setSearchQuery] = useState("");
 
 	useEffect(() => {
 		const fetchFeaturedGame = async () => {
@@ -65,6 +66,10 @@ function UserPage() {
 		}
 	})();
 
+	const filteredGames = (currentGames || []).filter((game) =>
+		game?.title?.toLowerCase().includes(searchQuery.toLowerCase()),
+	);
+
 	return (
 		<main id="user-main">
 			<aside id="user-aside">
@@ -75,8 +80,6 @@ function UserPage() {
 				</div>
 			</aside>
 			<section className="content-box" id="user-main-box">
-				<h3>Search a game</h3>
-				<p>Search bar component here</p>
 				<div id="user-buttons">
 					<button
 						type="button"
@@ -110,8 +113,9 @@ function UserPage() {
 						All my games
 					</button>
 				</div>
+				<SearchBar setSearchQuery={setSearchQuery} />
 				<GameListCategory
-					games={currentGames || []}
+					games={filteredGames || []}
 					displayMode={displayMode}
 					gamesRecoLength={gamesRecoLength}
 					onLoadMore={() => setGamesRecoLength((prev) => prev + 10)}
