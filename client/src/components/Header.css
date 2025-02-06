@@ -11,13 +11,10 @@
 	background-image: url("../assets/images/logocontrol.png");
 	background-repeat: no-repeat;
 	background-color: transparent;
-
 	height: 300px;
 	width: 300px;
-
 	cursor: pointer;
 	border: none;
-
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -28,7 +25,6 @@
 	display: flex;
 	gap: 10px;
 	align-items: center;
-
 	padding: 5px;
 	margin-right: 20px;
 }
