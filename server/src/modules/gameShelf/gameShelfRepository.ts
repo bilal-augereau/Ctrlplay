@@ -186,6 +186,15 @@ class gameShelfRepository {
 			[isToDo ? 0 : 1, userId, gameId],
 		);
 	}
+	async updateTimeSpent(
+		userId: number,
+		gameId: number,
+		timeSpent: number,
+	): Promise<void> {
+		const query =
+			"UPDATE game_shelf SET time_spent = ? WHERE user_id = ? AND game_id = ?";
+		await databaseClient.query(query, [timeSpent, userId, gameId]);
+	}
 }
 
 export default new gameShelfRepository();

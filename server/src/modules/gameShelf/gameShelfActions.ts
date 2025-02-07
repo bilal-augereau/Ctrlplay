@@ -201,6 +201,7 @@ const removeFavorite: RequestHandler = async (req, res, next) => {
 				error:
 					"Game is not in the user's library, cannot be removed from favorites.",
 			});
+			return;
 		}
 
 		if (Number(existingGameShelf[0]?.favorite) !== 1) {
@@ -339,6 +340,75 @@ const removeToDo: RequestHandler = async (req, res, next) => {
 	}
 };
 
+const updateTimeSpent: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameId } = req.params;
+		const { timeSpent } = req.body;
+
+		if (!userId || !gameId || timeSpent === undefined) {
+			res
+				.status(400)
+				.json({ error: "userId, gameId, and timeSpent are required." });
+			return;
+		}
+
+		if (
+			Number.isNaN(Number(userId)) ||
+			Number.isNaN(Number(gameId)) ||
+			Number.isNaN(Number(timeSpent))
+		) {
+			res.status(400).json({
+				error: "userId, gameId, and timeSpent must be valid numbers.",
+			});
+			return;
+		}
+
+		if (Number(timeSpent) < 0) {
+			res.status(400).json({ error: "timeSpent cannot be negative." });
+			return;
+		}
+
+		const user = await userRepository.read(Number(userId));
+		if (!user) {
+			res.status(404).json({ error: "User not found." });
+			return;
+		}
+
+		const game = await gameRepository.read(Number(gameId));
+		if (!game) {
+			res.status(404).json({ error: "Game not found." });
+			return;
+		}
+
+		const existingGameShelf = await gameShelfRepository.read(
+			Number(userId),
+			Number(gameId),
+		);
+		if (!existingGameShelf) {
+			res.status(404).json({
+				error: "Game is not in the user's library.",
+			});
+			return;
+		}
+
+		const updatedGameShelf = await gameShelfRepository.updateTimeSpent(
+			Number(userId),
+			Number(gameId),
+			Number(timeSpent),
+		);
+
+		res.status(200).json({
+			message: "Time spent updated successfully.",
+			data: updatedGameShelf,
+		});
+	} catch (err) {
+		console.error("Error updating timeSpent:", err);
+		res
+			.status(500)
+			.json({ error: "An error occurred while updating timeSpent." });
+	}
+};
+
 export default {
 	add,
 	remove,
@@ -353,4 +423,5 @@ export default {
 	isToDo,
 	removeToDo,
 	isFavorite,
+	updateTimeSpent,
 };

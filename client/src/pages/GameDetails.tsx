@@ -58,7 +58,10 @@ function GameDetails() {
 						</div>
 						{user && (
 							<div className="time-spent-container">
-								<TimeSpent onTimeSpentChange={handleTimeSpentChange} />
+								<TimeSpent
+									onTimeSpentChange={handleTimeSpentChange}
+									gameId={0}
+								/>
 							</div>
 						)}
 					</div>

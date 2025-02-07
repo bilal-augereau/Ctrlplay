@@ -1,19 +1,87 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import clock from "../../assets/images/button_icons/clocktimespent.png";
+import { useAuth } from "../../context/UserContext";
 import "./TimeSpent.css";
 
 interface TimeSpentProps {
-	initialTimeSpent?: number;
+	gameId: number;
 	onTimeSpentChange: (timeSpent: number) => void;
 }
 
-const TimeSpent: React.FC<TimeSpentProps> = ({
-	initialTimeSpent = 0,
-	onTimeSpentChange,
-}) => {
-	const [timeSpent, setTimeSpent] = useState<number>(initialTimeSpent);
-	const [isEditing, setIsEditing] = useState<boolean>(false);
-	const [newTimeSpent, setNewTimeSpent] = useState<number | string>(timeSpent);
+const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
+	const { user } = useAuth();
+	const userId = user?.id;
+
+	const [timeSpent, setTimeSpent] = useState<number>(0);
+	const [isEditing, setIsEditing] = useState(false);
+	const [newTimeSpent, setNewTimeSpent] = useState<number | string>("");
+
+	useEffect(() => {
+		const fetchTimeSpent = async () => {
+			try {
+				const response = await fetch(`/api/gameshelf/${gameId}/time_spent`);
+				if (!response.ok) {
+					throw new Error("Failed to fetch time spent.");
+				}
+
+				const data = await response.json();
+				if (data?.time_spent) {
+					setTimeSpent(data.time_spent);
+					setNewTimeSpent(data.time_spent);
+				}
+			} catch (error) {
+				toast.error("Error fetching time spent", { theme: "dark" });
+			}
+		};
+
+		fetchTimeSpent();
+	}, [gameId]);
+
+	useEffect(() => {
+		if (!userId || !gameId) return;
+
+		const fetchFavoriteStatus = async () => {
+			try {
+				const response = await fetch(
+					`/api/gameshelf/isFavorite/${userId}/${gameId}`,
+				);
+				if (!response.ok) {
+					throw new Error("Failed to fetch favorite status");
+				}
+
+				const { isFavorite } = await response.json();
+				isFavorite(isFavorite);
+			} catch (error) {
+				toast.error("Error: Unable to check favorite status.", {
+					theme: "dark",
+				});
+			}
+		};
+
+		fetchFavoriteStatus();
+	}, [gameId, userId]);
+
+	const updateTimeSpentInDatabase = async (newTime: number) => {
+		try {
+			const response = await fetch(`/api/gameshelf/${gameId}/time_spent`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ timeSpent: newTime }),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to update time spent.");
+			}
+
+			onTimeSpentChange(newTime);
+			toast.success("Time spent updated successfully.", { theme: "dark" });
+		} catch (error) {
+			toast.error("Error updating time spent.", { theme: "dark" });
+		}
+	};
 
 	const handleClick = () => {
 		setIsEditing(true);
@@ -35,7 +103,7 @@ const TimeSpent: React.FC<TimeSpentProps> = ({
 		const finalValue = newTimeSpent === "" ? 0 : Number(newTimeSpent);
 		setTimeSpent(finalValue);
 		setIsEditing(false);
-		onTimeSpentChange(finalValue);
+		updateTimeSpentInDatabase(finalValue);
 	};
 
 	const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
