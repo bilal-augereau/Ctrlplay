@@ -88,13 +88,13 @@
 
 .device-container {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
+	gap: 5px;
 }
 
 .device-container img {
-	display: flex;
-	height: 35px;
-	width: 35px;
+	height: 25px;
+	width: 25px;
 	border-radius: 0;
 }
 

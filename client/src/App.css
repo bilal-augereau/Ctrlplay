@@ -191,7 +191,8 @@ h4 {
 p,
 input,
 a,
-label {
+label,
+li {
 	font-size: 1rem;
 	font-family: var(--font-paragraph);
 }
