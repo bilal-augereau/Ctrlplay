@@ -28,7 +28,8 @@
 
 #user-main #user-aside #user-welcome-box h2 {
 	font-weight: 600;
-	font-size: 1.6rem;
+	font-size: clamp(.5rem, 5ch, 1.6rem);
+	max-width: 100%;
 }
 
 #user-main #user-aside #user-welcome-box div#user-welcome {
@@ -130,28 +131,37 @@
 	opacity: 0.6;
 }
 
+#user-main #user-main-box .user-buttons:hover .user-buttons-img {
+	transform: scale(1.3);
+	transition: transform 0.3s ease-in-out;
+}
+
 #user-main #user-main-box .user-buttons .user-buttons-img {
 	width: 80px;
 	height: 80px;
-
 	position: absolute;
 	left: -30px;
 	top: 0px;
 }
 
 #user-main #user-main-box #user-buttons #user-button-1 {
-	background: linear-gradient(to right, #16caf1, #0143a7);
-	box-shadow: 40px 0px 80px -10px #16caf1, -40px 0 80px -10px #0143a7;
+	background: linear-gradient(45deg, #000000, #a83ba8, #19a1be);
+	box-shadow: 40px 0px 80px -10px #16caf1, -40px 0px 80px -10px #0143a7;
 }
 
 #user-main #user-main-box #user-buttons #user-button-2 {
-	background: linear-gradient(to right, #2e85ff, #e03939);
-	box-shadow: 40px 0px 80px -10px #2e85ff, -40px 0 80px -10px #e03939;
+	background: linear-gradient(45deg, #19a1be, #01657d);
+	box-shadow: 40px 0px 80px -10px #19a1be, -40px 0px 80px -10px #01657d;
 }
 
 #user-main #user-main-box #user-buttons #user-button-3 {
-	background: linear-gradient(to right, #ff2e2e, #e08939);
-	box-shadow: 40px 0px 80px -10px #ff2e2e, -40px 0 80px -10px #e08939;
+	background: linear-gradient(45deg, #01657d, #7d4192);
+	box-shadow: 40px 0px 80px -10px #19a1be, -40px 0px 80px -10px #7d4192;
+}
+
+#user-main #user-main-box #user-buttons #user-button-4 {
+	background: linear-gradient(45deg, #7d4192, #000000);
+	box-shadow: 40px 0px 80px -10px #7d4192, -40px 0px 80px -10px #3d1f61;
 }
 
 #user-main #user-main-box #user-recommandation-title {

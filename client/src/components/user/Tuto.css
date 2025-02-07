@@ -1,0 +1,45 @@
+#user-tuto {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+
+	margin: 5rem;
+	padding: 3rem;
+
+	border-radius: var(--border-radius);
+	background: var(--background-gradient);
+	box-shadow: 10px 10px 10px;
+}
+
+#user-tuto-header {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+
+	font-weight: 700;
+}
+
+#user-tuto-header #user-small-logo {
+	width: 35px;
+	height: auto;
+}
+
+#user-tuto p {
+	padding-top: 1rem;
+	line-height: 1.5;
+}
+
+#user-tuto p span {
+	font-style: italic;
+}
+
+#user-tuto ul li {
+	color: var(--white);
+
+	display: flex;
+	gap: 5px;
+	align-items: center;
+
+	padding: 1rem 0 0 2rem;
+}

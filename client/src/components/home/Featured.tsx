@@ -4,9 +4,8 @@ import "./featured.css";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
 import { useAuth } from "../../context/UserContext";
-import FavoriteButton from "../buttons/FavoriteButton";
-import GameShelfButton from "../buttons/GameShelfButton";
-import InfosButton from "../buttons/InfosButton";
+
+import GameButtons from "../buttons/GameButtons";
 import GameDevices from "../game/GameDevices";
 
 const Featured = () => {
@@ -71,7 +70,7 @@ const Featured = () => {
 	};
 
 	const handleThumbnailClick = () => {
-		setIsPrimaryImage(false);
+		setIsPrimaryImage(!isPrimaryImage);
 	};
 
 	return (
@@ -149,23 +148,7 @@ const Featured = () => {
 							</div>
 						</div>
 					</div>
-					<div className="game-actions">
-						<InfosButton id={games[currentIndex].id} />
-						{user ? (
-							<>
-								<GameShelfButton
-									userId={user.id}
-									gameId={Number.parseInt(games[currentIndex].id)}
-								/>
-								<FavoriteButton
-									userId={user.id}
-									gameId={Number.parseInt(games[currentIndex].id)}
-								/>
-							</>
-						) : (
-							<></>
-						)}
-					</div>
+					<GameButtons userId={user?.id} game={games[currentIndex]} />
 				</>
 			)}
 
