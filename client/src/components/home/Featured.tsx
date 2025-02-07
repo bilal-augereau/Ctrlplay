@@ -133,18 +133,19 @@ const Featured = () => {
 									<p>{shortenDescription(games[currentIndex])}</p>
 								)}
 							</p>
-
-							<img
-								src={
-									isPrimaryImage
-										? games[currentIndex].image_2
-										: games[currentIndex].image
-								}
-								alt="Thumbnail"
-								className="game-thumbnail"
-								onClick={handleThumbnailClick}
-								onKeyDown={handleThumbnailClick}
-							/>
+							<div className="image-container">
+								<img
+									src={
+										isPrimaryImage
+											? games[currentIndex].image_2
+											: games[currentIndex].image
+									}
+									alt="Thumbnail"
+									className="game-thumbnail"
+									onClick={handleThumbnailClick}
+									onKeyDown={handleThumbnailClick}
+								/>
+							</div>
 						</div>
 					</div>
 					<GameButtons userId={user?.id} game={games[currentIndex]} />

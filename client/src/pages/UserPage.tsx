@@ -97,8 +97,6 @@ function UserPage() {
 				</div>
 			</aside>
 			<section className="content-box" id="user-main-box">
-				<h3>Search a game</h3>
-				<p>Search bar component here</p>
 				<div id="user-buttons">
 					<button
 						type="button"
