@@ -19,66 +19,61 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 
 	useEffect(() => {
 		const fetchTimeSpent = async () => {
+			if (!userId || !gameId) return;
+
 			try {
-				const response = await fetch(`/api/gameshelf/${gameId}/time_spent`);
+				const response = await fetch(
+					`/api/gameshelf/timespent/${userId}/${gameId}`,
+				);
+
 				if (!response.ok) {
-					throw new Error("Failed to fetch time spent.");
+					throw new Error(`Server error: ${response.status}`);
 				}
 
 				const data = await response.json();
-				if (data?.time_spent) {
+				if (data?.time_spent !== undefined) {
 					setTimeSpent(data.time_spent);
 					setNewTimeSpent(data.time_spent);
 				}
 			} catch (error) {
+				console.error("Error fetching time spent:", error);
 				toast.error("Error fetching time spent", { theme: "dark" });
 			}
 		};
 
 		fetchTimeSpent();
-	}, [gameId]);
-
-	useEffect(() => {
-		if (!userId || !gameId) return;
-
-		const fetchFavoriteStatus = async () => {
-			try {
-				const response = await fetch(
-					`/api/gameshelf/isFavorite/${userId}/${gameId}`,
-				);
-				if (!response.ok) {
-					throw new Error("Failed to fetch favorite status");
-				}
-
-				const { isFavorite } = await response.json();
-				isFavorite(isFavorite);
-			} catch (error) {
-				toast.error("Error: Unable to check favorite status.", {
-					theme: "dark",
-				});
-			}
-		};
-
-		fetchFavoriteStatus();
 	}, [gameId, userId]);
 
 	const updateTimeSpentInDatabase = async (newTime: number) => {
+		if (!userId || !gameId) {
+			toast.error("User or game ID is missing.", { theme: "dark" });
+			return;
+		}
+
 		try {
-			const response = await fetch(`/api/gameshelf/${gameId}/time_spent`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
+			const response = await fetch(
+				`/api/gameshelf/timespent/${userId}/${gameId}`,
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ timeSpent: newTime }),
 				},
-				body: JSON.stringify({ timeSpent: newTime }),
-			});
+			);
 
 			if (!response.ok) {
-				throw new Error("Failed to update time spent.");
+				throw new Error(`Server error: ${response.status}`);
 			}
 
-			onTimeSpentChange(newTime);
+			const data = await response.json();
+
+			setTimeSpent(data.time_spent);
+			setNewTimeSpent(data.time_spent);
+			onTimeSpentChange(data.time_spent);
 			toast.success("Time spent updated successfully.", { theme: "dark" });
 		} catch (error) {
+			console.error("Error updating time spent:", error);
 			toast.error("Error updating time spent.", { theme: "dark" });
 		}
 	};
@@ -88,15 +83,7 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const value = event.target.value;
-
-		if (
-			value === "" ||
-			!Number.isNaN(Number(value)) ||
-			/^(\d+(\.\d{1,2})?)?$/.test(value)
-		) {
-			setNewTimeSpent(value === "" ? "" : value);
-		}
+		setNewTimeSpent(event.target.value);
 	};
 
 	const handleBlur = () => {
@@ -106,7 +93,7 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 		updateTimeSpentInDatabase(finalValue);
 	};
 
-	const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === "Enter") {
 			handleBlur();
 		}
@@ -127,7 +114,7 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 					value={newTimeSpent}
 					onChange={handleChange}
 					onBlur={handleBlur}
-					onKeyPress={handleKeyPress}
+					onKeyDown={handleKeyDown}
 					className="time-spent-input"
 					min="0"
 				/>

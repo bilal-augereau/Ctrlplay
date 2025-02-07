@@ -291,13 +291,45 @@ const updateTimeSpent: RequestHandler = async (req, res, next) => {
 
 		res.status(200).json({
 			message: "Time spent updated successfully.",
-			data: updatedGameShelf,
+			time_spent: updatedGameShelf.time_spent,
 		});
 	} catch (err) {
 		console.error("Error updating timeSpent:", err);
 		res
 			.status(500)
 			.json({ error: "An error occurred while updating timeSpent." });
+	}
+};
+const getTimeSpent: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameId } = req.params;
+
+		if (!userId || !gameId) {
+			res.status(400).json({ error: "Both userId and gameId are required." });
+			return;
+		}
+
+		const user = await userRepository.read(Number(userId));
+		if (!user) {
+			res.status(404).json({ error: "User not found." });
+			return;
+		}
+
+		const game = await gameRepository.read(Number(gameId));
+		if (!game) {
+			res.status(404).json({ error: "Game not found." });
+			return;
+		}
+
+		const timeSpent = await gameShelfRepository.getTimeSpent(
+			Number(userId),
+			Number(gameId),
+		);
+
+		res.status(200).json({ time_spent: timeSpent });
+	} catch (err) {
+		console.error("Error retrieving time spent:", err);
+		next(err);
 	}
 };
 
@@ -312,4 +344,5 @@ export default {
 	browseFeaturedGames,
 	isFavorite,
 	updateTimeSpent,
+	getTimeSpent,
 };
