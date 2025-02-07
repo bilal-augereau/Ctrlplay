@@ -276,3 +276,8 @@ button:active {
 	text-align: center;
 	pointer-events: none;
 }
+
+#imgportal {
+	width: 25.5px;
+	height: 40.5px;
+}
