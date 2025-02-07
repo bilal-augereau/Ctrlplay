@@ -2,6 +2,6 @@ type DisplayModeCategory =
 	| "recommendations"
 	| "allGames"
 	| "favorites"
-	| "toDo";
+	| "wishlist";
 
 export default DisplayModeCategory;

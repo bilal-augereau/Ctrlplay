@@ -28,7 +28,8 @@
 
 #user-main #user-aside #user-welcome-box h2 {
 	font-weight: 600;
-	font-size: 1.6rem;
+	font-size: clamp(.5rem, 5ch, 1.6rem);
+	max-width: 100%;
 }
 
 #user-main #user-aside #user-welcome-box div#user-welcome {

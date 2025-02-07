@@ -1,6 +1,12 @@
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema db_crtl_play
+-- -----------------------------------------------------
 
 -- -----------------------------------------------------
 -- Schema db_crtl_play
@@ -15,8 +21,8 @@ DROP TABLE IF EXISTS `db_crtl_play`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `pseudo` VARCHAR(50) NULL,
-  `password` VARCHAR(150) NULL,
+  `pseudo` VARCHAR(50) NULL DEFAULT NULL,
+  `password` VARCHAR(150) NULL DEFAULT NULL,
   `avatar` VARCHAR(25) NULL DEFAULT "rayman",
   PRIMARY KEY (`id`),
   UNIQUE INDEX `pseudo_UNIQUE` (`pseudo` ASC) VISIBLE)
@@ -30,13 +36,13 @@ DROP TABLE IF EXISTS `db_crtl_play`.`game` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(100) NULL,
-  `year` INT NULL,
-  `description` MEDIUMTEXT NULL,
-  `image` VARCHAR(255) NULL,
-  `image_2` VARCHAR(255) NULL,
-  `note` FLOAT NULL,
-  `website` VARCHAR(255) NULL,
+  `title` VARCHAR(100) NULL DEFAULT NULL,
+  `year` INT NULL DEFAULT NULL,
+  `description` MEDIUMTEXT NULL DEFAULT NULL,
+  `image` VARCHAR(255) NULL DEFAULT NULL,
+  `image_2` VARCHAR(255) NULL DEFAULT NULL,
+  `note` FLOAT NULL DEFAULT NULL,
+  `website` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -48,7 +54,7 @@ DROP TABLE IF EXISTS `db_crtl_play`.`publisher` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`publisher` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NULL,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -60,7 +66,7 @@ DROP TABLE IF EXISTS `db_crtl_play`.`genre` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`genre` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NULL,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -73,10 +79,10 @@ DROP TABLE IF EXISTS `db_crtl_play`.`game_shelf` ;
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game_shelf` (
   `user_id` INT NOT NULL,
   `game_id` INT NOT NULL,
-  `finished` TINYINT NULL DEFAULT 0,
-  `time_spent` INT NULL DEFAULT 0,
-  `favorite` TINYINT NULL DEFAULT 0,
-  `to_do` TINYINT NULL DEFAULT 0,
+  `finished` TINYINT NOT NULL DEFAULT 0,
+  `time_spent` INT NOT NULL DEFAULT 0,
+  `favorite` TINYINT NOT NULL DEFAULT 0,
+  `to_do` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`, `game_id`),
   INDEX `fk_user_has_game_game1_idx` (`game_id` ASC) VISIBLE,
   INDEX `fk_user_has_game_user1_idx` (`user_id` ASC) VISIBLE,
@@ -100,7 +106,7 @@ DROP TABLE IF EXISTS `db_crtl_play`.`tag` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`tag` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NULL,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -136,7 +142,7 @@ DROP TABLE IF EXISTS `db_crtl_play`.`device` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`device` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NULL,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -208,6 +214,30 @@ CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game_publisher` (
   CONSTRAINT `fk_game_has_publisher_publisher1`
     FOREIGN KEY (`publisher_id`)
     REFERENCES `db_crtl_play`.`publisher` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `db_crtl_play`.`wishlist`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_crtl_play`.`wishlist` ;
+
+CREATE TABLE IF NOT EXISTS `db_crtl_play`.`wishlist` (
+  `user_id` INT NOT NULL,
+  `game_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `game_id`),
+  INDEX `fk_user_has_game_game2_idx` (`game_id` ASC) VISIBLE,
+  INDEX `fk_user_has_game_user2_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_has_game_user2`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `db_crtl_play`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_game_game2`
+    FOREIGN KEY (`game_id`)
+    REFERENCES `db_crtl_play`.`game` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

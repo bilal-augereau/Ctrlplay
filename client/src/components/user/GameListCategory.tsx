@@ -2,6 +2,7 @@ import type DisplayModeCategory from "../../interface/GameCategoryType";
 import type GameType from "../../interface/GameType";
 
 import GameCard from "../game/GameCard";
+import Tuto from "./Tuto";
 
 interface GameListProps {
 	games: GameType[];
@@ -24,11 +25,11 @@ const GameList = ({
 					? "All My Games"
 					: displayMode === "favorites"
 						? "Favorite Games"
-						: "To-Do List"}
+						: "Wishlist"}
 		</h3>
 		<div id="user-game-list">
 			{!games?.length ? (
-				<p>No games found.</p>
+				<Tuto />
 			) : (
 				<>
 					{(displayMode === "recommendations"
@@ -40,15 +41,17 @@ const GameList = ({
 				</>
 			)}
 		</div>
-		{displayMode === "recommendations" && (
-			<button
-				type="button"
-				className="beautiful-button user-beautiful-button"
-				onClick={onLoadMore}
-			>
-				More...
-			</button>
-		)}
+		{displayMode === "recommendations" &&
+			games &&
+			gamesRecoLength < games.length && (
+				<button
+					type="button"
+					className="beautiful-button user-beautiful-button"
+					onClick={onLoadMore}
+				>
+					More...
+				</button>
+			)}
 	</article>
 );
 
