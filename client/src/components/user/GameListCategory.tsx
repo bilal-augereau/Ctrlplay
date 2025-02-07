@@ -41,15 +41,17 @@ const GameList = ({
 				</>
 			)}
 		</div>
-		{displayMode === "recommendations" && (
-			<button
-				type="button"
-				className="beautiful-button user-beautiful-button"
-				onClick={onLoadMore}
-			>
-				More...
-			</button>
-		)}
+		{displayMode === "recommendations" &&
+			games &&
+			gamesRecoLength < games.length && (
+				<button
+					type="button"
+					className="beautiful-button user-beautiful-button"
+					onClick={onLoadMore}
+				>
+					More...
+				</button>
+			)}
 	</article>
 );
 

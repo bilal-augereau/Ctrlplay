@@ -70,7 +70,7 @@ const Featured = () => {
 	};
 
 	const handleThumbnailClick = () => {
-		setIsPrimaryImage(false);
+		setIsPrimaryImage(!isPrimaryImage);
 	};
 
 	return (
