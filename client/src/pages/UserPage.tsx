@@ -17,8 +17,6 @@ import type UserType from "../interface/UserType";
 import { useAuth } from "../context/UserContext";
 import { useGames } from "../services/useGames";
 
-import SearchBar from "../components/SearchBar";
-
 function UserPage() {
 	const { user } = useAuth() as { user: UserType };
 	const [displayMode, setDisplayMode] =
@@ -26,7 +24,6 @@ function UserPage() {
 	const [gamesRecoLength, setGamesRecoLength] = useState(21);
 	const [gameFeatured, setGameFeatured] = useState<GameType>();
 	const { games, loadGames } = useGames(user.id, user.token);
-	const [searchQuery, setSearchQuery] = useState("");
 
 	useEffect(() => {
 		const fetchFeaturedGame = async () => {
@@ -65,10 +62,6 @@ function UserPage() {
 				return [];
 		}
 	})();
-
-	const filteredGames = (currentGames || []).filter((game) =>
-		game?.title?.toLowerCase().includes(searchQuery.toLowerCase()),
-	);
 
 	return (
 		<main id="user-main">
@@ -113,9 +106,8 @@ function UserPage() {
 						All my games
 					</button>
 				</div>
-				<SearchBar setSearchQuery={setSearchQuery} />
 				<GameListCategory
-					games={filteredGames || []}
+					games={currentGames || []}
 					displayMode={displayMode}
 					gamesRecoLength={gamesRecoLength}
 					onLoadMore={() => setGamesRecoLength((prev) => prev + 10)}
