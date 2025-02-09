@@ -55,3 +55,63 @@
 
 	margin-bottom: 1rem;
 }
+
+.comments-section {
+	margin-top: 20px;
+	padding: 20px;
+	background: #222;
+	border-radius: 10px;
+}
+
+.comments-list {
+	list-style: none;
+	padding: 0;
+}
+
+.comment {
+	margin-bottom: 10px;
+	padding: 10px;
+	background: #333;
+	border-radius: 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.comment strong {
+	color: #fff;
+}
+
+.delete-btn {
+	background: none;
+	border: none;
+	color: red;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.comment-form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.comment-form textarea {
+	width: 100%;
+	padding: 10px;
+	resize: none;
+	border-radius: 5px;
+	border: 1px solid #555;
+	background: #444;
+	color: white;
+}
+
+.submit-btn {
+	align-self: flex-start;
+	padding: 8px 15px;
+	border-radius: 5px;
+	background-color: #0084ff;
+	color: white;
+	cursor: pointer;
+}

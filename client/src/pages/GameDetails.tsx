@@ -8,9 +8,11 @@ import type GameType from "../interface/GameType";
 import GameDevices from "../components/game/GameDevices";
 import GameRatings from "../components/game/GameRatings";
 import GameTags from "../components/game/GameTags";
+import CommentSection from "../components/user/CommentSection";
 
 import FavoriteButton from "../components/buttons/FavoriteButton";
 import GameShelfButton from "../components/buttons/GameShelfButton";
+import commentService from "../services/commentService";
 
 import "./GameDetails.css";
 import { useState } from "react";
@@ -83,6 +85,10 @@ function GameDetails() {
 					</a>
 				</div>
 			</section>
+			<CommentSection
+				gameId={Number(game.id)}
+				commentService={commentService}
+			/>
 		</main>
 	);
 }

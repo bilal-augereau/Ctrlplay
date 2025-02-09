@@ -4,6 +4,7 @@ const router = express.Router();
 
 import authActions from "./modules/auth/authActions";
 import authServices from "./modules/auth/authServices";
+import commentsActions from "./modules/comments/commentsActions";
 import deviceActions from "./modules/device/deviceActions";
 import gameActions from "./modules/game/gameActions";
 import gameShelfActions from "./modules/gameShelf/gameShelfActions";
@@ -55,5 +56,10 @@ router.get("/api/users/:id/games", gameShelfActions.browseGamesByUser);
 router.get("/api/users/:id/favorites", gameShelfActions.browseFavorites);
 router.get("/api/users/:id/recommandation", gameActions.browseReco);
 router.get("/api/users/:id/wishlist", wishlistActions.browseByUser);
+
+// Comments
+router.get("/api/comments/:gameId", commentsActions.browse);
+router.post("/api/comments", commentsActions.add);
+router.delete("/api/comments/:commentId", commentsActions.remove);
 
 export default router;
