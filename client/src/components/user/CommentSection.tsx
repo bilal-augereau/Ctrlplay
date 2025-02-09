@@ -10,6 +10,7 @@ interface Comment {
 	avatar: string;
 	content: string;
 	created_at: string;
+	isNew?: boolean;
 }
 
 interface CommentSectionProps {
@@ -91,9 +92,22 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 			}
 
 			const addedComment = await response.json();
-			setComments((prevComments) => [addedComment, ...prevComments]);
+			setComments((prevComments) => [
+				{ ...addedComment, isNew: true },
+				...prevComments,
+			]);
 			setNewComment("");
 			toast.success("Comment added successfully!", { theme: "dark" });
+
+			setTimeout(() => {
+				setComments((prevComments) =>
+					prevComments.map((comment) =>
+						comment.id === addedComment.id
+							? { ...comment, isNew: false }
+							: comment,
+					),
+				);
+			}, 300);
 		} catch (err) {
 			toast.error("Failed to add comment", { theme: "dark" });
 			console.error("Error adding comment:", err);
@@ -160,7 +174,10 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 			) : (
 				<ul className="comments-list">
 					{comments.map((comment) => (
-						<li key={comment.id} className="comment">
+						<li
+							key={comment.id}
+							className={`comment ${comment.isNew ? "comment-new" : ""}`}
+						>
 							<div className="comment-header">
 								<div className="comment-content">
 									<strong className="comment-user">{comment.pseudo}</strong>
@@ -170,7 +187,8 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 									<button
 										type="button"
 										onClick={() => handleDeleteComment(comment.id)}
-										className="delete-button"
+										className="beautiful-buttonadd"
+										id="delete-comment"
 										aria-label="Delete comment"
 									>
 										❌

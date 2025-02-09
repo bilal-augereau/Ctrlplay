@@ -10,18 +10,13 @@
 }
 
 .textarea {
-	width: 100%;
+	margin-top: 1rem;
 	padding: 0.75rem;
 	border: 1px solid #d1d5db;
 	border-radius: 0.5rem;
 	transition: border-color 0.2s, box-shadow 0.2s;
 	resize: none;
 	min-height: 100px;
-}
-
-.textarea:focus {
-	border-color: #3b82f6;
-	box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
 }
 
 .comments-list {
@@ -56,7 +51,7 @@
 }
 
 .comment-user {
-	color: #b91c1c;
+	color: var(--soft-blue);
 }
 /* Bouton supprimer */
 .delete-button {
@@ -71,27 +66,23 @@
 	opacity: 1;
 }
 
-.delete-button:hover {
-	color: #b91c1c;
-	background-color: #fee2e2;
+#delete-comment {
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
 }
 
-.delete-button:focus {
-	outline: 2px solid transparent;
-	outline-offset: 2px;
-	box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.5);
+.comment:hover #delete-comment {
+	opacity: 1;
 }
 
-/* Message quand il n'y a pas de commentaires */
 .no-comments {
 	text-align: center;
 	padding-top: 2rem;
 	padding-bottom: 2rem;
-	color: #6b7280;
+	color: white;
 	font-style: italic;
 }
 
-/* Responsive */
 @media (max-width: 640px) {
 	.content-box {
 		padding: 1rem;
@@ -106,13 +97,8 @@
 		align-items: flex-start;
 		gap: 0.25rem;
 	}
-
-	.delete-button {
-		opacity: 1;
-	}
 }
 
-/* Animation d'entrée pour les nouveaux commentaires */
 @keyframes slideIn {
 	from {
 		opacity: 0;
