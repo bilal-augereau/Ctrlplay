@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/UserContext";
 
@@ -9,7 +8,6 @@ const FavoriteButton = ({
 	gameId,
 	isFavorite,
 	setIsFavorite,
-	isInLibrary,
 }: {
 	gameId: number;
 	userId: number;
@@ -19,38 +17,6 @@ const FavoriteButton = ({
 }) => {
 	const { user } = useAuth();
 	const userId = user?.id;
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies(isInLibrary): reload favorite status when library status changes
-	useEffect(() => {
-		if (!userId || !gameId) return;
-
-		const fetchGameStatus = async () => {
-			try {
-				const response = await fetch(
-					`http://localhost:3310/api/gameshelf/isFavorite/${userId}/${gameId}`,
-					{
-						method: "GET",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `${user?.token}`,
-						},
-					},
-				);
-
-				if (!response.ok)
-					throw new Error("Failed to fetch game favorite status");
-
-				const { isFavorite } = await response.json();
-				setIsFavorite(isFavorite);
-			} catch (err) {
-				toast.error("Error: Unable to check game favorite status.", {
-					theme: "dark",
-				});
-			}
-		};
-
-		fetchGameStatus();
-	}, [gameId, userId, user, isInLibrary, setIsFavorite]);
 
 	const handleToggleFavorite = async () => {
 		if (!userId || !gameId) {

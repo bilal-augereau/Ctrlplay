@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/UserContext";
 
@@ -7,49 +6,16 @@ import removedLibraryIcon from "../../assets/images/button_icons/bookinactive.pn
 
 const GameShelfButton = ({
 	gameId,
-	isFavorite,
 	isInLibrary,
 	setIsInLibrary,
 }: {
 	gameId: number;
 	userId: number;
-	isFavorite: boolean;
 	isInLibrary: boolean;
 	setIsInLibrary: (value: boolean) => void;
 }) => {
 	const { user } = useAuth();
 	const userId = user?.id;
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies(isFavorite): reload library status when favorite status changes
-	useEffect(() => {
-		if (!userId || !gameId) {
-			toast.error("UserId and GameId required", { theme: "dark" });
-		}
-
-		const checkLibrary = async () => {
-			try {
-				const response = await fetch(
-					`http://localhost:3310/api/gameshelf/exists/${userId}/${gameId}`,
-					{
-						method: "GET",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: `${user?.token}`,
-						},
-					},
-				);
-
-				if (!response.ok) throw new Error("Failed to fetch game status");
-
-				const { exists } = await response.json();
-				setIsInLibrary(exists);
-			} catch (err) {
-				toast.error("Error: Unable to check game status.", { theme: "dark" });
-			}
-		};
-
-		checkLibrary();
-	}, [gameId, userId, user, isFavorite, setIsInLibrary]);
 
 	const toggleLibraryStatus = async () => {
 		if (!userId) {
