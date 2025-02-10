@@ -125,37 +125,6 @@ class gameShelfRepository {
 			[isFavorite ? 1 : 0, userId, gameId],
 		);
 	}
-
-	async getTimeSpent(userId: number, gameId: number): Promise<number> {
-		try {
-			const [rows]: [RowDataPacket[], unknown] = await databaseClient.query(
-				"SELECT timeSpent FROM game_shelf WHERE user_id = ? AND game_id = ?",
-				[userId, gameId],
-			);
-
-			return rows.length > 0 ? rows[0].timeSpent : 0;
-		} catch (err) {
-			console.error("Error retrieving timeSpent:", err);
-			throw err;
-		}
-	}
-
-	async updateTimeSpent(
-		userId: number,
-		gameId: number,
-		timeSpent: number,
-	): Promise<{ time_spent: number }> {
-		const query =
-			"UPDATE game_shelf SET time_spent = ? WHERE user_id = ? AND game_id = ?";
-		await databaseClient.query(query, [timeSpent, userId, gameId]);
-
-		const [rows]: [RowDataPacket[], unknown] = await databaseClient.query(
-			"SELECT time_spent FROM game_shelf WHERE user_id = ? AND game_id = ?",
-			[userId, gameId],
-		);
-
-		return { time_spent: rows[0].time_spent };
-	}
 }
 
 export default new gameShelfRepository();
