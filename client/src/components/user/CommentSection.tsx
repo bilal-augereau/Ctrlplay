@@ -1,31 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/UserContext";
+import type { Comment, CommentSectionProps } from "../../types/comment.type";
 import "./CommentSection.css";
-
-interface Comment {
-	id: number;
-	user_id: number;
-	pseudo: string;
-	avatar: string;
-	content: string;
-	created_at: string;
-	isNew?: boolean;
-}
-
-interface CommentSectionProps {
-	gameId: number;
-	commentService: {
-		getComments: (gameId: number, token: string) => Promise<Comment[]>;
-		addComment: (
-			userId: number,
-			gameId: number,
-			content: string,
-			token: string,
-		) => Promise<Comment>;
-		deleteComment: (commentId: number, token: string) => Promise<void>;
-	};
-}
 
 const CommentSection = ({ gameId }: CommentSectionProps) => {
 	const { user } = useAuth();
@@ -33,6 +10,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 	const [newComment, setNewComment] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [rating, setRating] = useState<number>(3);
 
 	const fetchComments = useCallback(async () => {
 		if (!user?.token) return;
@@ -84,6 +62,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 					user_id: user.id,
 					game_id: gameId,
 					content: newComment.trim(),
+					rating,
 				}),
 			});
 
@@ -97,6 +76,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 				...prevComments,
 			]);
 			setNewComment("");
+			setRating(3);
 			toast.success("Comment added successfully!", { theme: "dark" });
 
 			setTimeout(() => {
@@ -108,6 +88,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 					),
 				);
 			}, 300);
+			fetchComments();
 		} catch (err) {
 			toast.error("Failed to add comment", { theme: "dark" });
 			console.error("Error adding comment:", err);
@@ -132,6 +113,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 				prevComments.filter((comment) => comment.id !== commentId),
 			);
 			toast.success("Comment deleted successfully!", { theme: "dark" });
+			fetchComments();
 		} catch (err) {
 			toast.error("Failed to delete comment", { theme: "dark" });
 			console.error("Error deleting comment:", err);
@@ -139,13 +121,23 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 		}
 	};
 
-	if (isLoading) {
+	const ratingComments: { [key: number]: string } = {
+		1: "Very bad",
+		2: "Bad",
+		3: "Average",
+		4: "Good",
+		5: "Very good",
+	};
+
+	if (isLoading && user) {
 		return <div className="content-box">Loading comments...</div>;
 	}
 
 	return (
 		<section className="content-box" id="comments-box">
-			<h2 className="title">Comments</h2>
+			<h2 className="title" id="commenttitle">
+				Comments
+			</h2>
 
 			{user ? (
 				<form onSubmit={handleCommentSubmit} className="comment-form">
@@ -157,6 +149,21 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 						disabled={isSubmitting}
 						className="textarea"
 					/>
+					<div id="rating">
+						<label htmlFor="rating">Rating:</label>
+					</div>
+					<select
+						id="rating"
+						value={rating}
+						onChange={(e) => setRating(Number(e.target.value))}
+						disabled={isSubmitting}
+					>
+						{[1, 2, 3, 4, 5].map((num) => (
+							<option key={num} value={num}>
+								{"⭐".repeat(num)} - {ratingComments[num]}
+							</option>
+						))}
+					</select>
 					<button
 						type="submit"
 						className="beautiful-button"
@@ -166,10 +173,10 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 					</button>
 				</form>
 			) : (
-				<p className="login-message">Please log in to add a comment</p>
+				<p className="login-message">Please log in to see or add comments</p>
 			)}
 
-			{comments.length === 0 ? (
+			{comments.length === 0 && user ? (
 				<p className="no-comments">No comments yet</p>
 			) : (
 				<ul className="comments-list">
@@ -182,6 +189,9 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 								<div className="comment-content">
 									<strong className="comment-user">{comment.pseudo}</strong>
 									<p className="comment-text">{comment.content}</p>
+									<p className="comment-rating">
+										Rating: {"⭐".repeat(comment.rating)}
+									</p>
 								</div>
 								{user && user.id === comment.user_id && (
 									<button

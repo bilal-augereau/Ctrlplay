@@ -247,11 +247,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `db_crtl_play`.`comment`;
 
-CREATE TABLE IF NOT EXISTS `db_crtl_play`.`comment` (
+DROP TABLE IF EXISTS `db_crtl_play`.`comment`;
+
+CREATE TABLE `db_crtl_play`.`comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `game_id` INT NOT NULL,
   `content` TEXT NOT NULL,
+  `rating` FLOAT CHECK (`rating` BETWEEN 1 AND 5) NULL DEFAULT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_comment_user_idx` (`user_id` ASC) VISIBLE,
@@ -265,8 +268,9 @@ CREATE TABLE IF NOT EXISTS `db_crtl_play`.`comment` (
     FOREIGN KEY (`game_id`)
     REFERENCES `db_crtl_play`.`game` (`id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

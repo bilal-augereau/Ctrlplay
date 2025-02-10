@@ -1,11 +1,4 @@
-interface Comment {
-	id: number;
-	user_id: number;
-	pseudo: string;
-	avatar: string;
-	content: string;
-	created_at: string;
-}
+import type { Comment } from "../types/comment.type";
 
 const API_URL = "http://localhost:3310/api/comments";
 const commentService = {
@@ -42,6 +35,7 @@ const commentService = {
 		gameId: number,
 		content: string,
 		token: string,
+		rating: number,
 	): Promise<Comment> => {
 		try {
 			const response = await fetch(API_URL, {
@@ -54,6 +48,7 @@ const commentService = {
 					user_id: userId,
 					game_id: gameId,
 					content: content.trim(),
+					rating,
 				}),
 			});
 
@@ -92,6 +87,19 @@ const commentService = {
 			console.error("DeleteComment error:", error);
 			throw error;
 		}
+	},
+	getAverageRating: async (
+		gameId: number,
+	): Promise<{ averageRating: number }> => {
+		const response = await fetch(
+			`http://localhost:3310/api/comments/average-rating/${gameId}`,
+		);
+
+		if (!response.ok) {
+			throw new Error("Failed to fetch user average rating");
+		}
+
+		return await response.json();
 	},
 };
 

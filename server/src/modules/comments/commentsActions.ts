@@ -18,13 +18,21 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const add: RequestHandler = async (req, res, next) => {
 	try {
-		const { user_id, game_id, content } = req.body;
+		const { user_id, game_id, content, rating } = req.body;
 
-		if (!user_id || !game_id || !content.trim()) {
-			res.status(400).json({ error: "All fields are required" });
+		if (!user_id || !game_id || !content.trim() || rating < 1 || rating > 5) {
+			res.status(400).json({
+				error:
+					"Tous les champs sont obligatoires et la note doit être entre 1 et 5.",
+			});
 		}
 
-		const newComment = await commentsRepository.add(user_id, game_id, content);
+		const newComment = await commentsRepository.add(
+			user_id,
+			game_id,
+			content,
+			rating,
+		);
 		res.json(newComment);
 	} catch (err) {
 		next(err);
@@ -34,13 +42,25 @@ const add: RequestHandler = async (req, res, next) => {
 const remove: RequestHandler = async (req, res, next) => {
 	try {
 		const commentId = Number(req.params.commentId);
+		const gameId = Number(req.body.gameId);
 
-		const deleted = await commentsRepository.remove(commentId);
+		const deleted = await commentsRepository.remove(commentId, gameId);
 		if (!deleted) res.sendStatus(404);
-		else res.json({ message: "Comment deleted" });
+		else res.json({ message: "Commentaire supprimé" });
 	} catch (err) {
 		next(err);
 	}
 };
 
-export default { browse, add, remove };
+const readAverageRating: RequestHandler = async (req, res, next) => {
+	try {
+		const gameId = Number(req.params.gameId);
+		const averageRating = await commentsRepository.getAverageRating(gameId);
+
+		res.json({ averageRating });
+	} catch (err) {
+		next(err);
+	}
+};
+
+export default { browse, add, remove, readAverageRating };

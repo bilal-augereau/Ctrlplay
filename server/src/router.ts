@@ -29,6 +29,12 @@ router.get("/api/devices", deviceActions.browse);
 router.get("/api/tags", tagActions.browse);
 router.get("/api/publishers", publisherActions.browse);
 
+// Comments
+router.get(
+	"/api/comments/average-rating/:gameId",
+	commentsActions.readAverageRating,
+);
+
 // Auth Middleware (protected routes)
 router.use("/api", authServices.isAuthorized);
 
