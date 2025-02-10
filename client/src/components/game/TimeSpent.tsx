@@ -22,9 +22,7 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 			if (!userId || !gameId) return;
 
 			try {
-				const response = await fetch(
-					`/api/gameshelf/timespent/${userId}/${gameId}`,
-				);
+				const response = await fetch(`/api/gameshelf/${userId}/${gameId}`);
 
 				if (!response.ok) {
 					throw new Error(`Server error: ${response.status}`);
