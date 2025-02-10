@@ -1,4 +1,3 @@
-import type { RowDataPacket } from "mysql2/promise";
 import databaseClient from "../../../database/client";
 import type { Rows } from "../../../database/client";
 import type GameShelfType from "../../interface/GameShelfType";
