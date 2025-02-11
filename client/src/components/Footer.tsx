@@ -1,12 +1,8 @@
 import "./Footer.css";
+import type ScrollType from "../interface/ScrollType";
+import PortalButtonTwo from "./buttons/PortalButtonTwo";
 
-function Footer() {
-	const handleScrollToTop = () => {
-		const header = document.querySelector(".header");
-		if (header) {
-			header.scrollIntoView({ behavior: "smooth" });
-		}
-	};
+function Footer({ scrollToRefOne, scrollToRefTwo }: ScrollType) {
 	return (
 		<footer className="footer">
 			<div className="footer-left">
@@ -22,12 +18,12 @@ function Footer() {
 			</div>
 
 			<div className="footer-center">
-				<button
-					id="footer-portal"
-					type="button"
-					className="footer-portal"
-					onClick={handleScrollToTop}
-				/>
+				<div ref={scrollToRefTwo}>
+					<PortalButtonTwo
+						scrollToRefOne={scrollToRefOne}
+						scrollToRefTwo={scrollToRefTwo}
+					/>
+				</div>
 			</div>
 
 			<div className="footer-right">
