@@ -35,7 +35,10 @@ router.use("/api", authServices.isAuthorized);
 router.post("/api/gameshelf", gameShelfActions.add);
 router.delete("/api/gameshelf/:userId/:gameId", gameShelfActions.remove);
 router.get("/api/gameshelf/:userId/:gameId", gameShelfActions.read);
-
+router.put(
+	"/api/gameshelf/timespent/:userId/:gameId",
+	gameShelfActions.updateTimeSpent,
+);
 // Favorite Games
 router.put("/api/gameshelf/favorite", gameShelfActions.addFavorite);
 router.get(
