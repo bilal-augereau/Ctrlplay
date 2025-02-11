@@ -71,7 +71,7 @@ const WishlistButton = ({ gameId }: { gameId: number }) => {
 
 			setIsInWishlist(!isInWishlist);
 			toast.success(
-				`Game ${isInWishlist ? "removed from" : "added to"} your library successfully.`,
+				`Game ${isInWishlist ? "removed from" : "added to"} your wishlist successfully.`,
 				{ theme: "dark" },
 			);
 		} catch (err) {
