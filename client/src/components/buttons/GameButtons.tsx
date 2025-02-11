@@ -54,13 +54,14 @@ function GameButtons({ game }: GameCardProps) {
 					setIsInLibrary(Object.keys(gameState).length > 0);
 					if (Object.keys(gameState).length > 0)
 						setIsFavorite(gameState[0].favorite === 1);
+					else setIsFavorite(false);
 				} catch (err) {
 					toast.error("Error: Unable to check game status.", { theme: "dark" });
 				}
 			};
 
 			checkLibrary();
-		}, [game.id, user, isFavorite, setIsInLibrary, setIsFavorite]);
+		}, [game.id, user, isFavorite, isInLibrary, setIsInLibrary, setIsFavorite]);
 	}
 
 	return (
