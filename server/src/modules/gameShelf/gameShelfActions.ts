@@ -85,12 +85,12 @@ const read: RequestHandler = async (req, res, next) => {
 			res.status(400).json({ error: "Both userId and gameId are required." });
 		}
 
-		const exists = await gameShelfRepository.read(
+		const gameState = await gameShelfRepository.read(
 			Number(userId),
 			Number(gameId),
 		);
 
-		res.status(200).json({ exists: exists.length > 0 });
+		res.status(200).json({ gameState });
 	} catch (err) {
 		next(err);
 	}
@@ -186,6 +186,7 @@ const removeFavorite: RequestHandler = async (req, res, next) => {
 				error:
 					"Game is not in the user's library, cannot be removed from favorites.",
 			});
+			return;
 		}
 
 		if (Number(existingGameShelf[0]?.favorite) !== 1) {

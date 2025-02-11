@@ -103,15 +103,9 @@
 	margin-right: 18%;
 }
 
-.beautiful-buttonadd {
-	cursor: pointer;
-	margin-top: 25px;
-}
-
 .arrow {
 	position: absolute;
 	top: 50%;
-	transform: translateY(-50%);
 	background-color: rgba(0, 0, 0, 0.5);
 	color: white;
 	border: none;
