@@ -15,6 +15,8 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [newTimeSpent, setNewTimeSpent] = useState<number | string>("");
 
+	const [isInLibrary, setIsInLibrary] = useState(false);
+
 	useEffect(() => {
 		const fetchTimeSpent = async () => {
 			try {
@@ -28,7 +30,8 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 					throw new Error("Failed to fetch time spent.");
 				}
 				const { gameState } = await response.json();
-				if (Object.keys(gameState[0]).length > 0) {
+				if (gameState.length > 0) {
+					setIsInLibrary(true);
 					setTimeSpent(gameState[0].time_spent);
 					setNewTimeSpent(gameState.time_spent);
 				}
@@ -85,6 +88,9 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 			handleBlur();
 		}
 	};
+	if (!isInLibrary) {
+		return null;
+	}
 	return (
 		<div className="time-spent-container">
 			<img src={clock} alt="Clock" className="clock-image" />
