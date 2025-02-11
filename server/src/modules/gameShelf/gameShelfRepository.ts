@@ -1,5 +1,4 @@
 import databaseClient from "../../../database/client";
-
 import type { Rows } from "../../../database/client";
 import type GameShelfType from "../../interface/GameShelfType";
 import type GameType from "../../interface/GameType";
