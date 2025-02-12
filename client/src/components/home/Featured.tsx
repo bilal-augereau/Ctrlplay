@@ -148,7 +148,9 @@ const Featured = () => {
 							</div>
 						</div>
 					</div>
-					<GameButtons userId={user?.id} game={games[currentIndex]} />
+					<div id="buttons-featured">
+						<GameButtons userId={user?.id} game={games[currentIndex]} />
+					</div>
 				</>
 			)}
 

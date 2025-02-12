@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS `db_crtl_play`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `pseudo` VARCHAR(50) NULL DEFAULT NULL,
+  `pseudo` VARCHAR(20) NULL DEFAULT NULL,
   `password` VARCHAR(150) NULL DEFAULT NULL,
   `avatar` VARCHAR(25) NULL DEFAULT "rayman",
   PRIMARY KEY (`id`),

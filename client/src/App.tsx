@@ -19,7 +19,7 @@ function App() {
 					scrollToRefTwo={scrollToRefTwo}
 					scrollToRefOne={scrollToRefOne}
 				/>
-				<ToastContainer stacked autoClose={3000} />
+				<ToastContainer className="toast-position" stacked autoClose={3000} />
 				<Outlet />
 			</UserProvider>
 			<Footer scrollToRefOne={scrollToRefOne} scrollToRefTwo={scrollToRefTwo} />
