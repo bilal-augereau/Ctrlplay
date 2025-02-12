@@ -23,7 +23,7 @@ export default function PortalButtonOne({ scrollToRefTwo }: ScrollType) {
 					scrollToRefTwo.current?.scrollIntoView({ behavior: "smooth" });
 				}, 200);
 			}
-		}, 500);
+		}, 200);
 	};
 
 	return (
