@@ -1,5 +1,5 @@
 #featured {
-	height: 600px;
+	height: 620px;
 	position: relative;
 	overflow: hidden;
 	margin: 0 10%;
@@ -53,12 +53,20 @@
 .game-thumbnail {
 	margin-top: 10px;
 	width: 300px;
-	height: auto;
+	object-fit: cover;
+	height: 200px;
 	border-radius: 5px;
 	border: 2px solid #a661d0;
 	cursor: pointer;
 	transition: transform 0.2s ease, opacity 0.3s ease;
 	margin-bottom: 5vh;
+}
+
+.game-container {
+	width: 300px;
+	height: 200px;
+	overflow: hidden;
+	position: relative;
 }
 
 .game-thumbnail:hover {
@@ -92,17 +100,12 @@
 	display: flex;
 	justify-content: right;
 	gap: 15px;
-	margin-right: 22%;
-}
-
-.beautiful-buttonadd {
-	cursor: pointer;
+	margin-right: 18%;
 }
 
 .arrow {
 	position: absolute;
 	top: 50%;
-	transform: translateY(-50%);
 	background-color: rgba(0, 0, 0, 0.5);
 	color: white;
 	border: none;

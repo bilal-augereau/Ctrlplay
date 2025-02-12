@@ -52,12 +52,9 @@
 	text-transform: uppercase;
 	color: var(--soft-blue);
 	text-align: center;
-
-	position: relative;
 }
 
 .top-portal-button {
-	background-image: url("../assets/images/button_icons/portalorange.png");
 	height: 40px;
 	width: 40px;
 }
