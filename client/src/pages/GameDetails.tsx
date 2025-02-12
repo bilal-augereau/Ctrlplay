@@ -8,7 +8,9 @@ import GameButtons from "../components/buttons/GameButtons";
 import GameDevices from "../components/game/GameDevices";
 import GameRatings from "../components/game/GameRatings";
 import GameTags from "../components/game/GameTags";
+import TimeSpent from "../components/game/TimeSpent";
 import CommentSection from "../components/user/CommentSection";
+import { useAuth } from "../context/UserContext";
 import commentService from "../services/commentService";
 
 import "./GameDetails.css";
@@ -19,6 +21,7 @@ function GameDetails() {
 	const [userAverageRating, setUserAverageRating] = useState<number | null>(
 		null,
 	);
+	const { user } = useAuth();
 
 	const descriptionCleaned = DOMPurify.sanitize(game.description, {
 		USE_PROFILES: { html: true },
@@ -70,6 +73,12 @@ function GameDetails() {
 						)}
 						<div className="game-details-lists">
 							<GameDevices devices={game.devices} />
+							{user && (
+								<TimeSpent
+									gameId={Number(game.id)}
+									onTimeSpentChange={() => {}}
+								/>
+							)}
 						</div>
 					</div>
 				</article>
