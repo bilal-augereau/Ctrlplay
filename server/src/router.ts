@@ -21,6 +21,7 @@ router.post("/api/users", authServices.hashPassword, userActions.add);
 // Games
 router.get("/api/games", gameActions.browse);
 router.get("/api/games/:id", gameActions.read);
+router.get("/api/games/platforms/steam", gameActions.browseBySteamId);
 
 // Genres, Devices, Tags, Publishers
 router.get("/api/genres", genreActions.browse);

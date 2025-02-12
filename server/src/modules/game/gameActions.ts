@@ -60,4 +60,15 @@ const browseReco: RequestHandler = async (req, res, next) => {
 	}
 };
 
-export default { read, browseReco, browse };
+const browseBySteamId: RequestHandler = async (req, res, next) => {
+	try {
+		const steamIds = req.body.steamIds;
+		const games = await gameRepository.readAllBySteamId(steamIds);
+		if (!games) res.sendStatus(404);
+		else res.json(games);
+	} catch (err) {
+		next(err);
+	}
+};
+
+export default { read, browseReco, browse, browseBySteamId };

@@ -199,6 +199,35 @@ class GameRepository {
 
 		return games;
 	}
+
+	async readAllBySteamId(steamIds: number[]) {
+		const placeholders = steamIds.map(() => "?").join(", ");
+
+		const query = `
+        SELECT g.*, 
+            GROUP_CONCAT(DISTINCT ge.name ORDER BY ge.name SEPARATOR ', ') AS genres, 
+            GROUP_CONCAT(DISTINCT d.name SEPARATOR ', ') AS devices, 
+            GROUP_CONCAT(DISTINCT tag.name ORDER BY tag.name SEPARATOR ', ') AS tags, 
+            GROUP_CONCAT(DISTINCT publisher.name ORDER BY publisher.name SEPARATOR ', ') AS publishers
+        FROM game g
+        LEFT JOIN game_genre AS gg ON gg.game_id = g.id
+        LEFT JOIN genre ge ON gg.genre_id = ge.id
+        LEFT JOIN game_device AS gd ON gd.game_id = g.id
+        LEFT JOIN device d ON gd.device_id = d.id
+        LEFT JOIN game_tag AS gt ON gt.game_id = g.id
+        LEFT JOIN tag ON gt.game_id = tag.id
+        LEFT JOIN game_publisher AS gp ON gp.game_id = g.id
+        LEFT JOIN publisher ON gp.game_id = publisher.id
+        LEFT JOIN game_platform gpl ON gpl.game_id = g.id
+        LEFT JOIN platform ON platform.id = gpl.platform_id
+        WHERE gpl.platform_id = 1
+        AND gpl.game_platform_id IN (${placeholders})
+        GROUP BY g.id  
+    `;
+
+		const [games] = await databaseClient.query<Rows>(query, steamIds);
+		return games;
+	}
 }
 
 export default new GameRepository();
