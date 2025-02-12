@@ -1,25 +1,21 @@
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
 import { useLoaderData } from "react-router-dom";
-import { useAuth } from "../context/UserContext";
 
 import type GameType from "../interface/GameType";
 
+import GameButtons from "../components/buttons/GameButtons";
 import GameDevices from "../components/game/GameDevices";
 import GameRatings from "../components/game/GameRatings";
 import GameTags from "../components/game/GameTags";
-
-import FavoriteButton from "../components/buttons/FavoriteButton";
-import GameShelfButton from "../components/buttons/GameShelfButton";
+import TimeSpent from "../components/game/TimeSpent";
+import { useAuth } from "../context/UserContext";
 
 import "./GameDetails.css";
-import { useState } from "react";
 
 function GameDetails() {
 	const game = useLoaderData() as GameType;
 	const { user } = useAuth();
-	const [isFavorite, setIsFavorite] = useState<boolean>(false);
-	const [isInLibrary, setIsInLibrary] = useState<boolean>(false);
 
 	const descriptionCleaned = DOMPurify.sanitize(game.description, {
 		USE_PROFILES: { html: true },
@@ -49,6 +45,12 @@ function GameDetails() {
 						<GameRatings note={game.note} />
 						<div className="game-details-lists">
 							<GameDevices devices={game.devices} />
+							{user && (
+								<TimeSpent
+									gameId={Number(game.id)}
+									onTimeSpentChange={() => {}}
+								/>
+							)}
 						</div>
 					</div>
 				</article>
@@ -58,26 +60,7 @@ function GameDetails() {
 					id="game-details-img-bottom"
 				/>
 				<div className="game-details-lists">
-					{user ? (
-						<>
-							<GameShelfButton
-								userId={user.id}
-								gameId={Number.parseInt(game.id)}
-								isFavorite={isFavorite}
-								setIsInLibrary={setIsInLibrary}
-								isInLibrary={isInLibrary}
-							/>
-							<FavoriteButton
-								userId={user.id}
-								gameId={Number.parseInt(game.id)}
-								isFavorite={isFavorite}
-								setIsFavorite={setIsFavorite}
-								isInLibrary={isInLibrary}
-							/>
-						</>
-					) : (
-						<></>
-					)}
+					<GameButtons game={game} />
 					<a href={game.website} className="beautiful-button">
 						See the website
 					</a>

@@ -1,20 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/UserContext";
 
+import type ScrollType from "../interface/ScrollType";
 import Avatar from "./user/Avatar";
-
 import "./Header.css";
+import PortalButtonOne from "./buttons/PortalButtonOne";
 
-function Header() {
+function Header({ scrollToRefTwo, scrollToRefOne }: ScrollType) {
 	const navigate = useNavigate();
 	const { user, setUser } = useAuth();
-
-	const handleFooter = () => {
-		const footerPortal = document.getElementById("footer-portal");
-		if (footerPortal) {
-			footerPortal.scrollIntoView({ behavior: "smooth" });
-		}
-	};
 
 	const handleLogin = () => {
 		navigate("/login");
@@ -41,11 +35,12 @@ function Header() {
 				onClick={() => navigate("/")}
 			/>
 			<div className="header-buttons">
-				<button
-					type="button"
-					className="top-portal-button header-button"
-					onClick={handleFooter}
-				/>
+				<div ref={scrollToRefOne}>
+					<PortalButtonOne
+						scrollToRefOne={scrollToRefOne}
+						scrollToRefTwo={scrollToRefTwo}
+					/>
+				</div>
 				{!user ? (
 					<>
 						<button
