@@ -106,7 +106,7 @@ DROP TABLE IF EXISTS `db_crtl_play`.`tag` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`tag` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NULL DEFAULT NULL,
+  `name` VARCHAR(100) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
