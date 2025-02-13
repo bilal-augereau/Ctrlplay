@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import type { FormEventHandler } from "react";
-
 import GameCard from "../components/game/GameCard";
+import { useAuth } from "../context/UserContext";
 
+import type { FormEventHandler } from "react";
 import type GameType from "../interface/GameType";
 
 import steam from "../assets/images/steam-logo.jpg";
@@ -14,6 +15,8 @@ import "./AddSteam.css";
 function AddSteam() {
 	const [steamUserId, setSteamUserId] = useState<string>("");
 	const [games, setGames] = useState<GameType[]>([]);
+	const { user } = useAuth();
+	const navigate = useNavigate();
 
 	const isValidSteamId = (id: string) => {
 		return /^\d+$/.test(id);
@@ -52,12 +55,37 @@ function AddSteam() {
 		}
 	};
 
-	// const addAllGames = async () => {
-	//   if (games && games.length > 0)
-	//     try {
-	//   const response = await fetch (`${import.meta.env.VITE_API_URL}/api/`
-	//   }
-	// }
+	const addAllGames = async () => {
+		if (games && games.length > 0)
+			try {
+				const gameIds = games.map((game) => game.id);
+				const userId = user?.id;
+				const response = await fetch(
+					`${import.meta.env.VITE_API_URL}/api/gameshelf/multiple`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `${user?.token}`,
+						},
+						body: JSON.stringify({ userId, gameIds }),
+					},
+				);
+
+				const data = await response.json();
+
+				if (response.status === 409) {
+					toast.error("All games are already in your gameshelf");
+				} else if (!response.ok) toast.error("Failed to update library.");
+				else {
+					toast.success(`${data.addedCount} games added to your library.`);
+					navigate(`/user/${userId}`);
+				}
+			} catch (err) {
+				console.error("Fetch error:", err);
+				toast.error("Error: Unable to connect to the server");
+			}
+	};
 
 	return (
 		<main id="steam-main">
@@ -95,11 +123,7 @@ function AddSteam() {
 				</form>
 				<header>
 					<h3>Your steam games</h3>
-					<button
-						type="button"
-						className="steam-buttons"
-						//onClick={addAllGames}
-					>
+					<button type="button" className="steam-buttons" onClick={addAllGames}>
 						Add everything to my Gameshelf
 					</button>
 				</header>
