@@ -254,6 +254,36 @@ CREATE TABLE IF NOT EXISTS `db_crtl_play`.`wishlist` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `db_crtl_play`.`comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_crtl_play`.`comment`;
+
+DROP TABLE IF EXISTS `db_crtl_play`.`comment`;
+
+CREATE TABLE `db_crtl_play`.`comment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `game_id` INT NOT NULL,
+  `content` TEXT NOT NULL,
+  `rating` FLOAT CHECK (`rating` BETWEEN 1 AND 5) NULL DEFAULT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `fk_comment_user_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_comment_game_idx` (`game_id` ASC) VISIBLE,
+  CONSTRAINT `fk_comment_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `db_crtl_play`.`user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comment_game`
+    FOREIGN KEY (`game_id`)
+    REFERENCES `db_crtl_play`.`game` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
+
 
 -- -----------------------------------------------------
 -- Table `db_crtl_play`.`game_platform`
