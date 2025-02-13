@@ -3,12 +3,10 @@ import type { FormEventHandler } from "react";
 
 import "./SearchBar.css";
 import loupe from "../assets/images/button_icons/loupe.png";
+import { useSearch } from "../context/SearchContext";
 
-type SearchProps = {
-	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-};
-
-function SearchBar({ setSearchQuery }: SearchProps) {
+function SearchBar() {
+	const { setSearchQuery } = useSearch();
 	const [search, setSearch] = useState("");
 
 	const handleSearch: FormEventHandler = (event) => {

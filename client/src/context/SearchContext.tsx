@@ -10,9 +10,9 @@ type Filters = {
 
 type SearchContextType = {
 	searchQuery: string;
-	setSearchQuery: (query: string) => void;
+	setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 	selectedFilters: Filters;
-	setSelectedFilters: (filters: Filters) => void;
+	setSelectedFilters: React.Dispatch<React.SetStateAction<Filters>>;
 };
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 import "./FiltersGame.css";
+import { useSearch } from "../../context/SearchContext";
 
 type ObjectMultiSelect = { value: string; label: string };
 
@@ -12,12 +13,8 @@ type FiltersState = {
 	publishers: string[];
 };
 
-type FiltersProps = {
-	setSelectedFilters: React.Dispatch<React.SetStateAction<FiltersState>>;
-	selectedFilters: FiltersState;
-};
-
-function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
+function FilterGame() {
+	const { selectedFilters, setSelectedFilters } = useSearch();
 	const [showFilters, setShowFilters] = useState(true);
 	const toggleFilters = () => {
 		setShowFilters(!showFilters);
