@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import clock from "../../assets/images/button_icons/clocktimespent.png";
+import editIcon from "../../assets/images/button_icons/edit.png";
 import { useAuth } from "../../context/UserContext";
 import "./TimeSpent.css";
 
@@ -94,21 +95,36 @@ const TimeSpent = ({ gameId, onTimeSpentChange }: TimeSpentProps) => {
 	return (
 		<div className="time-spent-container">
 			<img src={clock} alt="Clock" className="clock-image" />
-			{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-			<div className="time-spent-display" onClick={handleClick}>
-				Time spent: {timeSpent} hours played
+			<div className="time-spent-display">
+				Time spent:{" "}
+				{isEditing ? (
+					<input
+						type="number"
+						value={newTimeSpent}
+						onChange={handleChange}
+						onBlur={handleBlur}
+						onKeyPress={handleKeyPress}
+						className="time-spent-input"
+						min="0"
+						// biome-ignore lint/a11y/noAutofocus: <explanation>
+						autoFocus
+					/>
+				) : (
+					<span>{timeSpent}</span>
+				)}{" "}
+				hours played
+				{!isEditing && (
+					// biome-ignore lint/a11y/useButtonType: <explanation>
+					<button onClick={handleClick} className="edit-button">
+						<img
+							src={editIcon}
+							alt="Edit"
+							title="edit your time"
+							className="edit-icon"
+						/>
+					</button>
+				)}
 			</div>
-			{isEditing && (
-				<input
-					type="number"
-					value={newTimeSpent}
-					onChange={handleChange}
-					onBlur={handleBlur}
-					onKeyPress={handleKeyPress}
-					className="time-spent-input"
-					min="0"
-				/>
-			)}
 		</div>
 	);
 };

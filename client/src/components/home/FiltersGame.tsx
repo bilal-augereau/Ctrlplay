@@ -31,7 +31,7 @@ function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
 	});
 
 	const getFilters = useCallback((property: string) => {
-		fetch(`http://localhost:3310/api/${property}`)
+		fetch(`${import.meta.env.VITE_API_URL}/api/${property}`)
 			.then((res) => res.json())
 			.then((data) =>
 				setFilters((prevFilter) => ({ ...prevFilter, [property]: data })),

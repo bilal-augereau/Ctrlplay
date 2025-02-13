@@ -18,7 +18,7 @@ const Featured = () => {
 		const fetchGames = async () => {
 			try {
 				const response = await fetch(
-					"http://localhost:3310/api/games/featured/today",
+					`${import.meta.env.VITE_API_URL}/api/games/featured/today`,
 				);
 				if (!response.ok) {
 					throw new Error("Failed to fetch games");

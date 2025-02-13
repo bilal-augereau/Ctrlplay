@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import check from "../../assets/images/button_icons/check.png";
-import cross from "../../assets/images/button_icons/checkempty.png";
+import unmarked from "../../assets/images/button_icons/wishempty.png";
+import marked from "../../assets/images/button_icons/wishfull.png";
 import { useAuth } from "../../context/UserContext";
 
 const WishlistButton = ({ gameId }: { gameId: number }) => {
@@ -84,9 +84,10 @@ const WishlistButton = ({ gameId }: { gameId: number }) => {
 			type="button"
 			onClick={handleToggleWishlist}
 			className="beautiful-buttonadd"
+			title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
 		>
 			<img
-				src={isInWishlist ? check : cross}
+				src={isInWishlist ? marked : unmarked}
 				alt={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
 			/>
 		</button>

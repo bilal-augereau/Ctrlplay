@@ -29,7 +29,7 @@ const Banner = () => {
 					onClick={() => navigate("/login")}
 					className="btn-login"
 				>
-					Log in
+					Login
 				</button>
 				<button
 					type="button"

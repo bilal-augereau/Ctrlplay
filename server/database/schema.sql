@@ -255,6 +255,7 @@ CREATE TABLE `db_crtl_play`.`comment` (
   `game_id` INT NOT NULL,
   `content` TEXT NOT NULL,
   `rating` FLOAT CHECK (`rating` BETWEEN 1 AND 5) NULL DEFAULT NULL,
+  `avatar` VARCHAR(25) NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_comment_user_idx` (`user_id` ASC) VISIBLE,

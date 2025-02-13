@@ -18,7 +18,7 @@ const browse: RequestHandler = async (req, res, next) => {
 
 const add: RequestHandler = async (req, res, next) => {
 	try {
-		const { user_id, game_id, content, rating } = req.body;
+		const { user_id, game_id, content, rating, avatar } = req.body;
 
 		if (!user_id || !game_id || !content.trim() || rating < 1 || rating > 5) {
 			res.status(400).json({
@@ -32,6 +32,7 @@ const add: RequestHandler = async (req, res, next) => {
 			game_id,
 			content,
 			rating,
+			avatar,
 		);
 		res.json(newComment);
 	} catch (err) {

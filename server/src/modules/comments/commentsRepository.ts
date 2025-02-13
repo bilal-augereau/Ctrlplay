@@ -4,7 +4,7 @@ import databaseClient from "../../../database/client";
 const commentRepository = {
 	readAllByGameId: async (gameId: number) => {
 		const sql = `
-              SELECT c.id, c.content, c.rating, c.created_at, u.pseudo, u.avatar, u.id as user_id
+              SELECT c.id, c.content, c.rating, c.created_at, u.pseudo, c.avatar, u.id as user_id
             FROM comment c
             JOIN user u ON c.user_id = u.id
             WHERE c.game_id = ?
@@ -19,14 +19,16 @@ const commentRepository = {
 		gameId: number,
 		content: string,
 		rating: number,
+		avatar: string,
 	) => {
 		const sql =
-			"INSERT INTO comment (user_id, game_id, content, rating) VALUES (?, ?, ?, ?)";
+			"INSERT INTO comment (user_id, game_id, content, rating, avatar) VALUES (?, ?, ?, ?, ?)";
 		const [result] = await databaseClient.query<ResultSetHeader>(sql, [
 			userId,
 			gameId,
 			content,
 			rating,
+			avatar,
 		]);
 
 		await commentRepository.updateGameRating(gameId);
@@ -37,6 +39,7 @@ const commentRepository = {
 			gameId,
 			content,
 			rating,
+			avatar,
 			created_at: new Date(),
 		};
 	},
