@@ -3,10 +3,10 @@ import FilterGame from "./home/FiltersGame";
 
 function SearchAndFilters() {
 	return (
-		<>
+		<section className="content-box">
 			<SearchBar />
 			<FilterGame />
-		</>
+		</section>
 	);
 }
 

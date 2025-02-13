@@ -11,7 +11,7 @@ import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
 
 import PrivateRoute from "./components/PrivateRoute";
-
+import SearchResults from "./pages/SearchResult";
 import getGameDetails from "./services/game";
 
 const router = createBrowserRouter([
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
 			{
 				path: "/",
 				element: <Home />,
+			},
+			{
+				path: "/results",
+				element: <SearchResults />,
 			},
 			{
 				path: "/user",

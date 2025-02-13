@@ -2,16 +2,19 @@ import { useState } from "react";
 import type { FormEventHandler } from "react";
 
 import "./SearchBar.css";
+import { useNavigate } from "react-router-dom";
 import loupe from "../assets/images/button_icons/loupe.png";
 import { useSearch } from "../context/SearchContext";
 
 function SearchBar() {
 	const { setSearchQuery } = useSearch();
 	const [search, setSearch] = useState("");
+	const navigate = useNavigate();
 
 	const handleSearch: FormEventHandler = (event) => {
 		event.preventDefault();
 		setSearchQuery(search);
+		navigate("/results");
 	};
 
 	return (
