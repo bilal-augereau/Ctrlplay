@@ -9,17 +9,38 @@ import GameDevices from "../components/game/GameDevices";
 import GameRatings from "../components/game/GameRatings";
 import GameTags from "../components/game/GameTags";
 import TimeSpent from "../components/game/TimeSpent";
+import CommentSection from "../components/user/CommentSection";
 import { useAuth } from "../context/UserContext";
+import commentService from "../services/commentService";
 
 import "./GameDetails.css";
+import { useEffect, useState } from "react";
 
 function GameDetails() {
 	const game = useLoaderData() as GameType;
+	const [userAverageRating, setUserAverageRating] = useState<number | null>(
+		null,
+	);
 	const { user } = useAuth();
 
 	const descriptionCleaned = DOMPurify.sanitize(game.description, {
 		USE_PROFILES: { html: true },
 	});
+
+	useEffect(() => {
+		const fetchUserRating = async () => {
+			try {
+				const ratingData = await commentService.getAverageRating(
+					Number(game.id),
+				);
+				setUserAverageRating(ratingData?.averageRating ?? null);
+			} catch (error) {
+				console.error("Error fetching user average rating:", error);
+			}
+		};
+
+		fetchUserRating();
+	}, [game.id]);
 
 	return (
 		<main id="game-details-main">
@@ -42,7 +63,14 @@ function GameDetails() {
 						</div>
 					</div>
 					<div>
+						<h3>Metacritic rating</h3>
 						<GameRatings note={game.note} />
+						{userAverageRating !== null && (
+							<div className="user-rating-section">
+								<h3>Users Rating:</h3>
+								<GameRatings note={userAverageRating} />
+							</div>
+						)}
 						<div className="game-details-lists">
 							<GameDevices devices={game.devices} />
 							{user && (
@@ -66,6 +94,10 @@ function GameDetails() {
 					</a>
 				</div>
 			</section>
+			<CommentSection
+				gameId={Number(game.id)}
+				commentService={commentService}
+			/>
 		</main>
 	);
 }

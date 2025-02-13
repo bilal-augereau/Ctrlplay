@@ -4,6 +4,7 @@ const router = express.Router();
 
 import authActions from "./modules/auth/authActions";
 import authServices from "./modules/auth/authServices";
+import commentsActions from "./modules/comments/commentsActions";
 import deviceActions from "./modules/device/deviceActions";
 import gameActions from "./modules/game/gameActions";
 import gameShelfActions from "./modules/gameShelf/gameShelfActions";
@@ -27,6 +28,12 @@ router.get("/api/genres", genreActions.browse);
 router.get("/api/devices", deviceActions.browse);
 router.get("/api/tags", tagActions.browse);
 router.get("/api/publishers", publisherActions.browse);
+
+// Comments
+router.get(
+	"/api/comments/average-rating/:gameId",
+	commentsActions.readAverageRating,
+);
 
 // Auth Middleware (protected routes)
 router.use("/api", authServices.isAuthorized);
@@ -58,5 +65,10 @@ router.get("/api/users/:id/games", gameShelfActions.browseGamesByUser);
 router.get("/api/users/:id/favorites", gameShelfActions.browseFavorites);
 router.get("/api/users/:id/recommandation", gameActions.browseReco);
 router.get("/api/users/:id/wishlist", wishlistActions.browseByUser);
+
+// Comments
+router.get("/api/comments/:gameId", commentsActions.browse);
+router.post("/api/comments", commentsActions.add);
+router.delete("/api/comments/:commentId", commentsActions.remove);
 
 export default router;
