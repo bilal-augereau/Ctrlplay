@@ -333,6 +333,50 @@ const getTimeSpent: RequestHandler = async (req, res, next) => {
 	}
 };
 
+const addMultiple: RequestHandler = async (req, res, next) => {
+	try {
+		const { userId, gameIds } = req.body;
+
+		if (!userId || !gameIds) {
+			res.status(400).json({ error: "Both userId and gameIds are required." });
+		}
+
+		const user = await userRepository.read(Number(userId));
+
+		if (!user) {
+			res.status(404).json({ error: "User not found." });
+		}
+
+		const gameIdsArray = Object.values(gameIds) as number[];
+
+		const alreadyExists = await gameShelfRepository.readAllByGameIds(
+			Number(userId),
+			gameIdsArray,
+		);
+
+		const existingGameIds = new Set(alreadyExists.map((game) => game.game_id));
+
+		const newGames = gameIdsArray.filter(
+			(gameId) => !existingGameIds.has(gameId),
+		);
+
+		if (newGames.length === 0) {
+			res
+				.status(409)
+				.json({ error: "All games already exist in the user's library." });
+		}
+
+		await gameShelfRepository.createMultiple(userId, newGames);
+
+		res.status(201).json({
+			message: "Games added to user library successfully.",
+			addedCount: newGames.length,
+		});
+	} catch (err) {
+		next(err);
+	}
+};
+
 export default {
 	add,
 	remove,
@@ -345,4 +389,5 @@ export default {
 	isFavorite,
 	getTimeSpent,
 	updateTimeSpent,
+	addMultiple,
 };

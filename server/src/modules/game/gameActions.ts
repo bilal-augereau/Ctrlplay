@@ -60,4 +60,37 @@ const browseReco: RequestHandler = async (req, res, next) => {
 	}
 };
 
-export default { read, browseReco, browse };
+const browseBySteamId: RequestHandler = async (req, res, next) => {
+	try {
+		const steamUserId = req.query.steamUserId as string;
+
+		if (!steamUserId) {
+			res.status(400).json({ error: "Missing steamUserId parameter" });
+		}
+
+		const steamAPIUrl = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=E691525D883C8AF040583C746ED5BBD6&steamid=${steamUserId}&format=json`;
+
+		const response = await fetch(steamAPIUrl);
+		const data = await response.json();
+
+		if (!data.response || !data.response.games) {
+			res.status(404).json({ error: "No games found for this Steam user" });
+		}
+
+		const steamIds = data.response.games.map(
+			(game: { appid: number }) => game.appid,
+		);
+
+		const games = await gameRepository.readAllBySteamId(steamIds);
+
+		if (!games) {
+			res.sendStatus(404);
+		}
+
+		res.json(games);
+	} catch (err) {
+		next(err);
+	}
+};
+
+export default { read, browseReco, browse, browseBySteamId };

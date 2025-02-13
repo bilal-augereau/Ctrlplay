@@ -155,6 +155,32 @@ class gameShelfRepository {
 
 		return { time_spent: rows[0].time_spent };
 	}
+
+	async readAllByGameIds(userId: number, gameIds: number[]) {
+		if (gameIds.length === 0) return [];
+
+		const placeholders = gameIds.map(() => "?").join(", ");
+		const query = `SELECT * FROM game_shelf WHERE user_id = ? AND game_id IN (${placeholders})`;
+
+		const [rows] = await databaseClient.query<Rows>(query, [
+			userId,
+			...gameIds,
+		]);
+
+		return rows as GameShelfType[];
+	}
+
+	async createMultiple(userId: number, gameIds: number[]) {
+		if (gameIds.length === 0) return;
+
+		const placeholders = gameIds.map(() => "(?, ?)").join(", ");
+		const values = gameIds.flatMap((gameId) => [userId, gameId]);
+
+		await databaseClient.query<Rows>(
+			`INSERT INTO game_shelf (user_id, game_id) VALUES ${placeholders}`,
+			values,
+		);
+	}
 }
 
 export default new gameShelfRepository();
