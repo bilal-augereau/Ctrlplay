@@ -148,6 +148,18 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `db_crtl_play`.`platform`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_crtl_play`.`platform` ;
+
+CREATE TABLE IF NOT EXISTS `db_crtl_play`.`platform` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `db_crtl_play`.`game_device`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `db_crtl_play`.`game_device` ;
@@ -271,6 +283,32 @@ CREATE TABLE `db_crtl_play`.`comment` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION
 ) ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
+-- Table `db_crtl_play`.`game_platform`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `db_crtl_play`.`game_platform` ;
+
+CREATE TABLE IF NOT EXISTS `db_crtl_play`.`game_platform` (
+  `game_id` INT NOT NULL,
+  `platform_id` INT NOT NULL,
+  `game_platform_id` INT NOT NULL,
+  PRIMARY KEY (`game_id`, `platform_id`),
+  INDEX `fk_game_has_platform_platform1_idx` (`platform_id` ASC, `game_platform_id` ASC) VISIBLE,
+  INDEX `fk_game_has_platform_game1_idx` (`game_id` ASC) VISIBLE,
+  CONSTRAINT `fk_game_has_platform_game1`
+    FOREIGN KEY (`game_id`)
+    REFERENCES `db_crtl_play`.`game` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_game_has_platform_platform1`
+    FOREIGN KEY (`platform_id`)
+    REFERENCES `db_crtl_play`.`platform` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 

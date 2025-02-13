@@ -22,6 +22,7 @@ router.post("/api/users", authServices.hashPassword, userActions.add);
 // Games
 router.get("/api/games", gameActions.browse);
 router.get("/api/games/:id", gameActions.read);
+router.get("/api/games/platforms/steam", gameActions.browseBySteamId);
 
 // Genres, Devices, Tags, Publishers
 router.get("/api/genres", genreActions.browse);
@@ -40,6 +41,7 @@ router.use("/api", authServices.isAuthorized);
 
 // Gameshelf
 router.post("/api/gameshelf", gameShelfActions.add);
+router.post("/api/gameshelf/multiple", gameShelfActions.addMultiple);
 router.delete("/api/gameshelf/:userId/:gameId", gameShelfActions.remove);
 router.get("/api/gameshelf/:userId/:gameId", gameShelfActions.read);
 router.put(

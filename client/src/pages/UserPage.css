@@ -41,6 +41,22 @@
 	padding: 2rem;
 }
 
+#user-main #user-aside #user-welcome-box a {
+	font-size: .7rem;
+	color: var(--white);
+	opacity: 50%;
+	text-align: end;
+	text-decoration: none;
+
+	display: inline-block;
+	width: 100%;
+	padding-top: .7rem;
+
+	&:hover {
+		opacity: 80%;
+	}
+}
+
 #user-main h3 {
 	padding-left: 3rem;
 }
@@ -68,6 +84,7 @@
 }
 
 #user-main #user-aside #user-welcome-box #user-top-div {
+	padding-top: 2rem;
 	padding-bottom: 8rem;
 }
 
