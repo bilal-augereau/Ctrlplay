@@ -34,6 +34,7 @@ router.use("/api", authServices.isAuthorized);
 
 // Gameshelf
 router.post("/api/gameshelf", gameShelfActions.add);
+router.post("/api/gameshelf/multiple", gameShelfActions.addMultiple);
 router.delete("/api/gameshelf/:userId/:gameId", gameShelfActions.remove);
 router.get("/api/gameshelf/:userId/:gameId", gameShelfActions.read);
 router.put(

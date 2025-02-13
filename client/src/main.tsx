@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import App from "./App";
 
+import AddSteam from "./pages/AddSteam";
 import GameDetails from "./pages/GameDetails";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
 					{
 						path: ":id",
 						element: <UserPage />,
+					},
+					{
+						path: ":id/steam",
+						element: <AddSteam />,
 					},
 				],
 			},
