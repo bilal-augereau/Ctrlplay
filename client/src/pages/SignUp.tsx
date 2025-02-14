@@ -6,14 +6,26 @@ import rightarrowsignup from "../assets/images/button_icons/rightarrowsignup.png
 import Avatar from "../components/user/Avatar.tsx";
 
 const avatarList = [
-	"poule",
+	"megaman",
 	"hat",
 	"isaac",
+	"mario",
 	"luigi",
 	"pokeball",
 	"rayman",
 	"sonic",
 	"spiderman",
+	"batman",
+	"umbrella",
+	"poule",
+	"donkeykong",
+	"megaman",
+	"kirby",
+	"mk",
+	"lara",
+	"link",
+	"peach",
+	"thesims",
 ];
 
 function SignUp() {
