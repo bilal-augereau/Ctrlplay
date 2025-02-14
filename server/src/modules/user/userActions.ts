@@ -56,4 +56,23 @@ const add: RequestHandler = async (
 	}
 };
 
-export default { read, add };
+const edit: RequestHandler = async (req, res, next) => {
+	try {
+		const userId = Number(req.params.id);
+		const { avatar } = req.body;
+
+		if (!avatar) {
+			res.status(400).json({ error: "Avatar is required." });
+			return;
+		}
+
+		await userRepository.update(avatar, userId);
+
+		res.status(201).json({ message: "User updated successfully" });
+	} catch (err) {
+		console.error(err);
+		next(err);
+	}
+};
+
+export default { read, add, edit };

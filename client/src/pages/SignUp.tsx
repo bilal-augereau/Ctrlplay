@@ -1,41 +1,16 @@
 import "./SignUp.css";
 import { type FormEventHandler, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import leftarrowsignup from "../assets/images/button_icons/leftarrowsignup.png";
-import rightarrowsignup from "../assets/images/button_icons/rightarrowsignup.png";
-import Avatar from "../components/user/Avatar.tsx";
-
-const avatarList = [
-	"poule",
-	"hat",
-	"isaac",
-	"luigi",
-	"pokeball",
-	"rayman",
-	"sonic",
-	"spiderman",
-];
+import AvatarSelector from "../components/user/AvatarSelector.tsx";
 
 function SignUp() {
 	const navigate = useNavigate();
 
-	const [currentAvatarIndex, setCurrentAvatarIndex] = useState(0);
 	const [error, setError] = useState("");
 	const pseudoRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 	const passwordConfirmationRef = useRef<HTMLInputElement>(null);
-
-	const handlePreviousAvatar = () => {
-		setCurrentAvatarIndex((prevIndex) =>
-			prevIndex === 0 ? avatarList.length - 1 : prevIndex - 1,
-		);
-	};
-
-	const handleNextAvatar = () => {
-		setCurrentAvatarIndex((prevIndex) =>
-			prevIndex === avatarList.length - 1 ? 0 : prevIndex + 1,
-		);
-	};
+	const [selectedAvatar, setSelectedAvatar] = useState("poule");
 
 	const handleInputChange = () => {
 		setError("");
@@ -46,7 +21,7 @@ function SignUp() {
 		const pseudo = pseudoRef.current?.value;
 		const password = passwordRef.current?.value;
 		const passwordConfirmation = passwordConfirmationRef.current?.value;
-		const avatar = avatarList[currentAvatarIndex];
+		const avatar = selectedAvatar;
 
 		if (
 			!password ||
@@ -68,11 +43,7 @@ function SignUp() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({
-					pseudo,
-					password,
-					avatar,
-				}),
+				body: JSON.stringify({ pseudo, password, avatar }),
 			});
 
 			if (response.ok) {
@@ -99,35 +70,7 @@ function SignUp() {
 							Gameshelf!
 						</p>
 						<div className="avatar">
-							<button type="button">
-								<img
-									src={leftarrowsignup}
-									alt="Previous avatar"
-									onClick={handlePreviousAvatar}
-									onKeyUp={(e) => {
-										if (e.key === "Enter" || e.key === " ") {
-											handlePreviousAvatar();
-										}
-									}}
-									className="avatar-arrow"
-								/>
-							</button>
-							<div className="avatar-image">
-								<Avatar avatar={avatarList[currentAvatarIndex]} />
-							</div>
-							<button type="button">
-								<img
-									src={rightarrowsignup}
-									alt="Next avatar"
-									onClick={handleNextAvatar}
-									onKeyUp={(e) => {
-										if (e.key === "Enter" || e.key === " ") {
-											handleNextAvatar();
-										}
-									}}
-									className="avatar-arrow"
-								/>
-							</button>
+							<AvatarSelector setAvatar={setSelectedAvatar} />
 							<p className="textsignup">Choose your avatar</p>
 						</div>
 						<form className="formsignup">

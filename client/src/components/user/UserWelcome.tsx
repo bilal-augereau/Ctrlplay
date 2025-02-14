@@ -1,27 +1,85 @@
-import { Link } from "react-router-dom";
-import type UserType from "../../interface/UserType";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
+import { useAuth } from "../../context/UserContext";
 
 import Avatar from "./Avatar";
+import AvatarSelector from "./AvatarSelector";
 import Top3 from "./Top3";
 
-interface UserWelcomeProps {
-	user: UserType;
-}
+const UserWelcome = () => {
+	const [showAvatar, setShowAvatar] = useState(false);
+	const [newAvatar, setNewAvatar] = useState("");
+	const { user, setUser } = useAuth();
 
-const UserWelcome = ({ user }: UserWelcomeProps) => (
-	<section className="content-box" id="user-welcome-box">
-		<div id="user-welcome">
-			<Avatar avatar={user.avatar} />
-			<div>
-				<h2>Welcome {user.pseudo}!</h2>
-				<Link to={`/user/${user.id}/steam`}>Add my steam games</Link>
+	const changeAvatar = async () => {
+		if (!user) return;
+
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/users/${user.id}`,
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `${user.token}`,
+					},
+					body: JSON.stringify({ avatar: newAvatar }),
+				},
+			);
+
+			if (!response.ok) {
+				toast.error("Avatar could not be updated.");
+				return;
+			}
+
+			setUser((prevUser) =>
+				prevUser ? { ...prevUser, avatar: newAvatar } : null,
+			);
+			toast.success("Avatar updated successfully!");
+			setShowAvatar(false);
+		} catch (err) {
+			toast.error("Error: could not connect to server");
+		}
+	};
+
+	return (
+		<section className="content-box" id="user-welcome-box">
+			<div id="user-welcome">
+				{user?.avatar && <Avatar avatar={user?.avatar} />}
+				<div>
+					<h2>Welcome {user?.pseudo}!</h2>
+					{showAvatar ? (
+						<button
+							type="submit"
+							onClick={changeAvatar}
+							className="user-button-change-avatar"
+						>
+							Confirm
+						</button>
+					) : (
+						<button
+							type="button"
+							onClick={() => setShowAvatar(true)}
+							className="user-button-change-avatar"
+						>
+							Change my avatar
+						</button>
+					)}
+				</div>
 			</div>
-		</div>
 
-		{user.topGames && user.topGames.length > 0 && (
-			<Top3 topGames={user.topGames} />
-		)}
-	</section>
-);
+			{showAvatar && (
+				<div>
+					<AvatarSelector setAvatar={setNewAvatar} />
+				</div>
+			)}
+
+			{user?.topGames && user?.topGames.length > 0 && (
+				<Top3 topGames={user.topGames} />
+			)}
+		</section>
+	);
+};
 
 export default UserWelcome;

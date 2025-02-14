@@ -85,6 +85,7 @@
 .avatar-image img {
 	height: 5rem;
 	width: 5rem;
+	object-fit: contain;
 }
 
 .alreadyaccount {

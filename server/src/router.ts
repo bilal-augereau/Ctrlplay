@@ -67,6 +67,7 @@ router.get("/api/users/:id/games", gameShelfActions.browseGamesByUser);
 router.get("/api/users/:id/favorites", gameShelfActions.browseFavorites);
 router.get("/api/users/:id/recommandation", gameActions.browseReco);
 router.get("/api/users/:id/wishlist", wishlistActions.browseByUser);
+router.put("/api/users/:id/", userActions.edit);
 
 // Comments
 router.get("/api/comments/:gameId", commentsActions.browse);
