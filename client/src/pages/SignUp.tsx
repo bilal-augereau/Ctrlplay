@@ -7,6 +7,7 @@ import Avatar from "../components/user/Avatar.tsx";
 
 const avatarList = [
 	"megaman",
+	"kirby",
 	"hat",
 	"isaac",
 	"mario",
@@ -19,8 +20,6 @@ const avatarList = [
 	"umbrella",
 	"poule",
 	"donkeykong",
-	"megaman",
-	"kirby",
 	"mk",
 	"lara",
 	"link",
