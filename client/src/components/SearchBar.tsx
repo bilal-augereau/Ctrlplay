@@ -20,7 +20,6 @@ function SearchBar() {
 	return (
 		<div className="search-container">
 			<div className="research">
-				<h3 className="search-game">Search a game</h3>
 				<form className="search-bar" onSubmit={handleSearch}>
 					<input
 						type="text"
