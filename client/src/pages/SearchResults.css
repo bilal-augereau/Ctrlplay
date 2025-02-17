@@ -1,0 +1,13 @@
+.filtered-games-list {
+	gap: 25px;
+	border-radius: 20px;
+}
+
+h1 {
+	padding: 20px;
+	margin-left: 25px;
+}
+
+.content-box {
+	border-radius: var(--border-radius);
+}

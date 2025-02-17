@@ -103,6 +103,19 @@
 	margin-right: 18%;
 }
 
+.beautiful-buttonadd {
+	cursor: pointer;
+	margin-top: 25px;
+}
+
+.button-container {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 197px;
+	gap: 15px;
+	margin-top: 10px;
+}
+
 .arrow {
 	position: absolute;
 	top: 50%;
