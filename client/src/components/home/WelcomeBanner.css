@@ -11,10 +11,6 @@
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#welcome-banner {
-	margin-top: -2%;
-}
-
 .content-boxclose {
 	position: absolute;
 	color: #7099cf;
@@ -24,6 +20,7 @@
 	background: transparent;
 	font-size: 1.5rem;
 	cursor: pointer;
+	padding-right: 20px;
 }
 
 .homepage-content-box p {
@@ -59,9 +56,8 @@
 	position: relative;
 	z-index: 1;
 	font-size: 14px;
-	padding: 17px 35px;
+	padding: 0 35px;
 	font-weight: 100;
-	text-transform: uppercase;
 }
 
 .btn-login:before,
@@ -115,9 +111,8 @@
 	position: relative;
 	z-index: 1;
 	font-size: 14px;
-	padding: 17px 35px;
+	padding: 0 35px;
 	font-weight: 100;
-	text-transform: uppercase;
 }
 
 .btn-signup:before,

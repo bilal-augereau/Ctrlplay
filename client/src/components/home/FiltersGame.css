@@ -1,8 +1,7 @@
 .filter {
-	background-color: var(--background-color);
-	border-radius: 15px;
-	padding: 20px;
-	margin-bottom: 45px;
+	border-radius: var(--border-radius);
+	padding: 30px;
+	margin-bottom: 1rem;
 }
 
 .filter * {
@@ -11,6 +10,12 @@
 
 .filter.true {
 	border: #7d4192 solid 2px;
+	background-color: var(--background-color);
+}
+
+.filter.false {
+	padding: 0 15px;
+	height: 16px;
 }
 
 .title-filters {
@@ -23,6 +28,14 @@
 
 .toggle-filters {
 	cursor: pointer;
+	padding-right: 3rem;
+	opacity: 40%;
+	font-size: .8rem;
+
+	&:hover {
+		transform: scale(0.9);
+		color: var(--soft-blue);
+	}
 }
 
 p {

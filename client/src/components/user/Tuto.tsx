@@ -1,6 +1,6 @@
 import gameshelf from "../../assets/images/button_icons/bookactive.png";
-import wishlist from "../../assets/images/button_icons/check.png";
 import favorite from "../../assets/images/button_icons/favorite.png";
+import wishlist from "../../assets/images/button_icons/wishfull.png";
 import logoSmall from "../../assets/images/logo.png";
 
 import "./Tuto.css";

@@ -3,6 +3,7 @@
 	position: relative;
 	overflow: hidden;
 	margin: 0 10%;
+	padding: 30px;
 }
 
 .featured-title {
@@ -30,8 +31,8 @@
 }
 
 .game-image {
-	width: 580px;
-	height: 350px;
+	width: 650px;
+	height: 430px;
 	object-fit: cover;
 	border-radius: 10px;
 	border: 2px solid #a661d0;
@@ -47,12 +48,11 @@
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	gap: 15px;
-	max-width: 500px;
+	gap: 5px;
+	max-width: 400px;
 }
 
 .game-thumbnail {
-	margin-top: 10px;
 	width: 300px;
 	object-fit: cover;
 	height: 200px;
@@ -60,7 +60,7 @@
 	border: 2px solid #a661d0;
 	cursor: pointer;
 	transition: transform 0.2s ease, opacity 0.3s ease;
-	margin-bottom: 5vh;
+	align-self: flex-end;
 }
 
 .game-container {
@@ -78,13 +78,11 @@
 	font-family: var(--font-title);
 	font-size: 30px;
 	text-align: center;
-	margin-bottom: 18px;
 	color: white;
 }
 
 .device-container {
 	gap: 10px;
-	margin-bottom: 15px;
 }
 
 .game-genres {
@@ -104,17 +102,11 @@
 	margin-right: 18%;
 }
 
-.beautiful-buttonadd {
-	cursor: pointer;
-	margin-top: 25px;
-}
-
 .button-container {
 	display: flex;
 	justify-content: flex-end;
-	margin-right: 197px;
 	gap: 15px;
-	margin-top: 10px;
+	margin: 2rem 0;
 }
 
 .arrow {

@@ -32,6 +32,12 @@
 	max-width: 100%;
 }
 
+#user-main #user-aside #user-welcome-box #user-welcome > img {
+	width: 70px;
+	height: 70px;
+	object-fit: contain;
+}
+
 #user-main #user-aside #user-welcome-box div#user-welcome {
 	display: flex;
 

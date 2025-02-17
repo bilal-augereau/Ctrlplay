@@ -1,6 +1,4 @@
 .search-container {
-	background-color: var(--background-color);
-	border-radius: 20px;
 	color: var(--white);
 	padding: var(--padding);
 	display: flex;
@@ -25,7 +23,7 @@
 	border: solid 2px transparent;
 	font-size: 0.8rem;
 	cursor: auto;
-	height: 38px;
+	height: 30px;
 	width: 1200px;
 	flex-grow: 1;
 	outline: none;
