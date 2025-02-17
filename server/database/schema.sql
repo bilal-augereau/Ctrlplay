@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS `db_crtl_play`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `db_crtl_play`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `pseudo` VARCHAR(50) NULL DEFAULT NULL,
+  `pseudo` VARCHAR(20) NULL DEFAULT NULL,
   `password` VARCHAR(150) NULL DEFAULT NULL,
   `avatar` VARCHAR(25) NULL DEFAULT "rayman",
   PRIMARY KEY (`id`),
@@ -267,6 +267,7 @@ CREATE TABLE `db_crtl_play`.`comment` (
   `game_id` INT NOT NULL,
   `content` TEXT NOT NULL,
   `rating` FLOAT CHECK (`rating` BETWEEN 1 AND 5) NULL DEFAULT NULL,
+  `avatar` VARCHAR(25) NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `fk_comment_user_idx` (`user_id` ASC) VISIBLE,

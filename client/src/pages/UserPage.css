@@ -75,7 +75,7 @@
 #user-main #user-aside #user-featured-game div#user-game-details div {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 #user-main #user-aside #user-welcome-box #user-top-div img.user-top-3 {

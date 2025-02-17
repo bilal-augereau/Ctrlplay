@@ -1,4 +1,5 @@
 import "./Footer.css";
+import im from "../../src/assets/images/button_icons/IM.png";
 import type ScrollType from "../interface/ScrollType";
 import PortalButtonTwo from "./buttons/PortalButtonTwo";
 
@@ -13,7 +14,9 @@ function Footer({ scrollToRefOne, scrollToRefTwo }: ScrollType) {
 					rel="noreferrer"
 					aria-label="Visit Persona 5 Royal website"
 				>
-					<button type="button" className="footer-IM" />
+					<button type="button" className="footer-IM">
+						<img src={im} alt="IM" />
+					</button>
 				</a>
 			</div>
 

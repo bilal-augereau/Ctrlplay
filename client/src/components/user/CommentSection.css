@@ -12,21 +12,26 @@
 .textarea {
 	margin-top: 1rem;
 	padding: 0.75rem;
-	border: 1px solid #d1d5db;
+	background: linear-gradient(to right, var(--black), var(--black)),
+		linear-gradient(to right, #19a1be, #7d4192);
+	background-clip: padding-box, border-box;
+	background-origin: padding-box, border-box;
+	border: solid 2px transparent;
 	border-radius: 0.5rem;
 	transition: border-color 0.2s, box-shadow 0.2s;
 	resize: none;
 	min-height: 100px;
 	font-family: "Nunito", sans-serif;
+	color: grey;
 }
 
 .comments-list {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
 }
 
 .comment {
+	margin-bottom: 3rem;
 	padding: 1rem;
 	border-radius: 0.5rem;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -40,26 +45,48 @@
 
 .comment-header {
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: space-between;
 	margin-bottom: 0.5rem;
 }
 
 .comment-content {
 	line-height: 1.625;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 
 .comment-user {
 	color: var(--soft-blue);
+	font-size: 1.2rem;
+	margin-bottom: 1rem;
+}
+
+#send-comment {
+	width: 50px;
+	height: 30px;
+}
+
+#send-comment:hover {
+	cursor: pointer;
+}
+
+.comment-body {
+	display: flex;
+	justify-content: space-between;
 }
 
 #delete-comment {
 	opacity: 0;
 	transition: opacity 0.2s ease-in-out;
+	border: none;
+	background: none;
 }
 
 .comment:hover #delete-comment {
 	opacity: 1;
+	cursor: pointer;
 }
 
 .no-comments {
@@ -70,11 +97,39 @@
 	font-style: italic;
 }
 
+#rating-box {
+	background: none;
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+#rating-title {
+	font-size: 1rem;
+	color: var(--soft-blue);
+	font-family: "Nunito", sans-serif;
+}
+
 #rating {
-	font-size: 1.25rem;
+	font-size: 0.8rem;
 	color: var(--soft-blue);
 	font-family: "Nunito", sans-serif;
 	border-radius: 0.5rem;
+	background: linear-gradient(to right, #1a1a1d, #1a1a1d),
+		linear-gradient(to right, #19a1be, #7d4192);
+	background-clip: padding-box, border-box;
+	background-origin: padding-box, border-box;
+	border: solid 2px transparent;
+	width: 45%;
+	background-color: #1a1a1d;
+}
+
+#rating-elements {
+	display: flex;
+	gap: 1rem;
+	width: 70%;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 @media (max-width: 640px) {
@@ -110,4 +165,21 @@
 
 #commenttitle {
 	margin-bottom: 1rem;
+	margin-top: 1rem;
+}
+
+.bin-icon {
+	height: 20px;
+	width: 20px;
+}
+
+.name-avatar {
+	display: flex;
+	width: 20%;
+	gap: .5rem;
+}
+
+.name-avatar img {
+	width: 26px;
+	height: 26px;
 }

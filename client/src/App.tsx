@@ -23,7 +23,7 @@ function App() {
 				/>
 				<SearchProvider>
 					<SearchAndFilters />
-					<ToastContainer stacked autoClose={3000} />
+					<ToastContainer className="toast-position" stacked autoClose={3000} />
 					<Outlet />
 				</SearchProvider>
 			</UserProvider>

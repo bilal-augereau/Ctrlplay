@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../context/UserContext";
 import type { Comment, CommentSectionProps } from "../../types/comment.type";
 import "./CommentSection.css";
+import bin from "../../assets/images/button_icons/bin.png";
+import Avatar from "./Avatar";
 
 const CommentSection = ({ gameId }: CommentSectionProps) => {
 	const { user } = useAuth();
@@ -18,7 +20,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 		try {
 			setIsLoading(true);
 			const fetchedComments = await fetch(
-				`http://localhost:3310/api/comments/${gameId}`,
+				`${import.meta.env.VITE_API_URL}/api/comments/${gameId}`,
 				{
 					headers: {
 						"Content-Type": "application/json",
@@ -52,19 +54,23 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 
 		try {
 			setIsSubmitting(true);
-			const response = await fetch("http://localhost:3310/api/comments", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `${user.token}`,
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/comments`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `${user.token}`,
+					},
+					body: JSON.stringify({
+						user_id: user.id,
+						game_id: gameId,
+						content: newComment.trim(),
+						rating,
+						avatar: user.avatar,
+					}),
 				},
-				body: JSON.stringify({
-					user_id: user.id,
-					game_id: gameId,
-					content: newComment.trim(),
-					rating,
-				}),
-			});
+			);
 
 			if (!response.ok) {
 				throw new Error("Failed to add comment");
@@ -77,7 +83,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 			]);
 			setNewComment("");
 			setRating(3);
-			toast.success("Comment added successfully!", { theme: "dark" });
+			toast.success("Review added successfully!", { theme: "dark" });
 
 			setTimeout(() => {
 				setComments((prevComments) =>
@@ -90,8 +96,8 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 			}, 300);
 			fetchComments();
 		} catch (err) {
-			toast.error("Failed to add comment", { theme: "dark" });
-			console.error("Error adding comment:", err);
+			toast.error("Failed to add review", { theme: "dark" });
+			console.error("Error adding review:", err);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -101,7 +107,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 		if (!user) return;
 
 		try {
-			await fetch(`http://localhost:3310/api/comments/${commentId}`, {
+			await fetch(`${import.meta.env.VITE_API_URL}/api/comments/${commentId}`, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
@@ -122,11 +128,11 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 	};
 
 	const ratingComments: { [key: number]: string } = {
-		1: "Very bad",
-		2: "Bad",
-		3: "Average",
-		4: "Good",
-		5: "Very good",
+		1: "Unplayable",
+		2: "Meh",
+		3: "Fun",
+		4: "GG",
+		5: "GOAT",
 	};
 
 	if (isLoading && user) {
@@ -136,7 +142,7 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 	return (
 		<section className="content-box" id="comments-box">
 			<h2 className="title" id="commenttitle">
-				Comments
+				Reviews
 			</h2>
 
 			{user ? (
@@ -144,40 +150,46 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 					<textarea
 						value={newComment}
 						onChange={(e) => setNewComment(e.target.value)}
-						placeholder="Write a comment..."
+						placeholder="Write a review..."
 						required
 						disabled={isSubmitting}
 						className="textarea"
 					/>
-					<div id="rating">
-						<label htmlFor="rating">Rating:</label>
+					<div id="rating-box">
+						<div id="rating-elements">
+							<label id="rating-title" htmlFor="rating">
+								Rating:
+							</label>
+
+							<select
+								id="rating"
+								value={rating}
+								onChange={(e) => setRating(Number(e.target.value))}
+								disabled={isSubmitting}
+							>
+								{[1, 2, 3, 4, 5].map((num) => (
+									<option key={num} value={num}>
+										{"⭐".repeat(num)} - {ratingComments[num]}
+									</option>
+								))}
+							</select>
+						</div>
+						<button
+							type="submit"
+							id="send-comment"
+							className="beautiful-button"
+							disabled={isSubmitting}
+						>
+							{isSubmitting ? "Sending..." : "Send"}
+						</button>
 					</div>
-					<select
-						id="rating"
-						value={rating}
-						onChange={(e) => setRating(Number(e.target.value))}
-						disabled={isSubmitting}
-					>
-						{[1, 2, 3, 4, 5].map((num) => (
-							<option key={num} value={num}>
-								{"⭐".repeat(num)} - {ratingComments[num]}
-							</option>
-						))}
-					</select>
-					<button
-						type="submit"
-						className="beautiful-button"
-						disabled={isSubmitting}
-					>
-						{isSubmitting ? "Sending..." : "Post"}
-					</button>
 				</form>
 			) : (
-				<p className="login-message">Please log in to see or add comments</p>
+				<p className="login-message">Please log in to see or add a review</p>
 			)}
 
 			{comments.length === 0 && user ? (
-				<p className="no-comments">No comments yet</p>
+				<p className="no-comments">Be the first to review this game</p>
 			) : (
 				<ul className="comments-list">
 					{comments.map((comment) => (
@@ -187,21 +199,27 @@ const CommentSection = ({ gameId }: CommentSectionProps) => {
 						>
 							<div className="comment-header">
 								<div className="comment-content">
-									<strong className="comment-user">{comment.pseudo}</strong>
-									<p className="comment-text">{comment.content}</p>
+									<div className="name-avatar">
+										<Avatar avatar={comment.avatar} />
+										<strong className="comment-user">{comment.pseudo}</strong>
+									</div>
+
 									<p className="comment-rating">
-										Rating: {"⭐".repeat(comment.rating)}
+										{"⭐".repeat(comment.rating)}
 									</p>
 								</div>
+							</div>
+							<div className="comment-body">
+								<p className="comment-text">{comment.content}</p>
 								{user && user.id === comment.user_id && (
 									<button
 										type="button"
 										onClick={() => handleDeleteComment(comment.id)}
-										className="beautiful-buttonadd"
 										id="delete-comment"
 										aria-label="Delete comment"
+										title="Delete this comment"
 									>
-										❌
+										<img src={bin} alt="Delete" className="bin-icon" />
 									</button>
 								)}
 							</div>

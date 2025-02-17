@@ -282,3 +282,7 @@ button:active {
 	width: 25.5px;
 	height: 40.5px;
 }
+
+.toast-position {
+	top: 7rem;
+}

@@ -6,7 +6,12 @@ function InfosButton({ id }: { id: string }) {
 	const handleInfos = () => navigate(`/game/${id}`);
 
 	return (
-		<button type="button" className="beautiful-buttonadd" onClick={handleInfos}>
+		<button
+			type="button"
+			className="beautiful-buttonadd"
+			onClick={handleInfos}
+			title="More informations"
+		>
 			i
 		</button>
 	);

@@ -25,3 +25,8 @@ button.button-tags {
 
 	cursor: pointer;
 }
+
+button.button-tags:hover {
+	transform: scale(0.9);
+	color: var(--soft-blue);
+}

@@ -30,8 +30,9 @@
 }
 
 .game-image {
-	max-width: 580px;
+	width: 580px;
 	height: 350px;
+	object-fit: cover;
 	border-radius: 10px;
 	border: 2px solid #a661d0;
 	cursor: pointer;
@@ -146,4 +147,10 @@
 	right: 30px;
 	background-image: url("../../assets/images/button_icons/buttomflecheright.png");
 	background-color: transparent;
+}
+
+#buttons-featured {
+	display: flex;
+	justify-content: center;
+	margin-top: 1rem;
 }

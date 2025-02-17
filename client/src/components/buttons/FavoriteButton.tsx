@@ -70,10 +70,11 @@ const FavoriteButton = ({
 			onClick={handleToggleFavorite}
 			className={"beautiful-buttonadd"}
 			disabled={!userId}
+			title={isFavorite ? "Remove from my favorites" : "Add to my favorites"}
 		>
 			<img
 				src={isFavorite ? favoriteImage : favoriteEmpty}
-				alt="Favorite Icon"
+				alt={isFavorite ? "Remove from my favorites" : "Add to my favorites"}
 			/>
 		</button>
 	);

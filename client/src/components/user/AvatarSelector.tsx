@@ -6,14 +6,25 @@ import leftarrowsignup from "../../assets/images/button_icons/leftarrowsignup.pn
 import rightarrowsignup from "../../assets/images/button_icons/rightarrowsignup.png";
 
 const avatarList = [
-	"poule",
+	"megaman",
+	"kirby",
 	"hat",
 	"isaac",
+	"mario",
 	"luigi",
 	"pokeball",
 	"rayman",
 	"sonic",
 	"spiderman",
+	"batman",
+	"umbrella",
+	"poule",
+	"donkeykong",
+	"mk",
+	"lara",
+	"link",
+	"peach",
+	"thesims",
 ];
 
 interface AvatarSelectorProps {

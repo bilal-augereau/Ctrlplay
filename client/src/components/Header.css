@@ -40,7 +40,7 @@
 	cursor: pointer;
 	border: none;
 	height: 75px;
-	width: 60px;
+	width: 65px;
 
 	display: flex;
 	flex-direction: column-reverse;
@@ -82,9 +82,8 @@
 .mypage-button img {
 	height: 60px;
 	width: auto;
-
 	position: absolute;
-	top: 0;
+	top: 3px;
 	margin-inline: auto;
 }
 
