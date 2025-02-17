@@ -33,7 +33,7 @@ function UserPage() {
 				`${import.meta.env.VITE_API_URL}/api/games/featured/today`,
 			);
 			const games = await response.json();
-			setGameFeatured(games);
+			setGameFeatured(games[0]);
 		};
 
 		fetchFeaturedGame();
