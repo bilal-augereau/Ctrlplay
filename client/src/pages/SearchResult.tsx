@@ -87,7 +87,7 @@ function SearchResults() {
 								{games.length > 0 ? (
 									games.map((game) => <GameCard key={game.id} game={game} />)
 								) : (
-									<p>No existing games</p>
+									<p id="no-exist">Game not found</p>
 								)}
 							</div>
 						</section>

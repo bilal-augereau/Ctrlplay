@@ -225,13 +225,16 @@ li {
 	width: 13.1875rem;
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
-
 	cursor: pointer;
+	transition: background 0.4s ease-in-out, color 0.4s ease-in-out;
 }
 
 .beautiful-button:hover {
-	z-index: 0;
-	box-shadow: 40px 0 100px #7d4192, -40px 0 100px #19a1be;
+	background: linear-gradient(45deg, #19a1be, #7d4192);
+	color: #fff;
+	border-radius: 100px;
+	background-origin: border-box;
+	transition: all 0.6s ease-in-out;
 }
 
 .beautiful-buttonadd {
@@ -256,13 +259,15 @@ li {
 	max-height: 3.25rem;
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
-
 	cursor: pointer;
+	transition: background 0.8s ease-in-out, color 0.8s ease-in-out;
+	white-space: nowrap;
 }
 
 .beautiful-buttonadd:hover {
-	z-index: 0;
-	box-shadow: 40px 0 100px #7d4192, -40px 0 100px #19a1be;
+	background: linear-gradient(to right, #19a1be, #7d4192);
+	color: #fff;
+	background-origin: border-box;
 }
 
 button:active {
