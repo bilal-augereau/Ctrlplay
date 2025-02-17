@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import type GameType from "../../interface/GameType";
-import SearchBar from "../SearchBar";
 import GameCard from "../game/GameCard";
-import FilterGame from "./FiltersGame";
 import "./GameList.css";
 
 type Filters = {
@@ -16,8 +14,8 @@ function GameList() {
 	const [games, setGames] = useState<GameType[]>([]);
 	const [recentReleases, setRecentReleases] = useState<GameType[]>([]);
 	const [allTimeFavorites, setAllTimeFavorites] = useState<GameType[]>([]);
-	const [searchQuery, setSearchQuery] = useState<string>("");
-	const [selectedFilters, setSelectedFilters] = useState<Filters>({
+	const [searchQuery] = useState<string>("");
+	const [selectedFilters] = useState<Filters>({
 		genres: [],
 		devices: [],
 		tags: [],
@@ -114,12 +112,6 @@ function GameList() {
 
 	return (
 		<div className="main-content" id="box-principal">
-			<SearchBar setSearchQuery={setSearchQuery} />
-			<FilterGame
-				setSelectedFilters={setSelectedFilters}
-				selectedFilters={selectedFilters}
-			/>
-
 			{haveFilters || searchQuery ? (
 				isLoading ? (
 					<div className="loader-container">

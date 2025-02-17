@@ -21,7 +21,7 @@ import type UserType from "../interface/UserType";
 function UserPage() {
 	const { user } = useAuth() as { user: UserType };
 	const [displayMode, setDisplayMode] =
-		useState<DisplayModeCategory>("recommendations");
+		useState<DisplayModeCategory>("allGames");
 	const [gamesRecoLength, setGamesRecoLength] = useState(21);
 	const [gameFeatured, setGameFeatured] = useState<GameType>();
 	const { games, loadGames } = useGames(user.id, user.token);
@@ -90,7 +90,7 @@ function UserPage() {
 	return (
 		<main id="user-main">
 			<aside id="user-aside">
-				<UserWelcome user={user} />
+				<UserWelcome />
 				<div>
 					<h3>Featured game</h3>
 					{gameFeatured && <FeaturedGame game={gameFeatured} />}

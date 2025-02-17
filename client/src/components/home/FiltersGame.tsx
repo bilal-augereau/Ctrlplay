@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { MultiSelect } from "react-multi-select-component";
 
 import "./FiltersGame.css";
+import { useNavigate } from "react-router-dom";
+import { useSearch } from "../../context/SearchContext";
 
 type ObjectMultiSelect = { value: string; label: string };
 
@@ -12,16 +14,13 @@ type FiltersState = {
 	publishers: string[];
 };
 
-type FiltersProps = {
-	setSelectedFilters: React.Dispatch<React.SetStateAction<FiltersState>>;
-	selectedFilters: FiltersState;
-};
-
-function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
-	const [showFilters, setShowFilters] = useState(true);
+function FilterGame() {
+	const { selectedFilters, setSelectedFilters } = useSearch();
+	const [showFilters, setShowFilters] = useState(false);
 	const toggleFilters = () => {
 		setShowFilters(!showFilters);
 	};
+	const navigate = useNavigate();
 
 	const [filters, setFilters] = useState<FiltersState>({
 		genres: [],
@@ -63,6 +62,7 @@ function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
 						(selection: string) => selection !== value,
 					),
 		}));
+		navigate("/results");
 	};
 
 	return (
@@ -129,12 +129,13 @@ function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
 									label: `#${tag.split(" ").join("").toLowerCase()}`,
 									value: tag,
 								}))}
-								onChange={(selectedTags: ObjectMultiSelect[]) =>
+								onChange={(selectedTags: ObjectMultiSelect[]) => {
 									setSelectedFilters((prev) => ({
 										...prev,
 										tags: selectedTags.map((tag) => tag.value),
-									}))
-								}
+									}));
+									navigate("/results");
+								}}
 								labelledBy="Select"
 							/>
 						</div>
@@ -149,14 +150,15 @@ function FilterGame({ setSelectedFilters, selectedFilters }: FiltersProps) {
 									label: publisher,
 									value: publisher,
 								}))}
-								onChange={(selectedPublishers: ObjectMultiSelect[]) =>
+								onChange={(selectedPublishers: ObjectMultiSelect[]) => {
 									setSelectedFilters((prev) => ({
 										...prev,
 										publishers: selectedPublishers.map(
 											(publisher) => publisher.value,
 										),
-									}))
-								}
+									}));
+									navigate("/results");
+								}}
 								labelledBy="Select"
 							/>
 						</div>

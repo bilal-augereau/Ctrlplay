@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 
 import "./App.css";
+import SearchAndFilters from "./components/SearchAndFilters";
+import { SearchProvider } from "./context/SearchContext";
 
 function App() {
 	const scrollToRefOne = useRef(null);
@@ -19,8 +21,11 @@ function App() {
 					scrollToRefTwo={scrollToRefTwo}
 					scrollToRefOne={scrollToRefOne}
 				/>
-				<ToastContainer className="toast-position" stacked autoClose={3000} />
-				<Outlet />
+				<SearchProvider>
+					<SearchAndFilters />
+					<ToastContainer className="toast-position" stacked autoClose={3000} />
+					<Outlet />
+				</SearchProvider>
 			</UserProvider>
 			<Footer scrollToRefOne={scrollToRefOne} scrollToRefTwo={scrollToRefTwo} />
 		</>
