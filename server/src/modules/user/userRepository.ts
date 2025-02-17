@@ -2,12 +2,6 @@ import type { ResultSetHeader } from "mysql2";
 import databaseClient from "../../../database/client";
 import type { Rows } from "../../../database/client";
 
-type InsertResult = {
-	insertId: number;
-	affectedRows: number;
-	warningStatus: number;
-};
-
 class UserRepository {
 	async read(id: number) {
 		const [[user]] = await databaseClient.query<Rows>(
@@ -38,6 +32,13 @@ class UserRepository {
 		);
 
 		return user;
+	}
+
+	async update(avatar: string, userId: number) {
+		await databaseClient.query<Rows>(
+			"UPDATE user SET avatar = ? WHERE id = ?",
+			[avatar, userId],
+		);
 	}
 }
 
