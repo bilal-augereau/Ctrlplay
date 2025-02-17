@@ -46,14 +46,12 @@
 	display: flex;
 	flex-flow: row wrap;
 	gap: .5rem;
-
-	padding-bottom: 1rem;
 }
 
 #game-details-main #game-details-section #game-details-img-bottom {
 	width: 500px;
 
-	margin-bottom: 1rem;
+	margin: 1rem 0;
 }
 
 .time-spent-container {
@@ -61,4 +59,11 @@
 	display: flex;
 
 	padding-top: 1rem;
+}
+
+#game-details-main
+	#game-details-section
+	div.game-details-lists
+	.button-container {
+	margin: none;
 }

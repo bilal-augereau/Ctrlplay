@@ -30,7 +30,7 @@ function UserPage() {
 	useEffect(() => {
 		const fetchFeaturedGame = async () => {
 			const response = await fetch(
-				`${import.meta.env.VITE_API_URL}/api/games/33`,
+				`${import.meta.env.VITE_API_URL}/api/games/featured/today`,
 			);
 			const games = await response.json();
 			setGameFeatured(games);
@@ -40,8 +40,8 @@ function UserPage() {
 	}, []);
 
 	useEffect(() => {
-		if (displayMode === "recommendations") {
-			handleLoadGames("recommendations");
+		if (displayMode === "allGames") {
+			handleLoadGames("allGames");
 		}
 	}, [displayMode]);
 

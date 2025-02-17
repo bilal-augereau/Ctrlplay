@@ -89,10 +89,10 @@ function GameDetails() {
 				/>
 				<div className="game-details-lists">
 					<GameButtons game={game} />
-					<a href={game.website} target="blank" className="beautiful-button">
-						See the website
-					</a>
 				</div>
+				<a href={game.website} target="blank" className="beautiful-button">
+					See the website
+				</a>
 			</section>
 			<CommentSection
 				gameId={Number(game.id)}
