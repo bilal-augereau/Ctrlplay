@@ -10,3 +10,8 @@
 #buttons-featured .disconnected {
 	width: 10rem;
 }
+
+#buttons-featured .disconnected p {
+	font-family: Orbitron sans-serif;
+	font-size: 14px;
+}

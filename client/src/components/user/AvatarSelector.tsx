@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 
 import Avatar from "./Avatar";
 
-import leftarrowsignup from "../../assets/images/button_icons/leftarrowsignup.png";
-import rightarrowsignup from "../../assets/images/button_icons/rightarrowsignup.png";
+import leftarrowsignup from "../../assets/images/button_icons/buttomfleche.png";
+import rightarrowsignup from "../../assets/images/button_icons/buttomflecheright.png";
 
 const avatarList = [
 	"megaman",

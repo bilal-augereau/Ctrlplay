@@ -11,3 +11,8 @@ h1 {
 .content-box {
 	border-radius: var(--border-radius);
 }
+
+#no-exist {
+	margin-bottom: 30px;
+	margin-top: 3px;
+}
