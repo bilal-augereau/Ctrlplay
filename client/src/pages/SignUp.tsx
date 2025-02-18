@@ -117,16 +117,16 @@ function SignUp() {
 						</p>
 					</div>
 					<div className="buttons" id="buttonsignup">
-						<button id="buttonwidth" className="beautiful-button" type="button">
+						{/* <button id="buttonwidth" className="beautiful-button" type="button">
 							Complete my profile
-						</button>
+						</button> */}
 						<button
 							onClick={validateRegister}
 							id="buttonwidth"
 							className="beautiful-button"
 							type="button"
 						>
-							Just sign up for now
+							Create my account
 						</button>
 					</div>
 

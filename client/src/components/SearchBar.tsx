@@ -24,7 +24,7 @@ function SearchBar() {
 					<input
 						type="text"
 						name="searchGame"
-						placeholder="Search for a content."
+						placeholder="Search a game or use filters"
 						value={search}
 						onChange={(e) => setSearch(e.target.value)}
 					/>
