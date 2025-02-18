@@ -15,7 +15,7 @@ type FiltersState = {
 };
 
 function FilterGame() {
-	const { selectedFilters, setSelectedFilters } = useSearch();
+	const { selectedFilters, setSelectedFilters, setSearchQuery } = useSearch();
 	const [showFilters, setShowFilters] = useState(false);
 	const toggleFilters = () => {
 		setShowFilters(!showFilters);
@@ -53,6 +53,7 @@ function FilterGame() {
 
 	const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value, checked, name } = event.target;
+		setSearchQuery("");
 
 		setSelectedFilters((prev: FiltersState) => ({
 			...prev,
@@ -134,6 +135,7 @@ function FilterGame() {
 										...prev,
 										tags: selectedTags.map((tag) => tag.value),
 									}));
+									setSearchQuery("");
 									navigate("/results");
 								}}
 								labelledBy="Select"
@@ -157,6 +159,7 @@ function FilterGame() {
 											(publisher) => publisher.value,
 										),
 									}));
+									setSearchQuery("");
 									navigate("/results");
 								}}
 								labelledBy="Select"
