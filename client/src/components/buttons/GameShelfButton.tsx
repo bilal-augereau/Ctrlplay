@@ -28,7 +28,7 @@ const GameShelfButton = ({
 			let response: Response;
 			if (isInLibrary) {
 				response = await fetch(
-					`http://localhost:3310/api/gameshelf/${userId}/${gameId}`,
+					`${import.meta.env.VITE_API_URL}/api/gameshelf/${userId}/${gameId}`,
 					{
 						method: "DELETE",
 						headers: {
@@ -38,14 +38,17 @@ const GameShelfButton = ({
 					},
 				);
 			} else {
-				response = await fetch("http://localhost:3310/api/gameshelf", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `${user?.token}`,
+				response = await fetch(
+					`${import.meta.env.VITE_API_URL}/api/gameshelf`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `${user?.token}`,
+						},
+						body: JSON.stringify({ userId, gameId }),
 					},
-					body: JSON.stringify({ userId, gameId }),
-				});
+				);
 			}
 
 			if (!response.ok) {

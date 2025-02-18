@@ -34,16 +34,19 @@ function Login() {
 		}
 
 		try {
-			const response = await fetch("http://localhost:3310/api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/login`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						pseudo,
+						password,
+					}),
 				},
-				body: JSON.stringify({
-					pseudo,
-					password,
-				}),
-			});
+			);
 
 			if (response.status === 200) {
 				const user = await response.json();

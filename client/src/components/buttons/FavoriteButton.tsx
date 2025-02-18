@@ -28,7 +28,7 @@ const FavoriteButton = ({
 			let response: Response;
 			if (isFavorite) {
 				response = await fetch(
-					"http://localhost:3310/api/gameshelf/favorite/",
+					`${import.meta.env.VITE_API_URL}/api/gameshelf/favorite/`,
 					{
 						method: "DELETE",
 						headers: {
@@ -39,14 +39,17 @@ const FavoriteButton = ({
 					},
 				);
 			} else {
-				response = await fetch("http://localhost:3310/api/gameshelf/favorite", {
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `${user?.token}`,
+				response = await fetch(
+					`${import.meta.env.VITE_API_URL}/api/gameshelf/favorite`,
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `${user?.token}`,
+						},
+						body: JSON.stringify({ userId, gameId }),
 					},
-					body: JSON.stringify({ userId, gameId }),
-				});
+				);
 			}
 
 			if (!response.ok) {
