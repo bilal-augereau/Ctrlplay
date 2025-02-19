@@ -38,13 +38,16 @@ function SignUp() {
 		}
 
 		try {
-			const response = await fetch("http://localhost:3310/api/users/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/api/users/`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ pseudo, password, avatar }),
 				},
-				body: JSON.stringify({ pseudo, password, avatar }),
-			});
+			);
 
 			if (response.ok) {
 				navigate("/login");

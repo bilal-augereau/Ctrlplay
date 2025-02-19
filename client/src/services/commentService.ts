@@ -1,6 +1,6 @@
 import type { Comment } from "../types/comment.type";
 
-const API_URL = "http://localhost:3310/api/comments";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/comments`;
 const commentService = {
 	getComments: async (gameId: number, token: string): Promise<Comment[]> => {
 		try {
@@ -92,7 +92,7 @@ const commentService = {
 		gameId: number,
 	): Promise<{ averageRating: number }> => {
 		const response = await fetch(
-			`http://localhost:3310/api/comments/average-rating/${gameId}`,
+			`${import.meta.env.VITE_API_URL}/api/comments/average-rating/${gameId}`,
 		);
 
 		if (!response.ok) {

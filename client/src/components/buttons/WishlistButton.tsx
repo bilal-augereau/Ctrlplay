@@ -16,7 +16,7 @@ const WishlistButton = ({ gameId }: { gameId: number }) => {
 		const checkWishlist = async () => {
 			try {
 				const response = await fetch(
-					`http://localhost:3310/api/wishlist/${userId}/${gameId}`,
+					`${import.meta.env.VITE_API_URL}/api/wishlist/${userId}/${gameId}`,
 					{
 						method: "GET",
 						headers: {
@@ -44,7 +44,7 @@ const WishlistButton = ({ gameId }: { gameId: number }) => {
 			let response: Response;
 			if (isInWishlist) {
 				response = await fetch(
-					`http://localhost:3310/api/wishlist/${userId}/${gameId}`,
+					`${import.meta.env.VITE_API_URL}/api/wishlist/${userId}/${gameId}`,
 					{
 						method: "DELETE",
 						headers: {
@@ -54,7 +54,7 @@ const WishlistButton = ({ gameId }: { gameId: number }) => {
 					},
 				);
 			} else {
-				response = await fetch("http://localhost:3310/api/wishlist", {
+				response = await fetch(`${import.meta.env.VITE_API_URL}/api/wishlist`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

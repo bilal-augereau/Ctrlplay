@@ -37,7 +37,7 @@ function GameButtons({ game }: GameCardProps) {
 			const checkLibrary = async () => {
 				try {
 					const response = await fetch(
-						`http://localhost:3310/api/gameshelf/${user.id}/${game.id}`,
+						`${import.meta.env.VITE_API_URL}/api/gameshelf/${user.id}/${game.id}`,
 						{
 							method: "GET",
 							headers: {

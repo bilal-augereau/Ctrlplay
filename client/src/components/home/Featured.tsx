@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type GameType from "../../interface/GameType";
-import "./featured.css";
+import "./Featured.css";
 import DOMPurify from "dompurify";
 import parse from "html-react-parser";
 import { useAuth } from "../../context/UserContext";
