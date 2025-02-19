@@ -81,3 +81,19 @@
 .signup:hover {
 	text-decoration: underline;
 }
+
+@media screen and (max-width: 480px) {
+	.formsignup {
+		padding: 0rem;
+	}
+	#boxlogin {
+		padding: 1rem;
+	}
+	#labelgroupentity {
+		padding-right: 1rem;
+		padding-left: 1rem;
+	}
+	#labelgroupentity label {
+		width: 6rem;
+	}
+}

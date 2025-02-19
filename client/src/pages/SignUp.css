@@ -102,3 +102,26 @@
 .alreadyaccount:hover {
 	text-decoration: underline;
 }
+
+@media screen and (max-width: 480px) {
+	#boxsignup {
+		padding: 1rem;
+		margin-top: 1rem;
+	}
+	.labelgroup input {
+		width: 7rem;
+	}
+	.labelgroup label {
+		width: 7rem;
+	}
+	.labelgroup label {
+		padding: 0;
+	}
+	.formsignup {
+		padding: 0;
+	}
+	.textsignup {
+		margin-top: 1.5rem;
+		margin-bottom: 1rem;
+	}
+}

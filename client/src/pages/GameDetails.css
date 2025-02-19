@@ -67,3 +67,22 @@
 	.button-container {
 	margin: none;
 }
+
+@media screen and (max-width: 480px) {
+	#game-details-main #game-details-section {
+		margin: 1rem 5%;
+	}
+	#game-details-main #game-details-section article#game-details-content {
+		display: flex;
+		flex-direction: column;
+	}
+	#game-details-main #game-details-section #game-details-img-bottom {
+		width: 100%;
+	}
+	article#game-details-content {
+		margin: 0;
+	}
+	#game-details-main #game-details-section article#game-details-content {
+		margin: 0;
+	}
+}
