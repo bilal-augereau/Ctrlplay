@@ -162,3 +162,44 @@ p {
 	align-items: center;
 	gap: 40px;
 }
+
+@media screen and (max-width: 480px) {
+	.checkbox-genre {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.check-genre {
+		min-width: 110px;
+	}
+	.game-genre {
+		flex-direction: column;
+	}
+	.check-device {
+		margin-right: 0;
+		min-width: 110px;
+	}
+
+	.checkbox-device {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.game-device {
+		flex-direction: column;
+	}
+
+	.dropdown-container {
+		width: 150px;
+	}
+	.filter-tag {
+		min-width: 67px;
+	}
+	.filter-publisher {
+		min-width: 67px;
+	}
+	.tag-publisher-box {
+		gap: 10px;
+	}
+}

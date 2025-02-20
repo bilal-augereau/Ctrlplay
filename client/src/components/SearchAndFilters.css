@@ -1,3 +1,9 @@
 .search-and-filters {
 	margin: 1rem 10%;
 }
+
+@media screen and (max-width: 480px) {
+	.search-and-filters {
+		margin: 1rem 5%;
+	}
+}

@@ -222,3 +222,49 @@
 
 	border-radius: 100px;
 }
+
+@media screen and (max-width: 480px) {
+	#user-main {
+		flex-direction: column;
+	}
+	#user-main #user-main-box .user-buttons .user-buttons-img {
+		width: 50px;
+		height: 50px;
+		left: -10px;
+		top: 50px;
+	}
+	#user-button-4 {
+		font-size: 0;
+	}
+
+	#user-button-4::after {
+		content: "Reco";
+		font-size: 16px;
+		display: block;
+		color: var(--white);
+		font-weight: 700;
+	}
+
+	#user-main #user-aside {
+		margin: 0;
+	}
+	#user-main #user-main-box {
+		width: auto;
+	}
+
+	#user-buttons {
+		gap: 0.5rem;
+	}
+	#user-link-steam {
+		margin-bottom: 1rem;
+	}
+	#user-main #user-aside .content-box {
+		margin: 1rem 5%;
+	}
+	#user-main #user-aside {
+		width: 100%;
+	}
+	.beautiful-button {
+		width: 9rem;
+	}
+}

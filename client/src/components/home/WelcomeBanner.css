@@ -157,3 +157,10 @@
 .btn-signup:hover:after {
 	opacity: 60%;
 }
+
+@media screen and (max-width: 480px) {
+	.homepage-content-box {
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+}
