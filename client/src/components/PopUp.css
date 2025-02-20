@@ -17,9 +17,9 @@
 		align-items: center;
 		gap: 2rem;
 	}
-}
 
-body.grey {
-	filter: grayscale(100%);
-	pointer-events: none;
+	body.grey {
+		filter: grayscale(100%);
+		pointer-events: none;
+	}
 }
