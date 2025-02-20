@@ -168,3 +168,42 @@
 	cursor: pointer;
 	width: 100px;
 }
+
+@media screen and (max-width: 480px) {
+	.filtered-games-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+		place-items: center;
+	}
+
+	.recent-releases-list,
+	.all-time-favorites-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+	.card-game .details h3 {
+		margin-top: 0.5rem;
+		font-size: 0.8rem;
+	}
+	.card-game {
+		width: 125px;
+		height: 150px;
+	}
+	.card-game .details {
+		height: 23%;
+	}
+	.recent-releases,
+	.all-time-favorites {
+		flex-direction: column;
+		justify-content: center;
+	}
+	.device-container {
+		gap: 0;
+	}
+	#box-principal {
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+}

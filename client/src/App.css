@@ -291,3 +291,9 @@ button:active {
 .toast-position {
 	top: 7rem;
 }
+
+@media screen and (max-width: 480px) {
+	.content-box {
+		margin: 1rem 5%;
+	}
+}

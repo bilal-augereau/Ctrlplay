@@ -69,3 +69,15 @@
 	flex-flow: row wrap;
 	justify-content: center;
 }
+
+@media screen and (max-width: 480px) {
+	#steam-main #steam-section #steam-game-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+		place-items: center;
+	}
+	#steam-main #steam-section header {
+		padding-left: 0;
+	}
+}
