@@ -231,8 +231,18 @@
 		width: 50px;
 		height: 50px;
 		left: -10px;
-		top: 50px;
+		top: 10px;
 	}
+
+	#user-main #user-main-box #user-buttons {
+		display: grid;
+		grid-template: auto auto / auto auto;
+	}
+
+	#user-main #user-main-box .user-buttons {
+		width: 11rem;
+	}
+
 	#user-button-4 {
 		font-size: 0;
 	}

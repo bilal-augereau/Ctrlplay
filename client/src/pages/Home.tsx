@@ -10,12 +10,13 @@ function Home() {
 
 	return (
 		<div>
-			<header className="home-header" />
-			{!user && <WelcomeBanner />}
-			<Featured />
-
-			<div className="game-list">
-				<GameList />
+			<div>
+				<header className="home-header" />
+				{!user && <WelcomeBanner />}
+				<Featured />
+				<div className="game-list">
+					<GameList />
+				</div>
 			</div>
 		</div>
 	);

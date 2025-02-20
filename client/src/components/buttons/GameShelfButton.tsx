@@ -70,7 +70,7 @@ const GameShelfButton = ({
 		<button
 			type="button"
 			onClick={toggleLibraryStatus}
-			className={"beautiful-buttonadd"}
+			className="beautiful-buttonadd mobile-none"
 			title={isInLibrary ? "Remove from library" : "Add to library"}
 		>
 			<img
