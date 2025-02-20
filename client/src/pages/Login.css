@@ -1,0 +1,99 @@
+#main {
+	background: var(--background-gradient);
+}
+
+#titlesignup {
+	padding-top: 2rem;
+}
+
+#boxlogin {
+	padding: 3rem 3rem 3rem 0;
+}
+
+#buttonwidth {
+	width: 14rem;
+}
+
+.textsignup {
+	color: var(--soft-blue);
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.content-boxsignup {
+	align-items: center;
+	text-align: center;
+}
+
+.formsignup {
+	color: var(--soft-blue);
+}
+
+#buttonlogin {
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+	gap: 5rem;
+}
+
+.formsignup {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	padding: 1rem 1rem 1rem 5rem;
+}
+
+#labelgroupentity {
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+	padding-top: 2rem;
+	padding-right: 13rem;
+	align-items: center;
+}
+
+#labelgroupentity label {
+	text-align: right;
+	width: 11rem;
+}
+
+.labelgroup input {
+	width: 15rem;
+	height: 1rem;
+	padding: 0.5rem;
+}
+
+.signup {
+	color: var(--soft-blue);
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+	text-align: center;
+	display: block;
+	cursor: pointer;
+	text-decoration: none;
+	transition: text-decoration 0.3s ease;
+	font-family: var(--font-paragraph);
+}
+
+.signup:hover {
+	text-decoration: underline;
+}
+
+@media screen and (max-width: 480px) {
+	.formsignup {
+		padding: 0rem;
+	}
+	#boxlogin {
+		padding: 1rem;
+	}
+	#labelgroupentity {
+		padding-right: 1rem;
+		padding-left: 1rem;
+	}
+	#labelgroupentity label {
+		width: 6rem;
+	}
+}

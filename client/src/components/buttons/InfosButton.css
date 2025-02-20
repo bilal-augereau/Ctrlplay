@@ -1,0 +1,17 @@
+.card-game .info-button img {
+	width: 15px;
+	height: 15px;
+}
+
+.card-game .disconnected {
+	width: fit-content;
+}
+
+#buttons-featured .disconnected {
+	width: 10rem;
+}
+
+#buttons-featured .disconnected p {
+	font-family: var(--font-title);
+	font-size: 14px;
+}

@@ -1,0 +1,25 @@
+#mobile-version {
+	display: none;
+}
+
+@media screen and (max-width: 480px) {
+	#mobile-version {
+		display: flex;
+
+		position: absolute;
+		max-width: 375px;
+		top: 10vh;
+		z-index: 15;
+		padding: 2rem;
+
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 2rem;
+	}
+}
+
+body.grey {
+	filter: grayscale(100%);
+	pointer-events: none;
+}

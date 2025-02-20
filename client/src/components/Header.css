@@ -1,0 +1,102 @@
+.header {
+	background-image: url("../assets/images/headerback.png");
+	background-repeat: round;
+	height: 380px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-start;
+}
+
+.logo-button {
+	background-image: url("../assets/images/logocontrol.png");
+	background-repeat: no-repeat;
+	background-color: transparent;
+
+	height: 300px;
+	width: 300px;
+
+	cursor: pointer;
+	border: none;
+
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-inline: auto;
+}
+
+.header-buttons {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+
+	padding: 5px;
+	margin-right: 20px;
+}
+
+.header-button {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+	height: 75px;
+	width: 65px;
+
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+	justify-content: flex-start;
+
+	font-size: .6rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	color: var(--soft-blue);
+	text-align: center;
+}
+
+.top-portal-button {
+	height: 40px;
+	width: 40px;
+}
+
+.login-button {
+	background-image: url("../assets/images/button_icons/pipe.png");
+}
+
+.login-button:hover {
+	transform: scale(1.1);
+}
+
+.signup-button {
+	background-image: url("../assets/images/button_icons/bumper.png");
+}
+
+.disconnect-button {
+	background-image: url("../assets/images/button_icons/disconnect.png");
+}
+
+.disconnect-button:hover {
+	transform: scale(1.1);
+}
+
+.mypage-button img {
+	height: 60px;
+	width: auto;
+	position: absolute;
+	top: 3px;
+	margin-inline: auto;
+}
+
+.mypage-button:hover {
+	transform: scale(1.1);
+}
+
+.signup-button:hover {
+	transform: scale(1.1);
+}
+
+@media screen and (max-width: 480px) {
+	.logo-button {
+		top: 72px;
+	}
+}
