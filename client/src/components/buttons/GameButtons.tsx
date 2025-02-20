@@ -27,7 +27,7 @@ function GameButtons({ game }: GameCardProps) {
 	const location = useLocation();
 	const hideInfoButton = location.pathname === `/game/${game.id}`;
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <buttons must be reupload at each interaction>
 	useEffect(() => {
 		if (user) {
 			if (!user.id || !game.id) {

@@ -71,7 +71,7 @@ const FavoriteButton = ({
 		<button
 			type="button"
 			onClick={handleToggleFavorite}
-			className={"beautiful-buttonadd"}
+			className="beautiful-buttonadd mobile-none"
 			disabled={!userId}
 			title={isFavorite ? "Remove from my favorites" : "Add to my favorites"}
 		>

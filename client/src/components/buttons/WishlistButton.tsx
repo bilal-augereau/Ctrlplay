@@ -83,7 +83,7 @@ const WishlistButton = ({ gameId }: { gameId: number }) => {
 		<button
 			type="button"
 			onClick={handleToggleWishlist}
-			className="beautiful-buttonadd"
+			className="beautiful-buttonadd mobile-none"
 			title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
 		>
 			<img
