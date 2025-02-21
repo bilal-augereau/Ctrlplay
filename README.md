@@ -58,8 +58,8 @@ For Windows users, configure Git to avoid newline issues:
 
 ### 1️⃣ Clone the Repository  
 ```sh
-git clone https://github.com/yourusername/CTRL-PLAY.git
-cd CTRL-PLAY
+git clone git@github.com:bilal-augereau/Ctrlplay.git
+cd Ctrlplay
 ```
 
 ### 2️⃣ Install Dependencies  
