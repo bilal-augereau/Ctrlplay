@@ -1,5 +1,7 @@
 # 🎮 CTRL+PLAY
 
+![Capture d'écran 2025-02-21 153018](https://github.com/user-attachments/assets/b49b89aa-bd48-4248-86ee-2ac1909bc747)
+
 ## 📖 Table of Contents  
 - [Introduction](#-introduction)  
 - [Prerequisites](#-prerequisites)  
