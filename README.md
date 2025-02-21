@@ -4,9 +4,9 @@
 - [Introduction](#-introduction)  
 - [Prerequisites](#-prerequisites)  
 - [Installation & Usage](#-installation--usage)  
-- [Available Scripts](#-available-scripts)  
 - [Database Setup](#-database-setup)  
-- [Project Structure](#-project-structure)   
+- [Architecture](#-architecture) 
+- [Project Structure](#-project-structure)     
 - [Development Workflow](#-development-workflow)  
 - [Best Practices](#-best-practices)  
 - [Deployment](#-deployment)  
@@ -17,14 +17,14 @@
 
 ## 🚀 Introduction  
 
-**CTRL+PLAY** is a platform that consolidates a user's games across multiple platforms and provides personalized recommendations based on genres, tags, and devices added to their library. Users can browse the library to add games, mark favorites, or create a wishlist. Additionally, they can import their Steam games using their Steam ID to integrate them into their library, enhancing recommendations. 
+**CTRL+PLAY** is a platform that consolidates a user's games across multiple platforms and provides personalized recommendations based on genres, tags, and devices added to their library. Users can browse the library to add games, mark favorites, or create a wishlist. Additionally, they can import their Steam games using their Steam ID to integrate them into their library, enhancing recommendations.  
 
 ### Features:  
 ✅ Consolidate games from multiple platforms into one library  
 ✅ Get personalized recommendations based on game metadata  
 ✅ Add games to favorites or a wishlist  
 ✅ Import Steam games using a Steam ID  
-✅ Secure authentication and data protection 
+✅ Secure authentication and data protection  
 ✅ A customizable interface for managing game collections  
 ✅ A comment and rating system  
 ✅ Secure user authentication  
@@ -58,8 +58,8 @@ For Windows users, configure Git to avoid newline issues:
 
 ### 1️⃣ Clone the Repository  
 ```sh
-git clone git@github.com:bilal-augereau/Ctrlplay.git
-cd Ctrlplay
+git clone https://github.com/yourusername/CTRL-PLAY.git
+cd CTRL-PLAY
 ```
 
 ### 2️⃣ Install Dependencies  
@@ -100,6 +100,93 @@ npm run dev
 # Start the frontend
 cd ../client
 npm start
+```
+
+---
+
+## 🗄️ Database Setup  
+
+### 1️⃣ Run Database Migrations  
+Synchronize the database schema using:  
+```sh
+npm run db:migrate
+```
+
+### 2️⃣ Seed the Database  
+Populate the database with initial data using:  
+```sh
+npm run db:seed
+```
+
+Ensure that the `.env` file is correctly set up before running these commands.
+
+---
+
+## 📂 Architecture  
+
+```mermaid
+sequenceDiagram
+    box Web Client
+    participant React as React
+    participant Fetcher as Fetcher
+    end
+    box Web Server
+    participant Express as Express
+    participant Module as Module
+    end
+    box DB Server
+    participant DB as MySQL Server
+    end
+
+    React-)Fetcher: event
+    activate Fetcher
+    Fetcher-)Express: request (HTTP)
+    activate Express
+    Express-)Module: call
+    activate Module
+    Module-)DB: SQL query
+    activate DB
+    DB--)Module: data
+    deactivate DB
+    Module--)Express: json
+    deactivate Module
+    Express--)Fetcher: HTTP response
+    deactivate Express
+    Fetcher--)React: render
+    deactivate Fetcher
+```
+
+---
+
+## 📂 Project Structure  
+
+```plaintext
+my-project/
+│
+├── server/
+│   ├── app/
+│   │   ├── modules/
+│   │   │   ├── item/
+│   │   │   │   ├── itemActions.ts
+│   │   │   │   └── itemRepository.ts
+│   │   │   └── ...
+│   │   ├── app.ts
+│   │   ├── main.ts
+│   │   └── router.ts
+│   ├── database/
+│   │   ├── client.ts
+│   │   └── schema.sql
+│   ├── tests/
+│   ├── .env
+│   └── .env.sample
+│
+└── client/
+    ├── src/
+    │   ├── components/
+    │   ├── pages/
+    │   └── App.tsx
+    ├── .env
+    └── .env.sample
 ```
 
 ---
