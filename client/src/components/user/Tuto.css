@@ -43,3 +43,9 @@
 
 	padding: 1rem 0 0 2rem;
 }
+
+@media screen and (max-width: 480px) {
+	#user-tuto {
+		margin: 0;
+	}
+}
